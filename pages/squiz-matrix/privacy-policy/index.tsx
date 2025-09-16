@@ -163,11 +163,11 @@ const PrivacyPolicyPage = () => {
                 contact:
               </p>
               <div className="mt-4 bg-gray-50 rounded-lg p-6">
-                <p className="text-gray-900 font-medium">Abdellatif Anaflous - Developper</p>
+                <p className="text-gray-900 font-medium">Nguyen Chau Linh - Developper</p>
                 <div className="flex space-x-2">
                   <p className="text-gray-600">Email:</p>
-                  <a href="mailto:abdellatif@anaflous.com" className="text-blue-600 hover:text-blue-800 underline">
-                    abdellatif@anaflous.com
+                  <a href="mailto:nguyenchaulinh97@gmail.com" className="text-blue-600 hover:text-blue-800 underline">
+                    nguyenchaulinh97@gmail.com
                   </a>
                 </div>
               </div>

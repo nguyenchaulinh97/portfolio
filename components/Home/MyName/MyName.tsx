@@ -35,7 +35,7 @@ const MyName: React.FC<MyNameProps> = props => {
         }}
         className="text-gray-300 font-bold text-3xl lg:text-7xl sm:text-5xl md:text-6xl mt-4"
       >
-        Anaflous Abdellatif.
+        Nguyen Chau Linh.
       </motion.h1>
       <motion.h2
         initial={{ y: 10, opacity: 0 }}
@@ -58,7 +58,7 @@ const MyName: React.FC<MyNameProps> = props => {
         }}
         className="text-gray-400 font-Header text-sm md:text-lg sm:text-md mt-10 tracking-wider"
       >
-        I&apos;m a <span className="text-AAsecondary keyword-hover">Lead Full Stack Software Engineer</span> with strong{" "}
+        I&apos;m a <span className="text-AAsecondary keyword-hover">Senior Frontend Developer</span> with strong{" "}
         <span className="text-AAsecondary keyword-hover">problem-solving skills</span>, specializing in creating
         exceptional digital experiences.
         <br className="3xl:block hidden" /> With expertise in both{" "}

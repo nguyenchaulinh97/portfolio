@@ -16,25 +16,25 @@ const ClickableIcon = (props:Props) => {
   );
 };
 
-export default function Fotter(props:{link:string,className:string}) {
+export default function Footer(props:{link:string,className:string}) {
   return (
       <div className={` ${props.className} bg-AAprimary flex flex-col justify-center items-center py-8 space-y-4 `}>
         {/* // ? Reach me at */}
         <div className="flex flex-row space-x-8">
           <ClickableIcon
-            href={"https://github.com/hktitof"}
+            href={"https://github.com/nguyenchaulinh97"}
             Icon={GithubIcon}
           />
           <ClickableIcon
-            href={"https://www.linkedin.com/in/abdellatif-anaflous/"}
+            href={"https://www.linkedin.com/in/nguyenchaulinh/"}
             Icon={LinkedinIcon}
           />
           <ClickableIcon
-            href={"https://www.instagram.com/titof_abdo/"}
+            href={"https://www.instagram.com/smthabtcl/"}
             Icon={InstagramIcon}
           />
           <ClickableIcon
-            href={"https://www.youtube.com/c/NTTFT"}
+            href={"https://www.youtube.com/@chaulinh"}
             Icon={YoutubeIcon}
           />
         </div>
@@ -44,7 +44,7 @@ export default function Fotter(props:{link:string,className:string}) {
     text-sm  space-y-2  "
           >
             <span className="group-hover:text-AAsecondary sm:text-sm text-xs">
-              Designed & Built by Anaflous Abdellatif
+              Designed & Built by Nguyen Chau Linh
             </span>
 
             <span className="text-xs flex flex-row items-center space-x-2 group-hover:text-AAsecondary">

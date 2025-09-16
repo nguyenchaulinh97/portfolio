@@ -33,7 +33,7 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((props, ref) => {
           {/* Text Content */}
           <div className="w-full md:w-7/12 space-y-4 sm:text-base text-sm">
             <div className="font-Header text-gray-400 text-justify">
-              Hey there! I&apos;m Abdellatif, and I&apos;m pretty obsessed with building cool stuff with code. My tech journey
+              Hey there! I&apos;m Chau Linh, and I&apos;m pretty obsessed with building cool stuff with code. My tech journey
               started when I was just 11 years old – I got my hands on BackTrack OS and was instantly hooked. That
               curiosity led me down a rabbit hole of programming that I&apos;m still happily stuck in today.
             </div>
@@ -84,7 +84,7 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((props, ref) => {
             <div className="absolute w-5/6 h-5/6 rounded overflow-hidden">
               <div className="absolute w-full h-full group-hover:opacity-0 bg-AAsecondary opacity-10 duration-300 rounded overflow-hidden"></div>
               <Img
-                src={"/img/Portfolio-portrait-3.jpg"}
+                src={"/img/portrait.jpeg"}
                 className={"object-contain rounded-lg"}
                 alt="My Image Not Found"
               />

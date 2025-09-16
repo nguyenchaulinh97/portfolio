@@ -30,9 +30,9 @@ export default function Home() {
   // check if user from Black List
   const [isBlackListed, setIsBlackListed] = useState(false);
 
-  // check if NEXT_PUBLC_BLACKLIST_COUNTRIES is empty
+  // check if NEXT_PUBLIC_BLACKLIST_COUNTRIES is empty or undefined
   const [IsBlackListEmpty, setIsBlackListEmpty] = useState(
-    process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES === "" ? true : false
+    !process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES || process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES === ""
   );
 
   // this userEffect will be called to get the user location, so we can check if he is from the blackList,
@@ -66,7 +66,8 @@ export default function Home() {
     if (!IsBlackListEmpty) {
       if (userData) {
         // check if the user country is in the blackList
-        if (process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES.includes(userData.country)) {
+        const blacklistCountries = process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES;
+        if (blacklistCountries && blacklistCountries.includes(userData.country)) {
           // set isBlackListed to true
           setIsBlackListed(true);
         }
@@ -107,7 +108,7 @@ export default function Home() {
 
   console.log("website is rendering...");
   const meta = {
-    title: "Abdellatif Anaflous - Lead Full Stack Software Engineer",
+    title: "Nguyen Chau Linh - Senior Frontend Developer",
     description: `I've been working on Software development for more than 7 years. Get in touch with me to know more.`,
     image: "/titofCercle.png",
     type: "website",
