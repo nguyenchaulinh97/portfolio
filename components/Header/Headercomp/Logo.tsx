@@ -13,16 +13,22 @@ export default function Logo(props: { finishedLoading: boolean }) {
       }}
       className="relative h-14 w-14 flex-none"
     >
-      <div className="absolute inset-0 rotate-[-10deg] rounded-[20px] bg-[#ff8b92] opacity-80 blur-[1px]" />
-      <div className="absolute inset-1 rotate-[8deg] rounded-[18px] bg-[#85e7dc] opacity-[0.85]" />
-      <div className="absolute inset-[6px] rounded-[18px] border-2 border-[#17223f] bg-[#fff6df] shadow-[6px_6px_0_rgba(23,34,63,0.22)]" />
+      <motion.div
+        animate={{ y: [0, -2, 0], rotate: [0, 2, 0, -1, 0] }}
+        transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
+        className="relative h-full w-full"
+      >
+        <div className="absolute inset-0 rotate-[-10deg] rounded-[20px] bg-[#ff8b92] opacity-80 blur-[1px]" />
+        <div className="absolute inset-1 rotate-[8deg] rounded-[18px] bg-[#85e7dc] opacity-[0.85]" />
+        <div className="absolute inset-[6px] rounded-[18px] border-2 border-[#17223f] bg-[#fff6df] shadow-[6px_6px_0_rgba(23,34,63,0.22)]" />
 
-      <div className="absolute inset-[6px] flex items-center justify-center rounded-[18px]">
-        <span className="font-Header text-lg font-extrabold tracking-[0.08em] text-[#17223f]">CL</span>
-      </div>
+        <div className="absolute inset-[6px] flex items-center justify-center rounded-[18px]">
+          <span className="font-Header text-lg font-extrabold tracking-[0.08em] text-[#17223f]">CL</span>
+        </div>
 
-      <div className="absolute -right-1 top-1 h-3 w-3 rounded-full border border-[#17223f] bg-[#ffcf6e]" />
-      <div className="absolute -left-1 bottom-2 h-2.5 w-2.5 rounded-full border border-[#17223f] bg-[#fff8e7]" />
+        <div className="sparkle-twinkle absolute -right-1 top-1 h-3 w-3 rounded-full border border-[#17223f] bg-[#ffcf6e]" />
+        <div className="sparkle-twinkle-delayed absolute -left-1 bottom-2 h-2.5 w-2.5 rounded-full border border-[#17223f] bg-[#fff8e7]" />
+      </motion.div>
     </motion.div>
   );
 }

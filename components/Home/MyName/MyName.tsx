@@ -64,7 +64,9 @@ const MyName: React.FC<MyNameProps> = (props) => {
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={transitionFor(props.finishedLoading, 10.35)}
-            className="sticker-chip inline-flex rotate-[-2deg] items-center gap-3 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.24em] text-AAsecondary"
+            className="sticker-chip inline-flex items-center gap-3 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.24em] text-AAsecondary"
+            style={{ rotate: "-2deg" }}
+            whileHover={{ y: -2, rotate: 0 }}
           >
             <span className="h-2.5 w-2.5 rounded-full bg-[#85e7dc]" />
             Hanoi-based frontend engineer
@@ -132,13 +134,17 @@ const MyName: React.FC<MyNameProps> = (props) => {
             transition={transitionFor(props.finishedLoading, 10.76)}
             className="mt-8 flex flex-wrap gap-3"
           >
-            {badges.map((badge) => (
-              <span
+            {badges.map((badge, index) => (
+              <motion.div
                 key={badge}
-                className="sticker-chip inline-flex rotate-[-1deg] items-center rounded-full px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.18em] text-[#eef3ff]"
+                animate={{ y: [0, index % 2 === 0 ? -4 : -6, 0] }}
+                transition={{ duration: 3 + index * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.18 }}
+                className="inline-flex"
               >
-                {badge}
-              </span>
+                <span className="sticker-chip inline-flex rotate-[-1deg] items-center rounded-full px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.18em] text-[#eef3ff]">
+                  {badge}
+                </span>
+              </motion.div>
             ))}
           </motion.div>
 
@@ -173,6 +179,8 @@ const MyName: React.FC<MyNameProps> = (props) => {
           transition={transitionFor(props.finishedLoading, 10.92)}
           className="relative mx-auto w-full max-w-[560px]"
         >
+          <span className="sparkle-twinkle absolute left-5 top-16 h-4 w-4 rounded-full border border-white/30 bg-[#ffcf6e]/80" />
+          <span className="sparkle-twinkle-delayed absolute right-16 top-28 h-3 w-3 rounded-full border border-white/30 bg-[#85e7dc]/80" />
           <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-white/20 bg-[#ffcf6e]/25 blur-2xl" />
           <div className="absolute -left-8 bottom-10 h-28 w-28 rounded-full border border-white/20 bg-[#85e7dc]/20 blur-2xl" />
 
@@ -180,9 +188,13 @@ const MyName: React.FC<MyNameProps> = (props) => {
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]" />
 
             <div className="relative flex items-center justify-between gap-3">
-              <div className="sticker-chip inline-flex rotate-[-4deg] rounded-full px-4 py-2 font-Hand text-lg text-[#fff8e7]">
+              <motion.div
+                animate={{ y: [0, -3, 0], rotate: [-4, -2, -4] }}
+                transition={{ duration: 3.7, repeat: Infinity, ease: "easeInOut" }}
+                className="sticker-chip inline-flex rounded-full px-4 py-2 font-Hand text-lg text-[#fff8e7]"
+              >
                 profile crop
-              </div>
+              </motion.div>
               <div className="rounded-full border border-white/[0.15] bg-[#22335a] px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.18em] text-[#cdd7f7]">
                 UI x Systems x Delivery
               </div>
@@ -223,18 +235,20 @@ const MyName: React.FC<MyNameProps> = (props) => {
                 </div>
 
                 <div className="flex flex-col justify-between gap-4 py-1">
-                  {workNotes.map((note) => (
-                    <div
+                  {workNotes.map((note, index) => (
+                    <motion.div
                       key={note.title}
-                      className={`rounded-[24px] border-2 border-[#24335b]/[0.15] px-5 py-4 shadow-[8px_8px_0_rgba(23,34,63,0.12)] ${note.className}`}
+                      animate={{ y: [0, index % 2 === 0 ? -5 : -3, 0] }}
+                      transition={{ duration: 3.8 + index * 0.35, repeat: Infinity, ease: "easeInOut", delay: index * 0.14 }}
+                      className="w-full"
                     >
-                      <div className="font-Header text-lg font-bold">
-                        {note.title}
+                      <div
+                        className={`rounded-[24px] border-2 border-[#24335b]/[0.15] px-5 py-4 shadow-[8px_8px_0_rgba(23,34,63,0.12)] ${note.className}`}
+                      >
+                        <div className="font-Header text-lg font-bold">{note.title}</div>
+                        <p className="mt-2 text-sm leading-6 text-[#23345f]/90">{note.text}</p>
                       </div>
-                      <p className="mt-2 text-sm leading-6 text-[#23345f]/90">
-                        {note.text}
-                      </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -242,23 +256,28 @@ const MyName: React.FC<MyNameProps> = (props) => {
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               {quickFacts.map((fact, index) => (
-                <div
+                <motion.div
                   key={fact.label}
-                  className={`rounded-[22px] border border-white/[0.12] bg-white/[0.08] px-4 py-4 ${
-                    index === 1
-                      ? "rotate-[-1deg]"
-                      : index === 2
-                        ? "rotate-[1deg]"
-                        : ""
-                  }`}
+                  animate={{ y: [0, index === 1 ? -4 : -3, 0] }}
+                  transition={{ duration: 3.4 + index * 0.2, repeat: Infinity, ease: "easeInOut", delay: index * 0.12 }}
                 >
-                  <div className="font-Mono text-[11px] uppercase tracking-[0.18em] text-[#ffe3a8]">
-                    {fact.label}
+                  <div
+                    className={`rounded-[22px] border border-white/[0.12] bg-white/[0.08] px-4 py-4 ${
+                      index === 1
+                        ? "rotate-[-1deg]"
+                        : index === 2
+                          ? "rotate-[1deg]"
+                          : ""
+                    }`}
+                  >
+                    <div className="font-Mono text-[11px] uppercase tracking-[0.18em] text-[#ffe3a8]">
+                      {fact.label}
+                    </div>
+                    <div className="mt-2 font-Header text-lg text-[#fff8e7]">
+                      {fact.value}
+                    </div>
                   </div>
-                  <div className="mt-2 font-Header text-lg text-[#fff8e7]">
-                    {fact.value}
-                  </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

@@ -12,12 +12,15 @@ import AppContext from "../components/AppContextFolder/AppContext";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import Head from "next/head";
+import { motion } from "framer-motion";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
+import PlayfulLoader from "../components/Home/PlayfulLoader/PlayfulLoader";
 export default function Home() {
   const context = useContext(AppContext);
   const [userData, setUserData] = useState(null);
   const [isBlackListed, setIsBlackListed] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
   const [IsBlackListEmpty, setIsBlackListEmpty] = useState(
     !process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES || process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES === ""
   );
@@ -72,6 +75,17 @@ export default function Home() {
     Aos.init({ duration: 2000, once: true });
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timeout = window.setTimeout(() => setShowLoader(false), prefersReducedMotion ? 450 : 1650);
+
+    return () => window.clearTimeout(timeout);
+  }, []);
+
   const meta = {
     title: "Nguyen Chau Linh | Frontend Engineer",
     description:
@@ -104,18 +118,29 @@ export default function Home() {
       </Head>
 
       {!isBlackListed ? (
-        <div className="relative min-h-screen w-full overflow-x-hidden bg-AAprimary">
-          <Header finishedLoading={true} sectionsRef={null} />
-          <MyName finishedLoading={true} />
-          <SocialMediaArround finishedLoading={true} />
-          <AboutMe />
-          <WhereIHaveWorked />
-          <FeaturedProducts />
-          <SomethingIveBuilt />
-          <GetInTouch />
-          <Footer githubUrl={"https://github.com/nguyenchaulinh97/portfolio"} hideSocialsInDesktop={true} />
-          {!isProd && <ScreenSizeDetector />}
-        </div>
+        <>
+          {showLoader ? <PlayfulLoader /> : null}
+
+          {!showLoader ? (
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="relative min-h-screen w-full overflow-x-hidden bg-AAprimary"
+            >
+              <Header finishedLoading={true} sectionsRef={null} />
+              <MyName finishedLoading={true} />
+              <SocialMediaArround finishedLoading={true} />
+              <AboutMe />
+              <WhereIHaveWorked />
+              <FeaturedProducts />
+              <SomethingIveBuilt />
+              <GetInTouch />
+              <Footer githubUrl={"https://github.com/nguyenchaulinh97/portfolio"} hideSocialsInDesktop={true} />
+              {!isProd && <ScreenSizeDetector />}
+            </motion.div>
+          ) : null}
+        </>
       ) : (
         <Maintenance />
       )}

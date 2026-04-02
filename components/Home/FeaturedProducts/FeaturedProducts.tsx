@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
 import Img from "../../smallComp/image/Img";
 
@@ -147,9 +148,13 @@ export default function FeaturedProducts() {
         </div>
 
         <div className="mt-10 max-w-3xl">
-          <div className="inline-flex rotate-[-2deg] rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]">
+          <motion.div
+            animate={{ y: [0, -3, 0], rotate: [-2, 0, -2] }}
+            transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+            className="inline-flex rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]"
+          >
             sticker board
-          </div>
+          </motion.div>
           <h3 className="mt-6 max-w-2xl font-Header text-4xl leading-tight text-[#fff8e7] sm:text-5xl">
             Real products on the internet, presented like a product scrapbook.
           </h3>
@@ -174,7 +179,11 @@ export default function FeaturedProducts() {
 
 function FeaturedBoard({ product }: { product: LiveProductCard }) {
   return (
-    <article className="comic-panel relative mt-14 overflow-hidden rounded-[36px] p-6 sm:p-8 xl:p-10">
+    <motion.article
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.22 }}
+      className="comic-panel relative mt-14 overflow-hidden rounded-[36px] p-6 sm:p-8 xl:p-10"
+    >
       <div
         className={`absolute left-10 top-0 h-7 w-24 -translate-y-1/2 rotate-[-3deg] rounded-[10px] opacity-[0.85] ${product.tapeClass}`}
       />
@@ -187,9 +196,13 @@ function FeaturedBoard({ product }: { product: LiveProductCard }) {
             <span className="rounded-full border border-AAsecondary/30 bg-AAsecondary/[0.12] px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.22em] text-AAsecondary">
               {product.badgeLabel}
             </span>
-            <span className="rotate-[-4deg] rounded-full border border-white/[0.12] bg-white/10 px-4 py-2 font-Hand text-xl text-[#fff8e7]">
+            <motion.span
+              animate={{ y: [0, -3, 0], rotate: [-4, -2, -4] }}
+              transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+              className="rounded-full border border-white/[0.12] bg-white/10 px-4 py-2 font-Hand text-xl text-[#fff8e7]"
+            >
               {product.noteLabel}
-            </span>
+            </motion.span>
           </div>
 
           <h4 className="mt-6 font-Header text-4xl leading-tight text-[#fff8e7] sm:text-[2.8rem]">{product.name}</h4>
@@ -244,24 +257,30 @@ function FeaturedBoard({ product }: { product: LiveProductCard }) {
                 }`}
               >
                 <div className={`absolute left-6 top-0 h-7 w-20 -translate-y-1/2 rotate-[-4deg] rounded-[10px] ${product.tapeClass}`} />
-                <div className="overflow-hidden rounded-[22px] border border-[#24335b]/[0.12]">
-                  <Img
-                    src={image.src}
-                    alt={image.alt}
-                    className={`w-full object-cover object-top ${index === 0 ? "h-[290px]" : "h-[220px] sm:h-[200px] xl:h-[220px]"}`}
-                  />
-                </div>
+                <span className="sparkle-twinkle absolute right-5 top-5 h-3 w-3 rounded-full border border-[#24335b]/20 bg-white/70" />
+                <motion.div
+                  animate={{ y: [0, index === 0 ? -5 : -4, 0] }}
+                  transition={{ duration: 3.8 + index * 0.35, repeat: Infinity, ease: "easeInOut", delay: index * 0.16 }}
+                >
+                  <div className="overflow-hidden rounded-[22px] border border-[#24335b]/[0.12]">
+                    <Img
+                      src={image.src}
+                      alt={image.alt}
+                      className={`w-full object-cover object-top ${index === 0 ? "h-[290px]" : "h-[220px] sm:h-[200px] xl:h-[220px]"}`}
+                    />
+                  </div>
 
-                <figcaption className="px-2 pb-1 pt-4 text-[#17223f]">
-                  <div className="font-Mono text-[10px] uppercase tracking-[0.22em] text-[#5a6f99]">Feature View</div>
-                  <div className="mt-2 font-Header text-lg leading-snug">{image.caption}</div>
-                </figcaption>
+                  <figcaption className="px-2 pb-1 pt-4 text-[#17223f]">
+                    <div className="font-Mono text-[10px] uppercase tracking-[0.22em] text-[#5a6f99]">Feature View</div>
+                    <div className="mt-2 font-Header text-lg leading-snug">{image.caption}</div>
+                  </figcaption>
+                </motion.div>
               </figure>
             ))}
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
@@ -273,17 +292,26 @@ function StickerCard({ product }: { product: LiveProductCard }) {
       <div className={`absolute right-6 top-6 h-32 w-32 rounded-full blur-3xl ${product.auraClass}`} />
       <div className={`absolute left-10 top-0 h-7 w-20 -translate-y-1/2 rotate-[4deg] rounded-[10px] ${product.tapeClass}`} />
 
-      <div className="relative">
+      <motion.div
+        animate={{ y: [0, -4, 0] }}
+        transition={{ duration: 4.1, repeat: Infinity, ease: "easeInOut" }}
+        className="relative"
+      >
         <div className="flex items-center justify-between gap-3">
           <span className="rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.22em] text-[#eef3ff]">
             {product.badgeLabel}
           </span>
-          <span className="rotate-[4deg] rounded-full border border-white/[0.12] bg-white/10 px-4 py-2 font-Hand text-xl text-[#fff8e7]">
+          <motion.span
+            animate={{ y: [0, -2, 0], rotate: [4, 2, 4] }}
+            transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+            className="rounded-full border border-white/[0.12] bg-white/10 px-4 py-2 font-Hand text-xl text-[#fff8e7]"
+          >
             {product.noteLabel}
-          </span>
+          </motion.span>
         </div>
 
         <div className={`mt-6 rounded-[28px] border-2 border-[#24335b]/[0.12] p-3 shadow-[10px_10px_0_rgba(16,25,47,0.14)] ${product.paperClass}`}>
+          <span className="sparkle-twinkle-delayed absolute right-5 top-[88px] h-3 w-3 rounded-full border border-[#24335b]/20 bg-white/70" />
           <div className="overflow-hidden rounded-[22px] border border-[#24335b]/[0.12]">
             <Img src={preview.src} alt={preview.alt} className="h-64 w-full object-cover object-top" />
           </div>
@@ -332,7 +360,7 @@ function StickerCard({ product }: { product: LiveProductCard }) {
             </a>
           ))}
         </div>
-      </div>
+      </motion.div>
     </article>
   );
 }
