@@ -1,9 +1,9 @@
 import React from "react";
 import GithubIcon from "../../Icons/GithubIcon";
 import LinkedinIcon from "../../Icons/LinkedinIcon";
-import InstagramIcon from "../../Icons/InstagramIcon";
-import YoutubeIcon from "../../Icons/YoutubeIcon";
-type Props={href:string,Icon:React.FC<{className:string}>}
+
+type Props = { href: string; Icon: React.FC<{ className: string }> };
+
 const ClickableIcon = (props:Props) => {
   return (
     <a href={props.href} className="" target={"_blank"} rel="noreferrer">
@@ -29,14 +29,6 @@ export default function Footer(props:{link:string,className:string}) {
             href={"https://www.linkedin.com/in/nguyenchaulinh/"}
             Icon={LinkedinIcon}
           />
-          <ClickableIcon
-            href={"https://www.instagram.com/smthabtcl/"}
-            Icon={InstagramIcon}
-          />
-          <ClickableIcon
-            href={"https://www.youtube.com/@chaulinh"}
-            Icon={YoutubeIcon}
-          />
         </div>
         <a href={props.link} className="" target={"_blank"} rel="noreferrer">
           <div
@@ -44,7 +36,7 @@ export default function Footer(props:{link:string,className:string}) {
     text-sm  space-y-2  "
           >
             <span className="group-hover:text-AAsecondary sm:text-sm text-xs">
-              Designed & Built by Nguyen Chau Linh
+              Built by Nguyen Chau Linh
             </span>
 
             <span className="text-xs flex flex-row items-center space-x-2 group-hover:text-AAsecondary">
@@ -53,7 +45,7 @@ export default function Footer(props:{link:string,className:string}) {
                   "w-4 h-4 text-gray-400 fill-current group-hover:text-AAsecondary duration-800"
                 }
               />
-              <span className="">Source code - Github</span>
+              <span className="">Portfolio source on GitHub</span>
             </span>
           </div>
         </a>

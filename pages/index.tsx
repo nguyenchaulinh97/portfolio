@@ -1,11 +1,10 @@
 import Header from "../components/Header/Header";
-import Startup from "../components/Header/StartupLogo/Startup";
 import MyName from "../components/Home/MyName/MyName";
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import SocialMediaArround from "../components/Home/SocialMediaArround/SocialMediaArround";
 import AboutMe from "../components/Home/AboutMe/AboutMe";
-import ThisCantBeReached from "../components/Home/ThisSiteCantBeReached/ThisCantBeReached";
 import WhereIHaveWorked from "../components/Home/WhereIHaveWorked/WhereIHaveWorked";
+import FeaturedProducts from "../components/Home/FeaturedProducts/FeaturedProducts";
 import SomethingIveBuilt from "../components/Home/SomethingIveBuilt/SomethingIveBuilt";
 import GetInTouch from "../components/Home/GetInTouch/GetInTouch";
 import Footer from "../components/Footer/Footer";
@@ -16,27 +15,13 @@ import Head from "next/head";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
 export default function Home() {
-  const [ShowElement, setShowElement] = useState(false);
-  const [ShowThisCantBeReached, setShowThisCantBeReached] = useState(true);
-  const [ShowMe, setShowMe] = useState(false);
-  // context Variable to clearInterval
   const context = useContext(AppContext);
-  const aboutRef = useRef<HTMLDivElement>(null);
-  const homeRef = useRef<HTMLDivElement>(null);
-
-  // userData state that will be used to get usr location
   const [userData, setUserData] = useState(null);
-
-  // check if user from Black List
   const [isBlackListed, setIsBlackListed] = useState(false);
-
-  // check if NEXT_PUBLIC_BLACKLIST_COUNTRIES is empty or undefined
   const [IsBlackListEmpty, setIsBlackListEmpty] = useState(
     !process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES || process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES === ""
   );
 
-  // this userEffect will be called to get the user location, so we can check if he is from the blackList,
-  // this will only run if NEXT_PUBLIC_BLACKLIST_COUNTRIES is not empty
   useEffect(() => {
     if (!IsBlackListEmpty) {
       const fetchData = async () => {
@@ -58,17 +43,13 @@ export default function Home() {
 
       fetchData();
     }
-  }, [IsBlackListEmpty]); // Empty dependency array ensures that this effect runs once when the component mounts
+  }, [IsBlackListEmpty]);
 
-  // this useEffect will be called when userData is set
   useEffect(() => {
-    // this will only run if NEXT_PUBLIC_BLACKLIST_COUNTRIES is not empty
     if (!IsBlackListEmpty) {
       if (userData) {
-        // check if the user country is in the blackList
         const blacklistCountries = process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES;
         if (blacklistCountries && blacklistCountries.includes(userData.country)) {
-          // set isBlackListed to true
           setIsBlackListed(true);
         }
       }
@@ -76,41 +57,26 @@ export default function Home() {
   }, [IsBlackListEmpty, userData]);
 
   useEffect(() => {
-    // remove the interval Cookie timer setter when
     clearInterval(context.sharedState.userdata.timerCookieRef.current);
     if (typeof window !== "undefined") {
-      // remove UserDataPuller project EventListeners
       window.removeEventListener("resize", context.sharedState.userdata.windowSizeTracker.current);
       window.removeEventListener("mousemove", context.sharedState.userdata.mousePositionTracker.current, false);
-      // remove Typing project EventListeners
       window.removeEventListener("resize", context.sharedState.typing.eventInputLostFocus);
       document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
     }
-    setTimeout(() => {
-      setShowElement(true);
-    }, 4500);
-
-    setTimeout(() => {
-      setShowThisCantBeReached(false);
-    }, 5400);
-    // ? INFORMATIONAL next function will show the component after changing the state of ShowMe
-    setTimeout(() => {
-      setShowElement(false);
-      setShowMe(true);
-      context.sharedState.finishedLoading = true;
-      context.setSharedState(context.sharedState);
-    }, 10400);
+    context.sharedState.finishedLoading = true;
+    context.setSharedState(context.sharedState);
   }, [context, context.sharedState]);
 
   useEffect(() => {
     Aos.init({ duration: 2000, once: true });
   }, []);
 
-  console.log("website is rendering...");
   const meta = {
-    title: "Nguyen Chau Linh - Senior Frontend Developer",
-    description: `I've been working on Software development for more than 7 years. Get in touch with me to know more.`,
-    image: "/titofCercle.png",
+    title: "Nguyen Chau Linh | Frontend Engineer",
+    description:
+      "Frontend engineer in Hanoi building clean UI, scalable code, and digital products across fintech and enterprise systems. Currently at SSI Securities Corporation.",
+    image: "/img/portrait.jpeg",
     type: "website",
   };
   const isProd = process.env.NODE_ENV === "production";
@@ -124,12 +90,11 @@ export default function Home() {
         <meta property="og:url" content={`https://nguyenchaulinh.vercel.app`} />
         <link rel="canonical" href={`https://nguyenchaulinh.vercel.app`} />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content="Manu Arora" />
+        <meta property="og:site_name" content="Nguyen Chau Linh" />
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@titofabdo" />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
@@ -137,20 +102,15 @@ export default function Home() {
 
       {!isBlackListed ? (
         <div className="relative snap-mandatory min-h-screen bg-AAprimary w-full ">
-          {context.sharedState.finishedLoading ? <></> : ShowThisCantBeReached ? <ThisCantBeReached /> : <></>}
-          {context.sharedState.finishedLoading ? <></> : ShowElement ? <Startup /> : <></>}
-          <Header finishedLoading={context.sharedState.finishedLoading} sectionsRef={homeRef} />
-          <MyName finishedLoading={context.sharedState.finishedLoading} />
-          <SocialMediaArround finishedLoading={context.sharedState.finishedLoading} />
-          {context.sharedState.finishedLoading ? <AboutMe ref={aboutRef} /> : <></>}
-          {context.sharedState.finishedLoading ? <WhereIHaveWorked /> : <></>}
-          {context.sharedState.finishedLoading ? <SomethingIveBuilt /> : <></>}
-          {context.sharedState.finishedLoading ? <GetInTouch /> : <></>}
-          {context.sharedState.finishedLoading ? (
-            <Footer githubUrl={"https://github.com/hktitof/my-website"} hideSocialsInDesktop={true} />
-          ) : (
-            <></>
-          )}
+          <Header finishedLoading={true} sectionsRef={null} />
+          <MyName finishedLoading={true} />
+          <SocialMediaArround finishedLoading={true} />
+          <AboutMe />
+          <WhereIHaveWorked />
+          <FeaturedProducts />
+          <SomethingIveBuilt />
+          <GetInTouch />
+          <Footer githubUrl={"https://github.com/nguyenchaulinh97/portfolio"} hideSocialsInDesktop={true} />
           {!isProd && <ScreenSizeDetector />}
         </div>
       ) : (

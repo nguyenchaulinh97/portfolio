@@ -1,8 +1,6 @@
 import React from "react";
 import GithubIcon from "../Icons/GithubIcon";
 import LinkedinIcon from "../Icons/LinkedinIcon";
-import InstagramIcon from "../Icons/InstagramIcon";
-import YoutubeIcon from "../Icons/YoutubeIcon";
 const ClickableIcon = (props) => {
   return (
     <a href={props.href} className="" target={"_blank"} rel="noreferrer">
@@ -15,13 +13,11 @@ const ClickableIcon = (props) => {
   );
 };
 const IconsData = [
-  { href: "https://github.com/hktitof", Icon: GithubIcon },
+  { href: "https://github.com/nguyenchaulinh97", Icon: GithubIcon },
   {
     href: "https://www.linkedin.com/in/nguyenchaulinh/",
     Icon: LinkedinIcon,
   },
-  { href: "https://www.instagram.com/smthabtcl/", Icon: InstagramIcon },
-  { href: "https://www.youtube.com/@chaulinh", Icon: YoutubeIcon },
 ];
 
 export default function Footer(props: {
@@ -51,9 +47,8 @@ export default function Footer(props: {
           className="group flex flex-col font-mono justify-center items-center  text-gray-400 
     text-sm  space-y-2  "
         >
-          <span className="group-hover:text-AAsecondary sm:text-sm text-xs">
-            Built by Nguyen Chau Linh
-          </span>
+          <span className="group-hover:text-AAsecondary sm:text-sm text-xs">Built by Nguyen Chau Linh</span>
+          <span className="text-xs group-hover:text-AAsecondary">View portfolio source on GitHub</span>
         </div>
       </a>
     </div>

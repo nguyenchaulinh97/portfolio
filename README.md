@@ -2,7 +2,7 @@
   <img alt="Logo" src="https://user-images.githubusercontent.com/62770500/199333052-3cd38b31-7e77-4883-a1ff-a037afcc0492.png" width="100" />
 </div>
 <h1 align="center">
-  nguyenchaulinh.vercel.app - v1
+  nguyenchaulinh.vercel.app - portfolio
 </h1>
 <p align="center">
   The first iteration of <a href="https://nguyenchaulinh.vercel.app" target="_blank">nguyenchaulinh.vercel.app</a> built with <a href="https://nextjs.org/" target="_blank">Nextjs</a> and hosted with <a href="https://vercel.com/" target="_blank">Vercel</a>
@@ -24,9 +24,6 @@ I can’t believe my portfolio now has over 200 visitors each day! It’s incred
 You can use this code for your own website, but please with attribution 😊.
 
 Please note that the design of the website is inspired from "brittanychiang.com", but didn't copied even a single piece of code from brittanyching repo, However, i built the portfolio from scratch with different technolgoies, like `Tailwind CSS` and `Framer Motion` and i added some other functionalities to it, so it might seems the same, but believe me i did a lot of work the code, website and how it works is entirely different!!!!. If you have questions about implementation, please refer to the [Next.js DOCS](https://nextjs.org/docs) same thing for Tailwind CSS and Framer Motion check out the Documentation, Or you can simply reach to me directly.
-
-
-I'd like to highlight that the `This website can't be reached` trick featured on my portfolio is an `original idea` and not borrowed from any other source. It's intended as a playful element, reflecting my sense of humor. While I acknowledge that it might not be the most user-friendly approach. Through careful observation, I've calculated that the average reaction time is 2 seconds before users realize the playful nature of the message, at which point the content becomes accessible. It's a quirky touch meant to add a lighthearted element to the user experience.
 
 
 
@@ -79,7 +76,7 @@ Yes, you can fork this repo. Please give me proper credit by linking back to [ng
 1. Clone the repo CLI
 
    ```sh
-   git clone https://github.com/hktitof/my-website.git
+   git clone https://github.com/nguyenchaulinh97/portfolio.git
    ```
 
 2. Install and use the correct version of Node using [NVM](https://github.com/nvm-sh/nvm)
@@ -234,4 +231,3 @@ SOFTWARE.
 - Website - [Nguyen Chau Linh](https://nguyenchaulinh.vercel.app)
 
 [Back To The Top](#description) :
-
