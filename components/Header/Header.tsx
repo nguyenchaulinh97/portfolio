@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
+import { motion } from "framer-motion";
+import AppContext from "../AppContextFolder/AppContext";
 import Logo from "./Headercomp/Logo";
 import DesktopMenu from "./Headercomp/DesktopMenu";
 import IconMenu from "./Headercomp/IconMenu";
 import MobileMenu from "./Headercomp/MobileMenu";
-import { motion } from "framer-motion";
-import AppContext from "../AppContextFolder/AppContext";
 
 const Header = (props: { finishedLoading: boolean; sectionsRef }) => {
   const RefNavBar = useRef<HTMLDivElement>(null);
@@ -13,96 +13,88 @@ const Header = (props: { finishedLoading: boolean; sectionsRef }) => {
   const context = useContext(AppContext);
   const scrollSizeY = useRef<number>(0);
 
-  // Define the EventListener for the NavBar
   useEffect(() => {
     if (context.sharedState.portfolio.NavBar.IntervalEvent == null) {
       context.sharedState.portfolio.NavBar.IntervalEvent = () => {
-        if (scrollSizeY.current == 0) {
+        if (scrollSizeY.current === 0) {
           scrollSizeY.current = window.scrollY;
-        } else {
-          if (window.scrollY > 50) {
-            if (window.scrollY > scrollSizeY.current) {
-              if (RefNavBar) {
-                RefNavBar.current?.classList.remove("translate-y-0");
-                RefNavBar.current?.classList.add("-translate-y-full");
-              }
-            } else {
-              RefNavBar.current?.classList.add("translate-y-0");
-              RefNavBar.current?.classList.remove("-translate-y-full");
-            }
-            scrollSizeY.current = window.scrollY;
+        } else if (window.scrollY > 50) {
+          if (window.scrollY > scrollSizeY.current) {
+            RefNavBar.current?.classList.remove("translate-y-0");
+            RefNavBar.current?.classList.add("-translate-y-full");
+          } else {
+            RefNavBar.current?.classList.add("translate-y-0");
+            RefNavBar.current?.classList.remove("-translate-y-full");
           }
+
+          scrollSizeY.current = window.scrollY;
         }
       };
     }
-  }, [
-    context.sharedState.portfolio.NavBar,
-    context.sharedState.portfolio.NavBar.IntervalEvent,
-  ]);
+  }, [context.sharedState.portfolio.NavBar, context.sharedState.portfolio.NavBar.IntervalEvent]);
 
-  //Adding the EventListener for the NavBar
   useEffect(() => {
     if (context.sharedState.portfolio.NavBar.scrolling == null) {
       context.sharedState.portfolio.NavBar.scrolling = true;
       scrollSizeY.current = 0;
-      //Hide when scroll down & show when scroll up
+
       if (typeof window !== "undefined") {
-        window.addEventListener(
-          "scroll",
-          context.sharedState.portfolio.NavBar.IntervalEvent,
-        );
+        window.addEventListener("scroll", context.sharedState.portfolio.NavBar.IntervalEvent);
       }
     }
-  }, [
-    context.sharedState.portfolio.NavBar,
-    context.sharedState.portfolio.NavBar.scrolling,
-  ]);
+  }, [context.sharedState.portfolio.NavBar, context.sharedState.portfolio.NavBar.scrolling]);
 
-  //veify document for serverSide rendering
   if (typeof document !== "undefined") {
-    rotate
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflow = "auto");
+    document.body.style.overflow = rotate ? "hidden" : "auto";
   }
 
   return (
     <>
-      {/* Mobile visible Navbar component, controlling ShowElement state to hide itself and rotate itself */}
       <MobileMenu
         rotate={rotate}
         setRotate={setRotate}
         setShowElement={setShowElement}
         ShowElement={ShowElement}
       />
-      {/* This parent element for Menu */}
+
       <motion.div
         ref={RefNavBar}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        // changed from 10.4 to 1
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
-          opacity: { delay: props.finishedLoading ? 0 : 9.4, duration: 0 },
+          opacity: { delay: props.finishedLoading ? 0 : 9.4, duration: props.finishedLoading ? 0 : 0.2 },
+          y: { delay: props.finishedLoading ? 0 : 9.4, duration: props.finishedLoading ? 0 : 0.2 },
         }}
-        className={`w-full fixed ${ShowElement ? `bg-opacity-70 shadow-xl` : `bg-opacity-0 `} bg-AAprimary flex 
-      justify-between px-6 sm:px-12 py-2 sm:py-4  transition duration-4000 translate-y-0 z-20`}
+        className="fixed inset-x-0 top-0 z-30 px-4 pt-4 transition duration-500 sm:px-6 lg:px-8"
       >
-        {/* Logo A */}
-        <Logo finishedLoading={props.finishedLoading} />
+        <div
+          className={`mx-auto flex max-w-[1280px] items-center justify-between rounded-[28px] border border-white/[0.12] px-4 py-3 sm:px-6 ${
+            ShowElement ? "comic-panel" : "border-white/0 bg-transparent shadow-none"
+          }`}
+        >
+          <div className="flex items-center gap-4">
+            <Logo finishedLoading={props.finishedLoading} />
+            <div className="hidden xl:block">
+              <div className="font-Hand text-2xl leading-none text-[#fff8e7]">Nguyen Chau Linh</div>
+              <div className="font-Mono text-[11px] uppercase tracking-[0.22em] text-[#ffe3a8]">
+                frontend engineer
+              </div>
+            </div>
+          </div>
 
-        {/* Hide icon Designed by me */}
+          <IconMenu
+            rotate={rotate}
+            setRotate={setRotate}
+            setShowElement={setShowElement}
+            ShowElement={ShowElement}
+            finishedLoading={props.finishedLoading}
+          />
 
-        <IconMenu
-          rotate={rotate}
-          setRotate={setRotate}
-          setShowElement={setShowElement}
-          ShowElement={ShowElement}
-          finishedLoading={props.finishedLoading}
-        />
-
-        {/* ? Desktop Menu by Titof */}
-        <DesktopMenu finishedLoading={props.finishedLoading} />
+          <DesktopMenu finishedLoading={props.finishedLoading} />
+        </div>
       </motion.div>
     </>
   );
 };
+
 export default Header;

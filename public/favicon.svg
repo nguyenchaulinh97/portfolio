@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="9" y="12" width="94" height="94" rx="28" transform="rotate(-10 9 12)" fill="#FF8B92"/>
+  <rect x="24" y="12" width="88" height="88" rx="24" transform="rotate(8 24 12)" fill="#85E7DC"/>
+  <rect x="22" y="22" width="84" height="84" rx="22" fill="#FFF6DF" stroke="#17223F" stroke-width="5"/>
+  <text x="64" y="74" text-anchor="middle" fill="#17223F" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" letter-spacing="1.5">CL</text>
+  <circle cx="104" cy="26" r="9" fill="#FFCF6E" stroke="#17223F" stroke-width="3"/>
+  <circle cx="16" cy="82" r="7" fill="#FFF8E7" stroke="#17223F" stroke-width="3"/>
+</svg>

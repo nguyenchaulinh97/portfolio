@@ -87,6 +87,9 @@ export default function Home() {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="alternate icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <meta property="og:url" content={`https://nguyenchaulinh.vercel.app`} />
         <link rel="canonical" href={`https://nguyenchaulinh.vercel.app`} />
         <meta property="og:type" content={meta.type} />
@@ -101,7 +104,7 @@ export default function Home() {
       </Head>
 
       {!isBlackListed ? (
-        <div className="relative snap-mandatory min-h-screen bg-AAprimary w-full ">
+        <div className="relative min-h-screen w-full overflow-x-hidden bg-AAprimary">
           <Header finishedLoading={true} sectionsRef={null} />
           <MyName finishedLoading={true} />
           <SocialMediaArround finishedLoading={true} />

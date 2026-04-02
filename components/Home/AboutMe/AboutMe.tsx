@@ -1,97 +1,193 @@
-import React from "react";
+import React, { forwardRef } from "react";
+import { motion } from "framer-motion";
 import Img from "../../../components/smallComp/image/Img";
-import ArrowIcon from "../../../components/Icons/ArrowIcon";
-import { forwardRef } from "react";
+import DoodleMascot from "../ArtDirection/DoodleMascot";
+import ScribbleDivider from "../ArtDirection/ScribbleDivider";
+import SectionHeader from "../ArtDirection/SectionHeader";
+
 interface AboutMeProps {}
 
-const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((props, ref) => {
-  const technologies = [
-    ["React", "Next.js", "TypeScript", "Redux", "React Query", "Zustand"],
-    ["SCSS/SASS", "AWS", "Docker", "Testing", "CI/CD", "Security/Auth"],
-  ];
+const principleCards = [
+  {
+    title: "Clarity first",
+    text: "I like interfaces that feel approachable even when the workflow underneath is dense.",
+    className: "rotate-[-2deg] bg-[#fff6df]",
+  },
+  {
+    title: "Built to last",
+    text: "Maintainable structure, testing discipline, and clean state management matter just as much as visual polish.",
+    className: "rotate-[1.5deg] bg-[#c7fbf4]",
+  },
+  {
+    title: "Team rhythm",
+    text: "The best product work happens when engineering, business, and design stay aligned without unnecessary friction.",
+    className: "rotate-[2deg] bg-[#ffd7cf]",
+  },
+];
 
+const skillClusters = [
+  {
+    title: "Frontend Core",
+    items: ["React", "Next.js", "TypeScript", "Zustand"],
+    className: "rotate-[-1.5deg] bg-[#fff6df]",
+  },
+  {
+    title: "Product Delivery",
+    items: ["Redux", "React Query", "Testing", "CI/CD"],
+    className: "rotate-[1.2deg] bg-[#eef7ff]",
+  },
+  {
+    title: "UI Craft",
+    items: ["SCSS/SASS", "Design Systems", "Accessibility", "Responsive UI"],
+    className: "rotate-[-1deg] bg-[#fff0ec]",
+  },
+  {
+    title: "Ops Context",
+    items: ["AWS", "Docker", "Security/Auth", "Cross-team Delivery"],
+    className: "rotate-[1.8deg] bg-[#e6fbf4]",
+  },
+];
+
+const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
   return (
-    <div id="aboutSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-20 bg-AAprimary">
-      <div className="flex flex-col space-y-8 px-4 sm:px-0 w-full sm:w-[500px] md:w-[700px] lg:w-[900px]">
-        <div className="flex flex-row items-center">
-          <div className="flex flex-row items-center mr-4">
-            <ArrowIcon className={"flex-none h-4 md:h-6 w-4 md:w-5 translate-y-[0.5px] text-AAsecondary"} />
-            <span className="text-AAsecondary font-Header text-sm sm:text-xl"> 01.</span>
-            <span className="flex-none text-gray-200 opacity-85 font-bold tracking-wider text-lg sm:text-2xl pl-4">
-              About Me
-            </span>
-          </div>
-          <div className="bg-gray-400 h-[0.2px] w-full sm:w-72 ml-4"></div>
-        </div>
+    <section
+      ref={ref}
+      id="aboutSection"
+      data-aos="fade-up"
+      className="relative overflow-hidden bg-AAprimary px-4 py-28 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
+    >
+      <div className="absolute -left-10 top-24 h-40 w-40 rounded-full bg-[#ffcf6e]/[0.12] blur-3xl" />
+      <div className="absolute right-0 top-16 h-56 w-56 rounded-full bg-[#85e7dc]/[0.12] blur-3xl" />
+      <div className="absolute bottom-10 left-1/2 h-48 w-48 rounded-full bg-[#ff8b92]/[0.1] blur-3xl" />
 
-        <div className="w-full flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 sm:space-x-2">
-          <div className="w-full md:w-7/12 space-y-4 sm:text-base text-sm">
-            <div className="font-Header text-gray-400 text-justify">
-              Hi, I&apos;m Chau Linh. I enjoy turning complex workflows into clear, reliable product experiences for the
-              people who use them every day.
-            </div>
-            <div className="font-Header text-gray-400 text-justify">
-              Over the last <span className="text-AAsecondary">7+ years</span>, I&apos;ve worked across fintech and
-              digital product teams, building trading tools, internal CRM systems, payment flows, chatbot experiences,
-              and enterprise web applications. My recent work includes{" "}
-              <span className="text-AAsecondary">real-time stock trading platforms</span> at{" "}
-              <span className="text-AAsecondary">SSI Securities Corporation</span> and{" "}
-              <span className="text-AAsecondary">digital transformation projects</span> for Japanese clients at{" "}
-              <span className="text-AAsecondary">NAL Viet Nam</span>.
-            </div>
-            <div className="font-Header text-gray-400 text-justify">
-              I care most about UI clarity, maintainable architecture, and delivery discipline. That means building
-              interfaces that feel simple on the surface while staying performant, testable, and easy for teams to
-              extend over time.
-            </div>
-            <div className="font-Header tracking-wide text-gray-400 pt-2 pb-1 text-justify">
-              Here&apos;s what I&apos;m usually working with these days:
-            </div>
-            <div className="font-Header tracking-wide flex flex-row space-x-12 md:space-x-16 justify-center lg:justify-start">
-              {technologies.map((techGroup, groupIndex) => (
-                <div key={groupIndex} className="flex flex-col space-y-4 sm:text-base text-sm">
-                  {techGroup.map((tech, techIndex) => (
-                    <div key={techIndex} className="flex flex-row items-center space-x-2">
-                      <ArrowIcon className={"h-3 w-3 text-AAsecondary flex-none"} />
-                      <span className="text-gray-400 sm:text-sm text-xs">{tech}</span>
-                    </div>
-                  ))}
+      <div className="relative mx-auto max-w-[1200px]">
+        <SectionHeader
+          number="01"
+          title="About Me"
+          sticker="story board"
+          note="A quick look at how I think about frontend work, collaboration, and the kind of product problems I enjoy solving."
+          lineClassName="max-w-[220px]"
+        />
+
+        <ScribbleDivider label="mindset + toolbox" className="mt-8 max-w-3xl" />
+
+        <div className="comic-panel relative mt-10 overflow-hidden rounded-[38px] p-6 sm:p-8 xl:p-10">
+          <div className="absolute left-10 top-0 h-7 w-24 -translate-y-1/2 rotate-[-4deg] rounded-[10px] bg-[#ffd58f]" />
+          <div className="absolute right-10 top-6 h-32 w-32 rounded-full bg-white/[0.05] blur-3xl" />
+
+          <div className="relative grid gap-10 xl:grid-cols-[1.05fr_0.95fr]">
+            <div className="space-y-6">
+              <div className="paper-grid rounded-[30px] border-2 border-[#24335b]/10 bg-[#fff6df] p-6 text-[#17223f] shadow-[14px_14px_0_rgba(23,34,63,0.14)] sm:p-8">
+                <div className="inline-flex rotate-[-3deg] rounded-full border border-[#24335b]/10 bg-[#fff8ea] px-4 py-2 font-Hand text-xl shadow-[8px_8px_0_rgba(23,34,63,0.08)]">
+                  how I work
                 </div>
-              ))}
-            </div>
-            <div className="font-Header text-gray-400 pt-4 text-justify">
-              I&apos;m especially motivated by product teams that value thoughtful engineering, strong collaboration, and
-              user experiences that make difficult tasks feel straightforward.
-            </div>
-          </div>
 
-          <div className="group relative lg:w-96 lg:h-96 md:w-72 md:h-72 md:block hidden">
-            <div className="group-hover:translate-x-3 group-hover:translate-y-3 duration-300 absolute w-5/6 h-5/6 border-2 border-AAsecondary translate-x-5 translate-y-5 rounded"></div>
-            <div className="absolute w-5/6 h-5/6 rounded overflow-hidden">
-              <div className="absolute w-full h-full group-hover:opacity-0 bg-AAsecondary opacity-10 duration-300 rounded overflow-hidden"></div>
-              <Img
-                src={"/img/portrait.jpeg"}
-                className={"object-contain rounded-lg"}
-                alt="My Image Not Found"
-              />
-            </div>
-          </div>
+                <h3 className="mt-6 max-w-xl font-Header text-3xl leading-tight text-[#17223f] sm:text-4xl">
+                  I like making complicated systems feel calm and understandable.
+                </h3>
 
-          <div className="relative w-full h-48 md:hidden flex justify-center items-center">
-            <div className="absolute w-48 h-full rounded translate-x-5 translate-y-5 border-2 border-AAsecondary"></div>
-            <div className="absolute w-48 h-full rounded overflow-hidden">
-              <Img
-                src={"/img/Portfolio-portrait-3.jpg"}
-                className={"object-contain rounded-lg"}
-                alt="My Image Not Found"
-              />
+                <div className="mt-6 space-y-5 text-base leading-8 text-[#31446f]">
+                  <p>
+                    Hi, I&apos;m Chau Linh. Over the last <span className="text-[#17223f] font-bold">7+ years</span>,
+                    I&apos;ve worked across fintech and digital product teams, building trading platforms, internal
+                    tools, onboarding journeys, and business-facing interfaces that have to stay clear under pressure.
+                  </p>
+                  <p>
+                    My recent work includes{" "}
+                    <span className="font-bold text-[#17223f]">real-time stock trading products</span> at{" "}
+                    <span className="font-bold text-[#17223f]">SSI Securities Corporation</span> and{" "}
+                    <span className="font-bold text-[#17223f]">digital transformation delivery</span> for Japanese
+                    clients at <span className="font-bold text-[#17223f]">NAL Viet Nam</span>.
+                  </p>
+                  <p>
+                    What keeps me motivated is the mix of thoughtful engineering, fast product feedback, and the
+                    challenge of turning dense workflows into UI that feels simple on the surface.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-4 lg:grid-cols-3">
+                {principleCards.map(card => (
+                  <motion.div
+                    key={card.title}
+                    whileHover={{ y: -6, rotate: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={`rounded-[26px] border-2 border-[#24335b]/10 px-5 py-5 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${card.className}`}
+                  >
+                    <div className="font-Header text-lg font-bold">{card.title}</div>
+                    <p className="mt-3 text-sm leading-7 text-[#31446f]">{card.text}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-            <div className="absolute w-48 h-full bg-AAsecondary opacity-10 md:opacity-60 rounded overflow-hidden"></div>
+
+            <div className="space-y-6">
+              <motion.figure
+                whileHover={{ y: -6, rotate: -1 }}
+                transition={{ duration: 0.25 }}
+                className="relative mx-auto max-w-[420px] rounded-[34px] bg-[#fff6df] p-4 text-[#17223f] shadow-[14px_14px_0_rgba(23,34,63,0.14)]"
+              >
+                <div className="absolute left-7 top-0 h-7 w-24 -translate-y-1/2 rotate-[-5deg] rounded-[10px] bg-[#ffd58f]" />
+                <div className="overflow-hidden rounded-[26px] border border-[#24335b]/10 bg-[#203058]">
+                  <Img
+                    src={"/img/portrait.jpeg"}
+                    className={"h-[360px] w-full object-cover object-top"}
+                    alt="Portrait of Nguyen Chau Linh"
+                  />
+                </div>
+
+                <figcaption className="px-2 pb-2 pt-5">
+                  <div className="font-Mono text-[10px] uppercase tracking-[0.22em] text-[#5a6f99]">Profile Card</div>
+                  <div className="mt-2 font-Header text-2xl leading-tight">Frontend engineer with a product mindset</div>
+                  <p className="mt-3 text-sm leading-7 text-[#31446f]">
+                    I care about the moment when a dense business tool starts feeling easy to use for the people who
+                    depend on it every day.
+                  </p>
+                </figcaption>
+              </motion.figure>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {skillClusters.map(cluster => (
+                  <motion.div
+                    key={cluster.title}
+                    whileHover={{ y: -5, rotate: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={`rounded-[26px] border-2 border-[#24335b]/10 p-5 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${cluster.className}`}
+                  >
+                    <div className="font-Header text-lg font-bold">{cluster.title}</div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {cluster.items.map(item => (
+                        <span
+                          key={item}
+                          className="rounded-full border border-[#24335b]/10 bg-white/60 px-3 py-1 font-Mono text-[11px] uppercase tracking-[0.14em] text-[#31446f]"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-end sm:justify-between">
+                <div className="rounded-[26px] border border-white/[0.12] bg-white/[0.08] px-5 py-5 text-sm leading-7 text-[#d5ddf2]">
+                  <div className="font-Mono text-[10px] uppercase tracking-[0.22em] text-[#ffe3a8]">Good fit</div>
+                  <p className="mt-3 max-w-sm">
+                    Teams building thoughtful digital products, especially when UI clarity, delivery quality, and
+                    cross-functional collaboration all matter at once.
+                  </p>
+                </div>
+
+                <DoodleMascot speech="let's build calm UI" label="tiny teammate" className="shrink-0" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 });
+
 AboutMe.displayName = "AboutMe";
+
 export default AboutMe;

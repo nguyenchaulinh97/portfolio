@@ -1,6 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
+import DoodleMascot from "../ArtDirection/DoodleMascot";
+import ScribbleDivider from "../ArtDirection/ScribbleDivider";
+import SectionHeader from "../ArtDirection/SectionHeader";
 
 type Experience = {
   buttonLabel: string;
@@ -10,6 +13,8 @@ type Experience = {
   location?: string;
   bullets: string[];
   stack: string[];
+  note: string;
+  paperClass: string;
 };
 
 const experiences: Experience[] = [
@@ -26,6 +31,8 @@ const experiences: Experience[] = [
       "Collaborated across business and engineering teams to ship financial technology features quickly and reliably.",
     ],
     stack: ["JavaScript", "TypeScript", "React", "Next.js", "Zustand", "React Query", "WebSocket", "SCSS/SASS", "CI/CD"],
+    note: "current chapter",
+    paperClass: "bg-[#fff6df]",
   },
   {
     buttonLabel: "NAL Viet Nam",
@@ -40,6 +47,8 @@ const experiences: Experience[] = [
       "Contributed to product teams working across business requirements, technical delivery, and user experience improvements.",
     ],
     stack: ["React", "Redux", "TypeScript", "PhaserJS", "React Testing Library", "Jest", "AWS", "Docker", "CI/CD"],
+    note: "transformation work",
+    paperClass: "bg-[#eef7ff]",
   },
   {
     buttonLabel: "Maritime",
@@ -54,6 +63,8 @@ const experiences: Experience[] = [
       "Developed the FCCom card management frontend using Angular, Node.js, and GitLab in an Agile/Scrum environment.",
     ],
     stack: ["Angular", "Node.js", "GitLab", "Security Authentication", "Chatbot Workflows", "Agile/Scrum"],
+    note: "payments + merchant tools",
+    paperClass: "bg-[#fff0ec]",
   },
   {
     buttonLabel: "Appota",
@@ -67,6 +78,8 @@ const experiences: Experience[] = [
       "Designed and launched the landing page for the Wifi Coffee service.",
     ],
     stack: ["React", "Redux", "TypeScript", "React Native", "CMS"],
+    note: "consumer product sprint",
+    paperClass: "bg-[#e6fbf4]",
   },
   {
     buttonLabel: "Viettel",
@@ -80,6 +93,8 @@ const experiences: Experience[] = [
       "Worked with React, Node.js, HTML, CSS, JavaScript, and Python across internal projects.",
     ],
     stack: ["React", "Node.js", "Java", "Spring", "Microservices", "Python"],
+    note: "foundation builder",
+    paperClass: "bg-[#fff6df]",
   },
   {
     buttonLabel: "VCCorp",
@@ -93,114 +108,151 @@ const experiences: Experience[] = [
       "Gained early experience with JavaScript, ASP.NET, databases, GitHub, GitLab, and Bitbucket.",
     ],
     stack: ["HTML", "CSS", "JavaScript", "ASP.NET", "Databases", "Git"],
+    note: "first web chapter",
+    paperClass: "bg-[#eef7ff]",
   },
 ];
 
 export default function WhereIHaveWorked() {
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const experience = experiences[activeIndex];
 
   return (
-    <div data-aos="fade-up" className="flex flex-col items-center justify-center py-24 space-y-12 bg-AAprimary">
-      <section className="flex flex-row items-center">
-        <div className="flex flex-row items-center">
-          <ArrowIcon className={"flex-none h-4 md:h-6 w-4 md:w-5 text-AAsecondary"} />
-          <span className="text-AAsecondary font-sans text-sm  sm:text-xl"> 02.</span>
+    <section
+      id="WhereIhaveWorkedSection"
+      data-aos="fade-up"
+      className="relative overflow-hidden bg-AAprimary px-4 py-28 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
+    >
+      <div className="absolute left-0 top-24 h-48 w-48 rounded-full bg-[#85e7dc]/[0.08] blur-3xl" />
+      <div className="absolute right-0 top-20 h-56 w-56 rounded-full bg-[#ffcf6e]/[0.1] blur-3xl" />
+
+      <div className="relative mx-auto max-w-[1200px]">
+        <SectionHeader
+          number="02"
+          title="Experience"
+          sticker="timeline wall"
+          note="The recent stops in my career, from early foundations to fintech product work happening now."
+          lineClassName="max-w-[260px]"
+        />
+
+        <ScribbleDivider label="tap around" className="mt-8 max-w-3xl" />
+
+        <div className="comic-panel relative mt-10 overflow-hidden rounded-[38px] p-6 sm:p-8 xl:p-10">
+          <div className="absolute left-10 top-0 h-7 w-24 -translate-y-1/2 rotate-[4deg] rounded-[10px] bg-[#cce5ff]" />
+          <div className="relative grid gap-6 xl:grid-cols-[260px_1fr]">
+            <ExperienceTabs activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+
+            <motion.article
+              key={experience.company}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className={`paper-grid rounded-[34px] border-2 border-[#24335b]/10 p-6 text-[#17223f] shadow-[14px_14px_0_rgba(23,34,63,0.14)] sm:p-8 ${experience.paperClass}`}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <div className="font-Mono text-[11px] uppercase tracking-[0.22em] text-[#5a6f99]">{experience.company}</div>
+                  <h3 className="mt-3 font-Header text-3xl leading-tight">{experience.role}</h3>
+                </div>
+
+                <div className="rotate-[4deg] rounded-full border border-[#24335b]/10 bg-white/60 px-4 py-2 font-Hand text-xl">
+                  {experience.note}
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <span className="rounded-full border border-[#24335b]/10 bg-white/60 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.16em] text-[#31446f]">
+                  {experience.period}
+                </span>
+                {experience.location ? (
+                  <span className="rounded-full border border-[#24335b]/10 bg-white/60 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.16em] text-[#31446f]">
+                    {experience.location}
+                  </span>
+                ) : null}
+                {activeIndex === 0 ? (
+                  <span className="rounded-full border border-[#24335b]/10 bg-[#85e7dc]/50 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.16em] text-[#17223f]">
+                    Current Role
+                  </span>
+                ) : null}
+              </div>
+
+              <ScribbleDivider label="what shipped" className="mt-8" />
+
+              <div className="mt-7 grid gap-4">
+                {experience.bullets.map(bullet => (
+                  <div key={bullet} className="flex items-start gap-3">
+                    <ArrowIcon className={"mt-1 h-4 w-4 flex-none text-[#17223f]"} />
+                    <span className="text-sm leading-7 text-[#31446f] sm:text-base">{bullet}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-2">
+                {experience.stack.map(item => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-[#24335b]/10 bg-white/60 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.14em] text-[#31446f]"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          </div>
+
+          <div className="mt-8 flex justify-end">
+            <DoodleMascot speech="career notes, but fun" label="timeline buddy" className="scale-[0.9]" />
+          </div>
         </div>
-
-        <span className="text-gray-200 opacity-85 font-bold tracking-wider text-lg md:text-2xl px-3">
-          Where I&apos;ve Worked
-        </span>
-        <div className="bg-gray-400 h-[0.2px] w-16 sm:w-44 md:w-80"></div>
-      </section>
-
-      <section
-        className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0
-      justify-center md:justify-center items-center md:items-start "
-      >
-        <CompaniesBar activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
-        <ExperienceDetails experience={experiences[activeIndex]} />
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
-const CompaniesBar = ({
+function ExperienceTabs({
   activeIndex,
   setActiveIndex,
 }: {
   activeIndex: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-}) => {
+}) {
   return (
-    <div
-      id="WhereIhaveWorkedSection"
-      className=" flex flex-col md:flex-row  w-screen lg:w-auto
-      overflow-auto scrollbar-hide md:overflow-hidden pb-4 md:pb-0 justify-start
-       sm:justify-center items-start sm:items-center"
-    >
-      <div
-        className=" hidden md:block bg-gray-500 relative h-0.5 w-34 md:h-[260px] translate-y-1 md:w-0.5
-        rounded md:order-1 order-2  "
-      >
-        <motion.div
-          animate={{ y: activeIndex * 48 - 10 }}
-          className={`absolute w-10 h-0.5 md:w-0.5 md:h-12 rounded bg-AAsecondary `}
-        />
-      </div>
-
-      <div className="flex flex-col md:order-2 order-1 space-y-1 pl-8 md:pl-0 ">
-        <div className="flex flex-row md:flex-col">
+    <div className="space-y-4">
+      <div className="paper-panel rounded-[30px] p-4">
+        <div className="font-Mono text-[10px] uppercase tracking-[0.24em] text-[#ffe3a8]">Select a chapter</div>
+        <div className="mt-4 flex gap-3 overflow-x-auto pb-2 xl:flex-col xl:overflow-visible">
           {experiences.map((experience, index) => (
-            <button
+            <motion.button
               key={experience.company}
+              whileHover={{ y: -4, rotate: 0 }}
+              transition={{ duration: 0.18 }}
               onClick={() => setActiveIndex(index)}
-              className={`flex-none sm:text-sm text-xs text-center md:text-left hover:text-AAsecondary
-              hover:bg-ResumeButtonHover rounded font-mono py-3 md:pl-6 md:px-4 md:w-44 w-32 duration-500 ${
-                activeIndex === index ? "bg-ResumeButtonHover text-AAsecondary" : "text-gray-500"
+              className={`min-w-[150px] rounded-[22px] border px-4 py-4 text-left transition duration-300 xl:min-w-0 ${
+                activeIndex === index
+                  ? "rotate-[-1deg] border-AAsecondary/[0.4] bg-AAsecondary text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.14)]"
+                  : "border-white/[0.12] bg-white/[0.06] text-[#d5ddf2]"
               }`}
             >
-              {experience.buttonLabel}
-            </button>
+              <div className="font-Header text-lg">{experience.buttonLabel}</div>
+              <div
+                className={`mt-1 font-Mono text-[10px] uppercase tracking-[0.18em] ${
+                  activeIndex === index ? "text-[#24335b]" : "text-[#ffe3a8]"
+                }`}
+              >
+                {experience.period}
+              </div>
+            </motion.button>
           ))}
         </div>
-        <div className="block md:hidden h-0.5 rounded bg-gray-500">
-          <motion.div animate={{ x: activeIndex * 128 }} className="w-[128px] h-0.5 rounded bg-AAsecondary" />
-        </div>
+      </div>
+
+      <div className="rounded-[28px] border border-white/[0.12] bg-white/[0.06] p-5 text-sm leading-7 text-[#d5ddf2]">
+        <div className="font-Hand text-2xl text-[#fff8e7]">What matters most</div>
+        <p className="mt-3">
+          The common thread across these roles is product-facing frontend work where clarity, delivery quality, and
+          business context all matter together.
+        </p>
       </div>
     </div>
   );
-};
-
-const ExperienceDetails = ({ experience }: { experience: Experience }) => {
-  return (
-    <div className="flex flex-col space-y-5 max-w-xl px-4 md:px-0">
-      <div className="flex flex-col spacey-y-2">
-        <span className="text-gray-100 sm:text-lg text-sm font-Arimo tracking-wide">
-          {experience.role} <span className="text-AAsecondary">@ {experience.company}</span>
-        </span>
-        <span className="font-mono text-xs text-gray-500">{experience.period}</span>
-        {experience.location ? <span className="font-mono text-xs text-gray-500">{experience.location}</span> : null}
-      </div>
-
-      <div className="flex flex-col space-y-4 sm:text-sm text-xs">
-        {experience.bullets.map((bullet, index) => (
-          <div key={index} className="flex flex-row space-x-2">
-            <ArrowIcon className={"h-5 w-4 text-AAsecondary flex-none"} />
-            <span className="text-gray-500 sm:text-sm text-xs">{bullet}</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap gap-2 pt-2">
-        {experience.stack.map(item => (
-          <span
-            key={item}
-            className="rounded border border-AAsecondary/30 px-3 py-1 text-[11px] font-mono text-gray-400"
-          >
-            {item}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
+}

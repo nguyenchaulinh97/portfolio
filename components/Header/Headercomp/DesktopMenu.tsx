@@ -2,136 +2,62 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link as ReactScrollLink } from "react-scroll";
 
+const navItems = [
+  { id: "aboutSection", label: "About", number: "01", offset: -100, delay: 9.4 },
+  { id: "WhereIhaveWorkedSection", label: "Experience", number: "02", offset: -260, delay: 9.6 },
+  { id: "ProductsSection", label: "Products", number: "03", offset: -90, delay: 9.75 },
+  { id: "SomethingIveBuiltSection", label: "Case Studies", number: "04", offset: -90, delay: 9.9 },
+  { id: "GetInTouchSection", label: "Contact", number: "05", offset: -90, delay: 10.05 },
+];
+
 export default function DesktopMenu(props: { finishedLoading: boolean }) {
   return (
-    <div className="font-mono text-xs md:flex hidden flex-row items-center space-x-8 ">
-      <motion.div
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 9.4,
-        }}
-        className=" text-AAsecondary"
-       
-      >
-        <ReactScrollLink to="aboutSection" spy={true} smooth={true} offset={-100} duration={200}>
-          &gt; 01. <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">About</span>
-        </ReactScrollLink>
-      </motion.div>
-      <motion.div
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 9.7,
-        }}
-        className="text-AAsecondary"
-       
-      >
-        <ReactScrollLink to="WhereIhaveWorkedSection" spy={true} smooth={true} offset={-300} duration={200}>
-          &gt; 02.{" "}
-          <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Experience</span>
-        </ReactScrollLink>
-      </motion.div>
-      <motion.div
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 9.8,
-        }}
-        className="text-AAsecondary"
-      >
-        <ReactScrollLink to="ProductsSection" spy={true} smooth={true} offset={-100} duration={200}>
-        &gt; 03. <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Products</span>
+    <div className="hidden items-center gap-3 lg:flex">
+      <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] p-1">
+        {navItems.map(item => (
+          <motion.div
+            key={item.id}
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              duration: props.finishedLoading ? 0 : 0.5,
+              delay: props.finishedLoading ? 0 : item.delay,
+            }}
+          >
+            <ReactScrollLink
+              to={item.id}
+              spy={true}
+              smooth={true}
+              offset={item.offset}
+              duration={220}
+              className="group flex cursor-pointer items-center gap-2 rounded-full px-4 py-3 transition duration-300 hover:bg-white/[0.08]"
+            >
+              <span className="rounded-full border border-AAsecondary/[0.35] bg-AAsecondary/[0.12] px-2 py-1 font-Mono text-[10px] uppercase tracking-[0.2em] text-AAsecondary transition duration-300 group-hover:rotate-[-4deg]">
+                {item.number}
+              </span>
+              <span className="font-Text2 text-sm font-bold text-[#f5f8ff] transition duration-300 group-hover:text-AAsecondary">
+                {item.label}
+              </span>
+            </ReactScrollLink>
+          </motion.div>
+        ))}
+      </div>
 
-        </ReactScrollLink>
-        
-      </motion.div>
-      <motion.div
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 9.95,
-        }}
-        className="text-AAsecondary"
-      >
-        <ReactScrollLink to="SomethingIveBuiltSection" spy={true} smooth={true} offset={-100} duration={200}>
-          &gt; 04. <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">Case Studies</span>
-        </ReactScrollLink>
-      </motion.div>
-      <motion.span
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 10,
-        }}
-        className="text-AAsecondary"
-      >
-         <ReactScrollLink to="GetInTouchSection" spy={true} smooth={true} offset={-100} duration={200}>
-         &gt; 05. <span className="text-white  hover:cursor-pointer hover:text-AAsecondary duration-300">Contact</span>
-        </ReactScrollLink>
-      </motion.span>
       <a href={"/resume.pdf"} target={"_blank"} rel="noreferrer">
-      <motion.button
-        initial={{
-          y: -40,
-          opacity: 0,
-        }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
-        transition={{
-          type: "spring",
-          duration: props.finishedLoading ? 0 : 1.2,
-          delay: props.finishedLoading ? 0 : 10.2,
-        }}
-        // onClick={()=>{router.push("/resume.pdf")}}
-        className="text-AAsecondary border border-spacing-2 py-2 px-3 rounded-sm border-AAsecondary hover:bg-ResumeButtonHover"
-      >
-        Resume
-      </motion.button>
+        <motion.button
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            type: "spring",
+            duration: props.finishedLoading ? 0 : 0.5,
+            delay: props.finishedLoading ? 0 : 10.2,
+          }}
+          className="resume-button-hover rounded-full border border-AAsecondary/60 bg-AAsecondary px-5 py-3 font-Header text-sm font-bold uppercase tracking-[0.14em] text-[#17223f] transition duration-300"
+        >
+          Resume
+        </motion.button>
       </a>
-      
     </div>
   );
 }

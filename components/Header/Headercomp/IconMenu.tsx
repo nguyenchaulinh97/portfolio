@@ -1,40 +1,41 @@
-import React, { useState } from "react";
-import { motion } from "../../../node_modules/framer-motion/dist/framer-motion";
-const IconMenu = (props: { rotate; setRotate; setShowElement; ShowElement,finishedLoading }) => {
+import React from "react";
+import { motion } from "framer-motion";
+
+const IconMenu = (props: { rotate; setRotate; setShowElement; ShowElement; finishedLoading }) => {
   return (
-    <div
-      className="md:hidden  text-white space-y-2 left-0 hover:cursor-pointer mt-2"
+    <motion.button
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        opacity: { delay: props.finishedLoading ? 0 : 9.5, duration: props.finishedLoading ? 0 : 0.2 },
+        scale: { delay: props.finishedLoading ? 0 : 9.5, duration: props.finishedLoading ? 0 : 0.2 },
+      }}
+      type="button"
+      className="flex h-12 w-12 items-center justify-center rounded-[18px] border border-white/[0.12] bg-white/[0.08] text-white shadow-[0_12px_24px_rgba(11,18,40,0.18)] lg:hidden"
       onClick={() => {
         props.setRotate(!props.rotate);
         props.setShowElement(!props.ShowElement);
       }}
     >
-      <div className="flex justify-end">
-        <motion.div
-          animate={props.rotate ? { y: 10, rotate: 45 } : { rotate: 0, y: 0 }}
-          transition={
-            props.rotate ? { y: 0.15, rotate: { delay: 0.2 } } : { y: { delay: 0.2 }, rotate: { duration: 0.2 } }
-          }
-          className="w-8 h-0.5 rounded bg-AAsecondary"
-        ></motion.div>
+      <div className="relative flex h-5 w-6 flex-col items-end justify-between">
+        <motion.span
+          animate={props.rotate ? { y: 8, rotate: 45, width: "100%" } : { y: 0, rotate: 0, width: "100%" }}
+          transition={props.rotate ? { duration: 0.2 } : { duration: 0.2 }}
+          className="block h-[3px] rounded-full bg-AAsecondary"
+        />
+        <motion.span
+          animate={props.rotate ? { opacity: 0 } : { opacity: 1 }}
+          transition={{ duration: 0.1 }}
+          className="block h-[3px] w-4 rounded-full bg-[#fff8e7]"
+        />
+        <motion.span
+          animate={props.rotate ? { y: -8, rotate: -45, width: "100%" } : { y: 0, rotate: 0, width: "75%" }}
+          transition={props.rotate ? { duration: 0.2 } : { duration: 0.2 }}
+          className="block h-[3px] rounded-full bg-[#85e7dc]"
+        />
       </div>
-      <motion.div
-        animate={props.rotate ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ opacity: { duration: 0 } }}
-        className="flex justify-end"
-      >
-        <div className="w-6 h-0.5 rounded bg-AAsecondary"></div>
-      </motion.div>
-      <div className="flex justify-end">
-        <motion.div
-          animate={props.rotate ? { y: -10, width: "150%", rotate: -45 } : { y: 0, rotate: 0, width: "50%" }}
-          transition={
-            props.rotate ? { y: 0.15, rotate: { delay: 0.2 } } : { y: { delay: 0.2 }, rotate: { duration: 0.2 } }
-          }
-          className="w-4 h-0.5 rounded bg-AAsecondary"
-        ></motion.div>
-      </div>
-    </div>
+    </motion.button>
   );
 };
+
 export default IconMenu;

@@ -1,37 +1,186 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&display=swap");
-
-
-@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght,SOFT@9..144,600,100&family=Nunito:wght@400;500;700;800&family=Patrick+Hand&family=Space+Mono:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --site-bg: #192646;
+  --site-panel: rgba(254, 247, 221, 0.12);
+  --site-panel-strong: rgba(254, 247, 221, 0.18);
+  --site-panel-solid: #fff4cf;
+  --site-ink: #17223f;
+  --site-ink-soft: #31446f;
+  --site-cream: #fff8e7;
+  --site-gold: #ffcf6e;
+  --site-pink: #ff8b92;
+  --site-cyan: #85e7dc;
+  --site-blue: #9eb5ff;
+  --site-shadow: 0 18px 45px rgba(11, 18, 40, 0.3);
+  --site-shadow-soft: 0 10px 24px rgba(11, 18, 40, 0.18);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
+
+  body {
+    background-color: var(--site-bg);
+    background-image:
+      radial-gradient(circle at top left, rgba(255, 207, 110, 0.16), transparent 22%),
+      radial-gradient(circle at 85% 10%, rgba(133, 231, 220, 0.18), transparent 18%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 52%),
+      linear-gradient(180deg, #1b2848 0%, #15203b 100%);
+    color: var(--site-cream);
+    font-family: "Nunito", sans-serif;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.06) 0.9px, transparent 0.9px),
+      radial-gradient(rgba(255, 207, 110, 0.08) 1.1px, transparent 1.1px);
+    background-position: 0 0, 18px 18px;
+    background-size: 36px 36px;
+    content: "";
+    inset: 0;
+    opacity: 0.4;
+    pointer-events: none;
+    position: fixed;
+    z-index: 0;
+  }
+
+  body > #__next {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection {
+    background: rgba(255, 207, 110, 0.32);
+    color: #fffdf6;
+  }
 }
+
 @layer utilities {
   body::-webkit-scrollbar {
     width: 0.4em;
-    background-color: #0b192f;
+    background-color: #15203b;
   }
 
   body::-webkit-scrollbar-thumb {
-    background-color: #4c5474;
+    background-color: #5b709f;
     scrollbar-gutter: stable;
     border-radius: 40px;
   }
+
+  .comic-shadow {
+    box-shadow: var(--site-shadow);
+  }
+
+  .comic-shadow-soft {
+    box-shadow: var(--site-shadow-soft);
+  }
+
+  .paper-panel {
+    background:
+      linear-gradient(180deg, rgba(255, 248, 231, 0.14) 0%, rgba(255, 248, 231, 0.08) 100%),
+      rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 248, 231, 0.12);
+    box-shadow: var(--site-shadow-soft);
+    backdrop-filter: blur(16px);
+  }
+
+  .comic-panel {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.07) 100%),
+      rgba(22, 33, 62, 0.44);
+    border: 1px solid rgba(255, 248, 231, 0.12);
+    box-shadow: var(--site-shadow);
+    backdrop-filter: blur(18px);
+  }
+
+  .section-doodle {
+    position: relative;
+  }
+
+  .section-doodle::after {
+    background: linear-gradient(90deg, rgba(255, 207, 110, 0.9), rgba(255, 139, 146, 0.9));
+    border-radius: 999px;
+    content: "";
+    height: 10px;
+    left: 0;
+    opacity: 0.85;
+    position: absolute;
+    top: calc(100% + 6px);
+    width: 68px;
+  }
+
+  .sticker-chip {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 248, 231, 0.12);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(11, 18, 40, 0.14);
+  }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .paper-grid {
+    background-image:
+      linear-gradient(rgba(36, 51, 91, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(36, 51, 91, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .dotted-connector {
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 207, 110, 0.9) 0 18%,
+      transparent 18% 34%,
+      rgba(133, 231, 220, 0.9) 34% 54%,
+      transparent 54% 70%,
+      rgba(255, 139, 146, 0.9) 70% 100%
+    );
+    border-radius: 999px;
+  }
+
+  .keyword-hover {
+    position: relative;
+    transition: color 180ms ease;
+  }
+
+  .keyword-hover::after {
+    background: linear-gradient(90deg, rgba(255, 207, 110, 0.9), rgba(133, 231, 220, 0.8));
+    border-radius: 999px;
+    content: "";
+    height: 0.42em;
+    left: -0.04em;
+    opacity: 0.32;
+    position: absolute;
+    right: -0.04em;
+    top: 58%;
+    transform: rotate(-1.5deg);
+    z-index: -1;
+  }
+
+  .resume-button-hover:hover {
+    background: linear-gradient(135deg, rgba(255, 207, 110, 0.22), rgba(133, 231, 220, 0.16));
+    box-shadow: 0 14px 28px rgba(11, 18, 40, 0.22);
+    transform: translateY(-3px) rotate(-1deg);
+  }
 }
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 a {

@@ -1,5 +1,8 @@
 import React from "react";
+import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
+import ScribbleDivider from "../ArtDirection/ScribbleDivider";
+import SectionHeader from "../ArtDirection/SectionHeader";
 
 const caseStudies = [
   {
@@ -12,6 +15,10 @@ const caseStudies = [
       "Worked across engineering and business teams to keep release cycles fast without losing product quality.",
     ],
     stack: ["React", "Next.js", "TypeScript", "Zustand", "React Query", "WebSocket"],
+    note: "market flow",
+    paperClass: "bg-[#fff6df]",
+    tapeClass: "bg-[#ffd58f]",
+    rotationClass: "rotate-[-1.5deg]",
   },
   {
     eyebrow: "SSI Securities Corporation",
@@ -23,6 +30,10 @@ const caseStudies = [
       "Supported cross-functional delivery as both an engineer and Scrum Master within a 16-person team.",
     ],
     stack: ["React", "Next.js", "TypeScript", "Internal Tools", "AI Workflows", "CI/CD"],
+    note: "internal system",
+    paperClass: "bg-[#eef7ff]",
+    tapeClass: "bg-[#cce5ff]",
+    rotationClass: "rotate-[1.2deg]",
   },
   {
     eyebrow: "NAL Viet Nam",
@@ -34,6 +45,10 @@ const caseStudies = [
       "Contributed to both business-facing tools and a Metaverse experience for a virtual university in Japan.",
     ],
     stack: ["React", "Redux", "TypeScript", "PhaserJS", "Jest", "AWS", "Docker"],
+    note: "client delivery",
+    paperClass: "bg-[#fff0ec]",
+    tapeClass: "bg-[#ffd1c7]",
+    rotationClass: "rotate-[-1deg]",
   },
   {
     eyebrow: "Maritime Bank Vietnam",
@@ -45,73 +60,93 @@ const caseStudies = [
       "Built interfaces that balanced internal complexity with straightforward user journeys.",
     ],
     stack: ["Angular", "Node.js", "GitLab", "Security Authentication", "Agile/Scrum"],
+    note: "payments ops",
+    paperClass: "bg-[#e6fbf4]",
+    tapeClass: "bg-[#b7efe4]",
+    rotationClass: "rotate-[1.6deg]",
   },
 ];
 
 export default function SomethingIveBuilt() {
   return (
-    <div
+    <section
       id="SomethingIveBuiltSection"
-      className=" flex flex-col xl:space-y-20 space-y-12 bg-AAprimary w-full
-     2xl:px-72 lg:px-24 md:px-16 sm:px-16 py-32 px-4"
+      className="relative overflow-hidden bg-AAprimary px-4 py-28 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
     >
-      <div data-aos="fade-up" className=" flex flex-row  items-center md:px-0">
-        <ArrowIcon className={"flex-none h-5 md:h-6 w-5 md:w-5 translate-y-[2px] text-AAsecondary"} />
-        <div className="flex-none flex-row space-x-2 items-center pr-2">
-          <span className="text-AAsecondary font-sans text-sm  sm:text-xl"> 04.</span>
-          <span className=" font-bold tracking-wider text-gray-200 text-lg md:text-2xl w-44 md:w-56 opacity-85">
-            Case Studies
-          </span>
-        </div>
-        <div className="bg-gray-400 h-[0.2px] w-full xl:w-1/3 md:w-1/2"></div>
-      </div>
+      <div className="absolute -left-12 top-20 h-52 w-52 rounded-full bg-[#9eb5ff]/[0.08] blur-3xl" />
+      <div className="absolute right-0 top-24 h-56 w-56 rounded-full bg-[#ff8b92]/[0.08] blur-3xl" />
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        {caseStudies.map(study => (
-          <div
-            key={study.title}
-            data-aos="fade-up"
-            className="rounded border border-gray-800 bg-AAtertiary/60 p-8 shadow-lg shadow-black/10"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <span className="text-sm font-mono text-AAsecondary">{study.eyebrow}</span>
-                <h3 className="mt-2 text-xl font-bold text-gray-200">{study.title}</h3>
-              </div>
-              <span className="rounded border border-AAsecondary/40 px-3 py-1 text-[11px] font-mono text-gray-400">
-                Confidential Work
-              </span>
-            </div>
+      <div className="relative mx-auto max-w-[1200px]">
+        <SectionHeader
+          number="04"
+          title="Case Studies"
+          sticker="confidential notebook"
+          note="Selected product stories from recent roles. The work is mostly private, so these cards focus on responsibilities, systems, and outcomes."
+          lineClassName="max-w-[260px]"
+        />
 
-            <p className="mt-5 text-sm leading-7 text-gray-400">{study.summary}</p>
+        <ScribbleDivider label="selected work" className="mt-8 max-w-3xl" />
 
-            <div className="mt-6 flex flex-col space-y-3">
-              {study.highlights.map(highlight => (
-                <div key={highlight} className="flex items-start space-x-2">
-                  <ArrowIcon className={"mt-1 h-4 w-4 text-AAsecondary flex-none"} />
-                  <span className="text-sm text-gray-400">{highlight}</span>
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+          {caseStudies.map(study => (
+            <motion.article
+              key={study.title}
+              data-aos="fade-up"
+              whileHover={{ y: -8, rotate: 0 }}
+              transition={{ duration: 0.22 }}
+              className={`comic-panel relative overflow-hidden rounded-[34px] p-4 ${study.rotationClass}`}
+            >
+              <div className={`absolute left-10 top-0 h-7 w-20 -translate-y-1/2 rotate-[-5deg] rounded-[10px] ${study.tapeClass}`} />
+
+              <div className={`paper-grid rounded-[28px] border-2 border-[#24335b]/10 p-6 text-[#17223f] shadow-[12px_12px_0_rgba(23,34,63,0.14)] sm:p-8 ${study.paperClass}`}>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="font-Mono text-[11px] uppercase tracking-[0.22em] text-[#5a6f99]">{study.eyebrow}</div>
+                    <h3 className="mt-3 font-Header text-3xl leading-tight">{study.title}</h3>
+                  </div>
+
+                  <div className="rotate-[4deg] rounded-full border border-[#24335b]/10 bg-white/60 px-4 py-2 font-Hand text-xl">
+                    {study.note}
+                  </div>
                 </div>
-              ))}
-            </div>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {study.stack.map(item => (
-                <span
-                  key={item}
-                  className="rounded border border-AAsecondary/30 px-3 py-1 text-[11px] font-mono text-gray-400"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
+                <div className="mt-5 inline-flex rounded-full border border-[#24335b]/10 bg-[#24335b] px-4 py-2 font-Mono text-[10px] uppercase tracking-[0.22em] text-[#ffe3a8]">
+                  Confidential Work
+                </div>
+
+                <p className="mt-6 text-base leading-8 text-[#31446f]">{study.summary}</p>
+
+                <ScribbleDivider label="impact notes" className="mt-7" />
+
+                <div className="mt-6 space-y-4">
+                  {study.highlights.map(highlight => (
+                    <div key={highlight} className="flex items-start gap-3">
+                      <ArrowIcon className={"mt-1 h-4 w-4 flex-none text-[#17223f]"} />
+                      <span className="text-sm leading-7 text-[#31446f] sm:text-base">{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {study.stack.map(item => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-[#24335b]/10 bg-white/60 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.14em] text-[#31446f]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        <div className="mt-10 rounded-[28px] border border-white/[0.12] bg-white/[0.06] px-6 py-5 text-center text-sm leading-7 text-[#d5ddf2]">
+          Detailed walkthroughs, technical decisions, and delivery context are available during interviews when there is
+          room for deeper discussion.
+        </div>
       </div>
-
-      <p className="mx-auto max-w-2xl text-center text-sm leading-7 text-gray-400">
-        The work above represents selected product experience from recent roles. Detailed walkthroughs, architecture
-        decisions, and delivery context are available during interviews.
-      </p>
-    </div>
+    </section>
   );
 }

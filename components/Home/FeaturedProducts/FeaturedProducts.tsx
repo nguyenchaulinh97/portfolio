@@ -22,42 +22,47 @@ type LiveProductCard = {
   links: ProductLink[];
   images: ProductImage[];
   badgeLabel: string;
-  badgeClass: string;
-  glowClass: string;
-  gradientClass: string;
+  noteLabel: string;
+  accentClass: string;
+  auraClass: string;
+  tapeClass: string;
+  paperClass: string;
+  rotationClass?: string;
 };
 
 const primaryProduct: LiveProductCard = {
   name: "iBoard - iBroker",
   company: "SSI Securities",
   summary:
-    "Two public-facing SSI products I worked on: iBoard for live market data and stock board monitoring, and iBroker for the trading access flow around the SSI investing experience.",
+    "Two SSI products I contributed to: iBoard for live market monitoring and iBroker for the trading access experience around SSI's investor journey.",
   highlights: [
-    "iBoard is a data-dense product built for speed, scanability, and real-time market context.",
-    "iBroker supports the trading entry experience with a cleaner, more focused interface around login and account access.",
-    "Together they represent product work across both information-heavy fintech UI and a more streamlined user journey.",
+    "iBoard handles dense market information and real-time updates, so the interface had to stay fast, readable, and easy to scan under pressure.",
+    "iBroker focuses more on a streamlined entry experience, helping investors move through account access with less friction.",
+    "Together they reflect my product work across both information-heavy fintech UI and tighter onboarding or access journeys.",
   ],
-  tags: ["Fintech", "Market Data", "Trading UI", "Real-Time Product", "Investor Experience"],
+  tags: ["Fintech", "Market Data", "Trading UI", "Investor Journey", "Real-Time Product"],
   links: [
     { label: "Visit iBoard", url: "http://iboard.ssi.com.vn/" },
     { label: "Visit iBroker", url: "https://ibroker.ssi.com.vn/" },
   ],
   images: [
     {
-      src: "/img/products/iboard-home.png",
+      src: "/img/products/iboard-home-annotated.png",
       alt: "iBoard screenshot",
       caption: "iBoard live market board",
     },
     {
-      src: "/img/products/ibroker-home.png",
+      src: "/img/products/ibroker-home-annotated.png",
       alt: "iBroker screenshot",
       caption: "iBroker login experience",
     },
   ],
   badgeLabel: "Featured Product Group",
-  badgeClass: "border-emerald-300/30 bg-emerald-300/10 text-emerald-100",
-  glowClass: "bg-emerald-300/20",
-  gradientClass: "from-emerald-300/14 via-cyan-300/8 to-transparent",
+  noteLabel: "fintech board",
+  accentClass: "text-[#ffe08f]",
+  auraClass: "bg-[#85e7dc]/20",
+  tapeClass: "bg-[#ffd58f]",
+  paperClass: "bg-[#fff6df]",
 };
 
 const secondaryProducts: LiveProductCard[] = [
@@ -65,49 +70,55 @@ const secondaryProducts: LiveProductCard[] = [
     name: "Brighton College Vietnam",
     company: "Brighton College Vietnam",
     summary:
-      "A public-facing school website presenting academic life, admissions content, campus story, and a polished brand experience for families and prospective pupils.",
+      "A public-facing school website designed to present campus life, admissions content, and a premium educational brand with warmth and clarity.",
     highlights: [
-      "Content-rich website with multilingual navigation, school journey messaging, and brand storytelling.",
-      "Built to balance information architecture, trust, and warmth for a premium education audience.",
-      "Strong visual emphasis on campus atmosphere and the broader Brighton College identity.",
+      "Balances information architecture with storytelling for families who need trust, atmosphere, and next-step clarity.",
+      "Supports a content-rich experience with brand-heavy visuals and a polished admissions journey.",
+      "Shows product thinking in a very different context from fintech: emotional tone matters as much as structure.",
     ],
-    tags: ["Education", "Brand Website", "Content Experience", "Admissions Journey"],
+    tags: ["Education", "Brand Website", "Admissions Journey", "Content Experience"],
     links: [{ label: "Visit Brighton", url: "https://brightoncollege.edu.vn/" }],
     images: [
       {
-        src: "/img/products/brighton-home.jpg",
+        src: "/img/products/brighton-home-annotated.png",
         alt: "Brighton College Vietnam screenshot",
         caption: "Brighton College Vietnam homepage",
       },
     ],
-    badgeLabel: "Live Site",
-    badgeClass: "border-sky-300/30 bg-sky-300/10 text-sky-100",
-    glowClass: "bg-sky-300/20",
-    gradientClass: "from-sky-300/14 via-blue-300/8 to-transparent",
+    badgeLabel: "Live Product",
+    noteLabel: "brand site",
+    accentClass: "text-[#a9d6ff]",
+    auraClass: "bg-[#9eb5ff]/20",
+    tapeClass: "bg-[#cce5ff]",
+    paperClass: "bg-[#eef7ff]",
+    rotationClass: "rotate-[-1.2deg]",
   },
   {
     name: "MSB Merchant Portal",
     company: "MSB",
     summary:
-      "A merchant onboarding portal for partner registration and verification, centered on a clean activation flow for businesses joining the MSB merchant ecosystem.",
+      "A merchant onboarding portal centered on registration and verification, built to reduce friction for business users joining the MSB merchant ecosystem.",
     highlights: [
-      "Focused on onboarding clarity with a compact, form-led experience that reduces friction for new merchants.",
-      "Uses a straightforward visual hierarchy to guide verification and registration steps.",
-      "Represents product work around payments-adjacent business onboarding rather than public marketing content.",
+      "Uses a compact, form-led layout to guide merchants through verification and account activation with less confusion.",
+      "Prioritizes a direct onboarding flow rather than a marketing-heavy experience, so hierarchy and guidance need to be immediately obvious.",
+      "Represents another side of fintech work: operational journeys where completion rate and clarity matter more than visual flourish.",
     ],
     tags: ["Fintech", "Merchant Onboarding", "Portal UX", "Verification Flow"],
     links: [{ label: "Visit MSB Merchant Portal", url: "https://msbpay.msb.com.vn/onboarding" }],
     images: [
       {
-        src: "/img/products/msb-merchant.jpg",
+        src: "/img/products/msb-merchant-annotated.png",
         alt: "MSB Merchant Portal screenshot",
         caption: "MSB Merchant onboarding portal",
       },
     ],
-    badgeLabel: "Live Site",
-    badgeClass: "border-rose-300/30 bg-rose-300/10 text-rose-100",
-    glowClass: "bg-rose-300/20",
-    gradientClass: "from-rose-300/14 via-orange-300/8 to-transparent",
+    badgeLabel: "Live Product",
+    noteLabel: "ops flow",
+    accentClass: "text-[#ffb5a6]",
+    auraClass: "bg-[#ff8b92]/20",
+    tapeClass: "bg-[#ffd1c7]",
+    paperClass: "bg-[#fff0ec]",
+    rotationClass: "rotate-[1.1deg]",
   },
 ];
 
@@ -118,37 +129,42 @@ export default function FeaturedProducts() {
       data-aos="fade-up"
       className="relative overflow-hidden bg-AAprimary px-4 py-28 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
     >
-      <div className="absolute inset-x-0 top-10 flex justify-center">
-        <div className="h-56 w-56 rounded-full bg-AAsecondary/5 blur-3xl" />
-      </div>
-      <div className="absolute -left-20 top-36 h-52 w-52 rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="absolute -right-16 bottom-16 h-60 w-60 rounded-full bg-emerald-300/10 blur-3xl" />
+      <div className="hero-grid absolute inset-0 opacity-10" />
+      <div className="absolute -left-16 top-28 h-52 w-52 rounded-full bg-[#ffcf6e]/[0.14] blur-3xl" />
+      <div className="absolute right-0 top-16 h-64 w-64 rounded-full bg-[#85e7dc]/10 blur-3xl" />
+      <div className="absolute bottom-10 left-1/3 h-56 w-56 rounded-full bg-[#ff8b92]/10 blur-3xl" />
 
       <div className="relative">
         <div className="flex flex-row items-center">
-          <ArrowIcon className={"flex-none h-5 md:h-6 w-5 md:w-5 translate-y-[2px] text-AAsecondary"} />
-          <div className="flex-none flex-row space-x-2 items-center pr-2">
-            <span className="text-AAsecondary font-sans text-sm sm:text-xl"> 03.</span>
-            <span className="font-bold tracking-wider text-gray-200 text-lg md:text-2xl opacity-85">Live Products</span>
+          <ArrowIcon className={"flex-none h-5 w-5 translate-y-[2px] text-AAsecondary md:h-6 md:w-5"} />
+          <div className="flex-none items-center pr-2">
+            <span className="font-Mono text-sm text-AAsecondary sm:text-xl"> 03.</span>
+            <span className="section-doodle pl-3 font-Header text-lg font-bold tracking-wide text-[#fff8e7] md:text-2xl">
+              Live Products
+            </span>
           </div>
-          <div className="bg-gray-400 h-[0.2px] w-full xl:w-1/3 md:w-1/2"></div>
+          <div className="h-[0.2px] w-full bg-[#cfd6e9]/30 xl:w-1/3 md:w-1/2" />
         </div>
 
-        <div className="mt-8 max-w-2xl space-y-4">
-          <h3 className="text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl">
-            Products people can open, explore, and use right now.
+        <div className="mt-10 max-w-3xl">
+          <div className="inline-flex rotate-[-2deg] rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]">
+            sticker board
+          </div>
+          <h3 className="mt-6 max-w-2xl font-Header text-4xl leading-tight text-[#fff8e7] sm:text-5xl">
+            Real products on the internet, presented like a product scrapbook.
           </h3>
-          <p className="text-sm leading-7 text-gray-400 sm:text-base">
-            This section is for shipped products with a real public footprint. I&apos;ve highlighted the SSI work first
-            because it represents a stronger mix of live fintech surfaces and user-facing product experience.
+          <p className="mt-5 max-w-2xl text-base leading-8 text-[#d0d8ee] sm:text-lg">
+            This section highlights shipped work with a real public footprint. Instead of plain cards, each product is
+            framed like a sticker or scrapbook note so the section feels more alive while still staying recruiter
+            friendly.
           </p>
         </div>
 
-        <ProductHeroCard product={primaryProduct} className="mt-14" />
+        <FeaturedBoard product={primaryProduct} />
 
-        <div className="mt-10 grid gap-6 xl:grid-cols-2">
+        <div className="mt-10 grid gap-8 xl:grid-cols-2">
           {secondaryProducts.map(product => (
-            <ProductStandardCard key={product.name} product={product} />
+            <StickerCard key={product.name} product={product} />
           ))}
         </div>
       </div>
@@ -156,55 +172,61 @@ export default function FeaturedProducts() {
   );
 }
 
-function ProductHeroCard({ product, className }: { product: LiveProductCard; className?: string }) {
+function FeaturedBoard({ product }: { product: LiveProductCard }) {
   return (
-    <article
-      className={`relative overflow-hidden rounded-[32px] border border-white/10 bg-AAtertiary/75 p-6 shadow-2xl shadow-black/20 sm:p-8 xl:p-10 ${
-        className ?? ""
-      }`}
-    >
-      <div className={`absolute inset-0 bg-gradient-to-br ${product.gradientClass}`} />
-      <div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full blur-2xl ${product.glowClass}`} />
-      <div className="relative grid gap-10 xl:grid-cols-[1.15fr_0.95fr]">
-        <div className="order-2 xl:order-1">
-          <span
-            className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] ${product.badgeClass}`}
-          >
-            {product.badgeLabel}
-          </span>
-          <h4 className="mt-5 text-3xl font-bold tracking-tight text-gray-100">{product.name}</h4>
-          <p className="mt-2 text-sm font-mono text-AAsecondary">{product.company}</p>
+    <article className="comic-panel relative mt-14 overflow-hidden rounded-[36px] p-6 sm:p-8 xl:p-10">
+      <div
+        className={`absolute left-10 top-0 h-7 w-24 -translate-y-1/2 rotate-[-3deg] rounded-[10px] opacity-[0.85] ${product.tapeClass}`}
+      />
+      <div className={`absolute right-8 top-6 h-36 w-36 rounded-full blur-3xl ${product.auraClass}`} />
+      <div className="absolute left-8 bottom-6 h-24 w-24 rounded-full bg-white/[0.06] blur-2xl" />
 
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-gray-300 sm:text-base">{product.summary}</p>
+      <div className="relative grid gap-10 xl:grid-cols-[1.03fr_0.97fr]">
+        <div>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="rounded-full border border-AAsecondary/30 bg-AAsecondary/[0.12] px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.22em] text-AAsecondary">
+              {product.badgeLabel}
+            </span>
+            <span className="rotate-[-4deg] rounded-full border border-white/[0.12] bg-white/10 px-4 py-2 font-Hand text-xl text-[#fff8e7]">
+              {product.noteLabel}
+            </span>
+          </div>
 
-          <div className="mt-7 space-y-4">
+          <h4 className="mt-6 font-Header text-4xl leading-tight text-[#fff8e7] sm:text-[2.8rem]">{product.name}</h4>
+          <p className={`mt-3 font-Mono text-[12px] uppercase tracking-[0.24em] ${product.accentClass}`}>
+            {product.company}
+          </p>
+
+          <p className="mt-7 max-w-2xl text-base leading-8 text-[#d0d8ee]">{product.summary}</p>
+
+          <div className="mt-8 space-y-4">
             {product.highlights.map(highlight => (
-              <div key={highlight} className="flex items-start space-x-3">
+              <div key={highlight} className="flex items-start gap-3">
                 <ArrowIcon className={"mt-1 h-4 w-4 flex-none text-AAsecondary"} />
-                <span className="text-sm text-gray-300">{highlight}</span>
+                <span className="text-sm leading-7 text-[#e6ebf8] sm:text-base">{highlight}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-7 flex flex-wrap gap-2">
+          <div className="mt-8 flex flex-wrap gap-2">
             {product.tags.map(tag => (
               <span
                 key={tag}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-mono text-gray-300"
+                className="sticker-chip inline-flex rotate-[-1deg] rounded-full px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.15em] text-[#eef3ff]"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap gap-3">
             {product.links.map(link => (
               <a
                 key={link.url}
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center rounded-full border border-AAsecondary/35 bg-AAprimary/80 px-5 py-3 text-sm font-mono text-AAsecondary transition duration-300 hover:-translate-y-1 hover:border-AAsecondary hover:bg-AAprimary hover:text-white"
+                className="resume-button-hover rounded-full border border-AAsecondary/60 bg-AAsecondary px-5 py-3 font-Header text-sm font-bold uppercase tracking-[0.14em] text-[#17223f] transition duration-300"
               >
                 {link.label}
               </a>
@@ -212,30 +234,27 @@ function ProductHeroCard({ product, className }: { product: LiveProductCard; cla
           </div>
         </div>
 
-        <div className="order-1 xl:order-2">
-          <div className="grid gap-4 sm:grid-cols-[1.2fr_0.8fr] xl:grid-cols-1 xl:gap-5">
+        <div className="relative">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-1">
             {product.images.map((image, index) => (
               <figure
                 key={image.src}
-                className={`group relative overflow-hidden rounded-[24px] border border-white/10 bg-black/20 shadow-xl shadow-black/20 ${
-                  index === 0 ? "sm:col-span-2 xl:col-span-1" : ""
+                className={`relative rounded-[30px] border-2 border-[#24335b]/[0.12] ${product.paperClass} p-3 shadow-[12px_12px_0_rgba(16,25,47,0.16)] ${
+                  index === 0 ? "rotate-[-2deg]" : "sm:translate-x-8 sm:rotate-[2deg] xl:translate-x-10"
                 }`}
               >
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#081220]/90 via-transparent to-transparent" />
-                <Img
-                  src={image.src}
-                  alt={image.alt}
-                  className={`h-full w-full object-cover transition duration-500 group-hover:scale-[1.02] ${
-                    index === 0 ? "max-h-[320px]" : "max-h-[260px]"
-                  }`}
-                />
-                <figcaption className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-between gap-4 px-5 py-4">
-                  <div>
-                    <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-AAsecondary">
-                      Feature View
-                    </div>
-                    <div className="mt-1 text-sm font-medium text-gray-100">{image.caption}</div>
-                  </div>
+                <div className={`absolute left-6 top-0 h-7 w-20 -translate-y-1/2 rotate-[-4deg] rounded-[10px] ${product.tapeClass}`} />
+                <div className="overflow-hidden rounded-[22px] border border-[#24335b]/[0.12]">
+                  <Img
+                    src={image.src}
+                    alt={image.alt}
+                    className={`w-full object-cover object-top ${index === 0 ? "h-[290px]" : "h-[220px] sm:h-[200px] xl:h-[220px]"}`}
+                  />
+                </div>
+
+                <figcaption className="px-2 pb-1 pt-4 text-[#17223f]">
+                  <div className="font-Mono text-[10px] uppercase tracking-[0.22em] text-[#5a6f99]">Feature View</div>
+                  <div className="mt-2 font-Header text-lg leading-snug">{image.caption}</div>
                 </figcaption>
               </figure>
             ))}
@@ -246,45 +265,45 @@ function ProductHeroCard({ product, className }: { product: LiveProductCard; cla
   );
 }
 
-function ProductStandardCard({ product }: { product: LiveProductCard }) {
+function StickerCard({ product }: { product: LiveProductCard }) {
   const preview = product.images[0];
 
   return (
-    <article className="relative overflow-hidden rounded-[32px] border border-white/10 bg-AAtertiary/75 p-6 shadow-2xl shadow-black/20 sm:p-8">
-      <div className={`absolute inset-0 bg-gradient-to-br ${product.gradientClass}`} />
-      <div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full blur-2xl ${product.glowClass}`} />
+    <article className={`comic-panel relative overflow-hidden rounded-[34px] p-6 sm:p-7 ${product.rotationClass ?? ""}`}>
+      <div className={`absolute right-6 top-6 h-32 w-32 rounded-full blur-3xl ${product.auraClass}`} />
+      <div className={`absolute left-10 top-0 h-7 w-20 -translate-y-1/2 rotate-[4deg] rounded-[10px] ${product.tapeClass}`} />
 
       <div className="relative">
-        <figure className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-black/20 shadow-xl shadow-black/20">
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#081220]/90 via-transparent to-transparent" />
-          <Img
-            src={preview.src}
-            alt={preview.alt}
-            className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-[1.02]"
-          />
-          <figcaption className="absolute bottom-0 left-0 right-0 z-20 px-5 py-4">
-            <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-AAsecondary">Feature View</div>
-            <div className="mt-1 text-sm font-medium text-gray-100">{preview.caption}</div>
-          </figcaption>
-        </figure>
-
-        <div className="mt-7">
-          <span
-            className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] ${product.badgeClass}`}
-          >
+        <div className="flex items-center justify-between gap-3">
+          <span className="rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.22em] text-[#eef3ff]">
             {product.badgeLabel}
           </span>
-          <h4 className="mt-5 text-2xl font-bold tracking-tight text-gray-100">{product.name}</h4>
-          <p className="mt-2 text-sm font-mono text-AAsecondary">{product.company}</p>
+          <span className="rotate-[4deg] rounded-full border border-white/[0.12] bg-white/10 px-4 py-2 font-Hand text-xl text-[#fff8e7]">
+            {product.noteLabel}
+          </span>
         </div>
 
-        <p className="mt-6 text-sm leading-7 text-gray-300">{product.summary}</p>
+        <div className={`mt-6 rounded-[28px] border-2 border-[#24335b]/[0.12] p-3 shadow-[10px_10px_0_rgba(16,25,47,0.14)] ${product.paperClass}`}>
+          <div className="overflow-hidden rounded-[22px] border border-[#24335b]/[0.12]">
+            <Img src={preview.src} alt={preview.alt} className="h-64 w-full object-cover object-top" />
+          </div>
+          <div className="px-2 pb-1 pt-4 text-[#17223f]">
+            <div className="font-Mono text-[10px] uppercase tracking-[0.22em] text-[#5a6f99]">Feature View</div>
+            <div className="mt-2 font-Header text-lg leading-snug">{preview.caption}</div>
+          </div>
+        </div>
+
+        <div className="mt-7">
+          <p className={`font-Mono text-[12px] uppercase tracking-[0.24em] ${product.accentClass}`}>{product.company}</p>
+          <h4 className="mt-3 font-Header text-3xl leading-tight text-[#fff8e7]">{product.name}</h4>
+          <p className="mt-5 text-base leading-8 text-[#d0d8ee]">{product.summary}</p>
+        </div>
 
         <div className="mt-7 space-y-4">
           {product.highlights.map(highlight => (
-            <div key={highlight} className="flex items-start space-x-3">
+            <div key={highlight} className="flex items-start gap-3">
               <ArrowIcon className={"mt-1 h-4 w-4 flex-none text-AAsecondary"} />
-              <span className="text-sm text-gray-300">{highlight}</span>
+              <span className="text-sm leading-7 text-[#e6ebf8]">{highlight}</span>
             </div>
           ))}
         </div>
@@ -293,7 +312,7 @@ function ProductStandardCard({ product }: { product: LiveProductCard }) {
           {product.tags.map(tag => (
             <span
               key={tag}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-mono text-gray-300"
+              className="sticker-chip inline-flex rotate-[-1deg] rounded-full px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.15em] text-[#eef3ff]"
             >
               {tag}
             </span>
@@ -307,7 +326,7 @@ function ProductStandardCard({ product }: { product: LiveProductCard }) {
               href={link.url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center rounded-full border border-AAsecondary/35 bg-AAprimary/80 px-5 py-3 text-sm font-mono text-AAsecondary transition duration-300 hover:-translate-y-1 hover:border-AAsecondary hover:bg-AAprimary hover:text-white"
+              className="resume-button-hover rounded-full border border-AAsecondary/60 bg-AAsecondary px-5 py-3 font-Header text-sm font-bold uppercase tracking-[0.14em] text-[#17223f] transition duration-300"
             >
               {link.label}
             </a>
