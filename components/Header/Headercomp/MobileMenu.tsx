@@ -1,3 +1,4 @@
+import React, { Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
 
@@ -9,16 +10,23 @@ const navItems = [
   { id: "GetInTouchSection", label: "Contact", number: "05", offset: -70 },
 ];
 
-const MobileMenu = props => {
+type MobileMenuProps = {
+  rotate: boolean;
+  setRotate: Dispatch<SetStateAction<boolean>>;
+  setShowElement: Dispatch<SetStateAction<boolean>>;
+  showElement: boolean;
+};
+
+export default function MobileMenu({ rotate, setRotate, setShowElement, showElement }: MobileMenuProps) {
   const closeMenu = () => {
-    props.setRotate(!props.rotate);
-    props.setShowElement(!props.ShowElement);
+    setRotate(!rotate);
+    setShowElement(!showElement);
   };
 
   return (
     <motion.div
       initial={{ x: "100%" }}
-      animate={props.rotate ? { x: "0" } : { x: "100%" }}
+      animate={rotate ? { x: "0" } : { x: "100%" }}
       transition={{ x: { duration: 0.35 } }}
       className="fixed inset-0 z-20 flex lg:hidden"
     >
@@ -71,6 +79,4 @@ const MobileMenu = props => {
       </div>
     </motion.div>
   );
-};
-
-export default MobileMenu;
+}

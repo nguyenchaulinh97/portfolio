@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import Head from "next/head";
+import { motion } from "framer-motion";
 import Header from "../components/Header/Header";
 import MyName from "../components/Home/MyName/MyName";
-import { useContext, useEffect, useState } from "react";
 import SocialMediaArround from "../components/Home/SocialMediaArround/SocialMediaArround";
 import AboutMe from "../components/Home/AboutMe/AboutMe";
 import WhereIHaveWorked from "../components/Home/WhereIHaveWorked/WhereIHaveWorked";
@@ -8,68 +12,51 @@ import FeaturedProducts from "../components/Home/FeaturedProducts/FeaturedProduc
 import SomethingIveBuilt from "../components/Home/SomethingIveBuilt/SomethingIveBuilt";
 import GetInTouch from "../components/Home/GetInTouch/GetInTouch";
 import Footer from "../components/Footer/Footer";
-import AppContext from "../components/AppContextFolder/AppContext";
-import Aos from "aos";
-import "aos/dist/aos.css";
-import Head from "next/head";
-import { motion } from "framer-motion";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
 import PlayfulLoader from "../components/Home/PlayfulLoader/PlayfulLoader";
+import PortfolioStickerHunt from "../components/Home/PortfolioStickerHunt/PortfolioStickerHunt";
+
+type UserInfoPreview = {
+  country?: string;
+};
+
 export default function Home() {
-  const context = useContext(AppContext);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<UserInfoPreview | null>(null);
   const [isBlackListed, setIsBlackListed] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
-  const [IsBlackListEmpty, setIsBlackListEmpty] = useState(
-    !process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES || process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES === ""
-  );
+  const [isStickerHuntOpen, setIsStickerHuntOpen] = useState(false);
+
+  const blacklistCountries = process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES ?? "";
+  const isBlackListEmpty = blacklistCountries === "";
 
   useEffect(() => {
-    if (!IsBlackListEmpty) {
-      const fetchData = async () => {
-        try {
-          const IP_Address = async () => {
-            return fetch("https://api.ipify.org/?format=json")
-              .then(res => res.json())
-              .then(data => data.ip);
-          };
-
-          const response = await fetch("/api/userInfoByIP/" + (await IP_Address())); // Replace with your actual API endpoint
-          const data = await response.json();
-          setUserData(data);
-        } catch (error) {
-          console.error("Error fetching data location and ip address:", error);
-          // Handle errors as needed
-        }
-      };
-
-      fetchData();
+    if (isBlackListEmpty) {
+      return;
     }
-  }, [IsBlackListEmpty]);
 
-  useEffect(() => {
-    if (!IsBlackListEmpty) {
-      if (userData) {
-        const blacklistCountries = process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES;
-        if (blacklistCountries && blacklistCountries.includes(userData.country)) {
-          setIsBlackListed(true);
-        }
+    const fetchData = async () => {
+      try {
+        const ipAddress = await fetch("https://api.ipify.org/?format=json")
+          .then(res => res.json())
+          .then(data => data.ip as string);
+
+        const response = await fetch(`/api/userInfoByIP/${ipAddress}`);
+        const data = (await response.json()) as UserInfoPreview;
+        setUserData(data);
+      } catch (error) {
+        console.error("Error fetching data location and ip address:", error);
       }
-    }
-  }, [IsBlackListEmpty, userData]);
+    };
+
+    fetchData();
+  }, [isBlackListEmpty]);
 
   useEffect(() => {
-    clearInterval(context.sharedState.userdata.timerCookieRef.current);
-    if (typeof window !== "undefined") {
-      window.removeEventListener("resize", context.sharedState.userdata.windowSizeTracker.current);
-      window.removeEventListener("mousemove", context.sharedState.userdata.mousePositionTracker.current, false);
-      window.removeEventListener("resize", context.sharedState.typing.eventInputLostFocus);
-      document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
+    if (!isBlackListEmpty && userData?.country && blacklistCountries.includes(userData.country)) {
+      setIsBlackListed(true);
     }
-    context.sharedState.finishedLoading = true;
-    context.setSharedState(context.sharedState);
-  }, [context, context.sharedState]);
+  }, [blacklistCountries, isBlackListEmpty, userData]);
 
   useEffect(() => {
     Aos.init({ duration: 2000, once: true });
@@ -93,7 +80,16 @@ export default function Home() {
     image: "/img/portrait.jpeg",
     type: "website",
   };
+
   const isProd = process.env.NODE_ENV === "production";
+
+  const handleExploreProducts = () => {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    document.getElementById("ProductsSection")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
@@ -122,23 +118,35 @@ export default function Home() {
           {showLoader ? <PlayfulLoader /> : null}
 
           {!showLoader ? (
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative min-h-screen w-full overflow-x-hidden bg-AAprimary"
-            >
-              <Header finishedLoading={true} sectionsRef={null} />
-              <MyName finishedLoading={true} />
-              <SocialMediaArround finishedLoading={true} />
-              <AboutMe />
-              <WhereIHaveWorked />
-              <FeaturedProducts />
-              <SomethingIveBuilt />
-              <GetInTouch />
-              <Footer githubUrl={"https://github.com/nguyenchaulinh97/portfolio"} hideSocialsInDesktop={true} />
-              {!isProd && <ScreenSizeDetector />}
-            </motion.div>
+            <>
+              <PortfolioStickerHunt
+                isOpen={isStickerHuntOpen}
+                onClose={() => setIsStickerHuntOpen(false)}
+                onExploreProducts={handleExploreProducts}
+              />
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="relative min-h-screen w-full overflow-x-hidden bg-AAprimary"
+              >
+                <Header />
+                <MyName onOpenStickerHunt={() => setIsStickerHuntOpen(true)} />
+                <SocialMediaArround />
+                <AboutMe />
+                <WhereIHaveWorked />
+                <FeaturedProducts />
+                <SomethingIveBuilt />
+                <GetInTouch />
+                <Footer
+                  githubUrl={"https://github.com/nguyenchaulinh97/portfolio"}
+                  hideSocialsInDesktop={true}
+                  onOpenStickerHunt={() => setIsStickerHuntOpen(true)}
+                />
+                {!isProd && <ScreenSizeDetector />}
+              </motion.div>
+            </>
           ) : null}
         </>
       ) : (

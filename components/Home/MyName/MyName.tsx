@@ -2,55 +2,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link as ReactScrollLink } from "react-scroll";
 import Img from "../../smallComp/image/Img";
+import { createFloatLoop } from "../ArtDirection/motionPresets";
+import { heroBadges, heroQuickFacts, heroWorkNotes } from "../portfolioContent";
 
-interface MyNameProps {
-  finishedLoading: boolean;
-}
+type MyNameProps = {
+  onOpenStickerHunt: () => void;
+};
 
-const badges = [
-  "Frontend Engineer",
-  "SSI Securities",
-  "Fintech UI",
-  "Design Systems",
-  "React + TypeScript",
-];
-
-const workNotes = [
-  {
-    title: "Live products",
-    text: "Built for people who need fast decisions, reliable data, and less friction.",
-    className: "rotate-[-3deg] bg-[#fff8ea] text-[#17223f]",
-  },
-  {
-    title: "How I work",
-    text: "Clear UI, scalable code, good team rhythm, and delivery that feels calm.",
-    className: "rotate-[2deg] bg-[#c7fbf4] text-[#17223f]",
-  },
-  {
-    title: "Recent focus",
-    text: "Trading platforms, CRM tools, onboarding journeys, and product-facing frontend systems.",
-    className: "rotate-[-2deg] bg-[#ffd7cf] text-[#17223f]",
-  },
-];
-
-const quickFacts = [
-  { label: "Experience", value: "7+ years" },
-  { label: "Current", value: "SSI Securities" },
-  { label: "Specialty", value: "UI x Product Systems" },
-];
-
-const transitionFor = (finishedLoading: boolean, delay: number) => ({
-  opacity: {
-    delay: finishedLoading ? 0 : delay,
-    duration: finishedLoading ? 0 : 0.2,
-  },
-  y: {
-    delay: finishedLoading ? 0 : delay,
-    duration: finishedLoading ? 0 : 0.2,
-  },
-});
-
-const MyName: React.FC<MyNameProps> = (props) => {
+export default function MyName({ onOpenStickerHunt }: MyNameProps) {
   return (
     <section className="relative overflow-hidden px-5 pb-20 pt-32 sm:px-8 sm:pb-24 sm:pt-44 md:px-16 lg:px-20 2xl:px-72">
       <div className="hero-grid absolute inset-0 opacity-[0.15]" />
@@ -63,7 +22,7 @@ const MyName: React.FC<MyNameProps> = (props) => {
           <motion.div
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={transitionFor(props.finishedLoading, 10.35)}
+            transition={{ duration: 0.3 }}
             className="sticker-chip inline-flex items-center gap-3 px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.24em] text-AAsecondary"
             style={{ rotate: "-2deg" }}
             whileHover={{ y: -2, rotate: 0 }}
@@ -75,7 +34,7 @@ const MyName: React.FC<MyNameProps> = (props) => {
           <motion.h1
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={transitionFor(props.finishedLoading, 10.5)}
+            transition={{ duration: 0.35, delay: 0.05 }}
             className="mt-7 max-w-4xl font-Header text-5xl leading-[0.96] text-[#fff8e7] sm:text-6xl lg:text-7xl xl:text-[5.2rem]"
           >
             Building playful clarity for serious digital products.
@@ -84,61 +43,46 @@ const MyName: React.FC<MyNameProps> = (props) => {
           <motion.p
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={transitionFor(props.finishedLoading, 10.58)}
+            transition={{ duration: 0.35, delay: 0.08 }}
             className="mt-4 max-w-2xl font-Hand text-2xl leading-tight text-[#ffe3a8] sm:text-[2rem]"
           >
-            Nguyen Chau Linh, turning dense workflows into interfaces that feel
-            friendly, fast, and trustworthy.
+            Nguyen Chau Linh, turning dense workflows into interfaces that feel friendly, fast, and trustworthy.
           </motion.p>
 
           <motion.div
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={transitionFor(props.finishedLoading, 10.68)}
+            transition={{ duration: 0.35, delay: 0.12 }}
             className="mt-8 max-w-3xl space-y-5 text-base leading-8 text-[#d5ddf2] sm:text-lg"
           >
             <p>
-              I&apos;m a{" "}
-              <span className="text-AAsecondary keyword-hover">
-                frontend engineer
-              </span>{" "}
-              focused on{" "}
+              I&apos;m a <span className="text-AAsecondary keyword-hover">frontend engineer</span> focused on{" "}
               <span className="text-AAsecondary keyword-hover">clean UI</span>,{" "}
-              <span className="text-AAsecondary keyword-hover">
-                scalable code
-              </span>
-              , and product experiences that make complex systems easier to
-              understand.
+              <span className="text-AAsecondary keyword-hover">scalable code</span>, and product experiences that make
+              complex systems easier to understand.
             </p>
             <p>
-              My recent work spans{" "}
-              <span className="text-AAsecondary keyword-hover">
-                fintech platforms
-              </span>{" "}
-              at{" "}
-              <span className="text-AAsecondary keyword-hover">
-                SSI Securities Corporation
-              </span>
-              , digital transformation delivery at{" "}
-              <span className="text-AAsecondary keyword-hover">
-                NAL Viet Nam
-              </span>
-              , and product flows where speed, trust, and maintainability all
-              matter at once.
+              My recent work spans <span className="text-AAsecondary keyword-hover">fintech platforms</span> at{" "}
+              <span className="text-AAsecondary keyword-hover">SSI Securities Corporation</span>, digital
+              transformation delivery at <span className="text-AAsecondary keyword-hover">NAL Viet Nam</span>, and
+              product flows where speed, trust, and maintainability all matter at once.
             </p>
           </motion.div>
 
           <motion.div
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={transitionFor(props.finishedLoading, 10.76)}
+            transition={{ duration: 0.35, delay: 0.16 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            {badges.map((badge, index) => (
+            {heroBadges.map((badge, index) => (
               <motion.div
                 key={badge}
-                animate={{ y: [0, index % 2 === 0 ? -4 : -6, 0] }}
-                transition={{ duration: 3 + index * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.18 }}
+                {...createFloatLoop({
+                  distance: index % 2 === 0 ? 4 : 6,
+                  duration: 3 + index * 0.25,
+                  delay: index * 0.18,
+                })}
                 className="inline-flex"
               >
                 <span className="sticker-chip inline-flex rotate-[-1deg] items-center rounded-full px-4 py-2 font-Mono text-[11px] uppercase tracking-[0.18em] text-[#eef3ff]">
@@ -151,7 +95,7 @@ const MyName: React.FC<MyNameProps> = (props) => {
           <motion.div
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={transitionFor(props.finishedLoading, 10.84)}
+            transition={{ duration: 0.35, delay: 0.2 }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
             <a href={"/resume.pdf"} target={"_blank"} rel="noreferrer">
@@ -170,13 +114,23 @@ const MyName: React.FC<MyNameProps> = (props) => {
             >
               See Live Products
             </ReactScrollLink>
+
+            <motion.button
+              type="button"
+              onClick={onOpenStickerHunt}
+              {...createFloatLoop({ distance: 3, duration: 3.4 })}
+              whileHover={{ y: -4, rotate: 0 }}
+              className="sticker-chip inline-flex rotate-[-2deg] items-center rounded-full border border-white/[0.14] px-5 py-3 font-Hand text-xl text-[#fff8e7]"
+            >
+              play sticker hunt
+            </motion.button>
           </motion.div>
         </div>
 
         <motion.div
           initial={{ y: 14, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={transitionFor(props.finishedLoading, 10.92)}
+          transition={{ duration: 0.4, delay: 0.16 }}
           className="relative mx-auto w-full max-w-[560px]"
         >
           <span className="sparkle-twinkle absolute left-5 top-16 h-4 w-4 rounded-full border border-white/30 bg-[#ffcf6e]/80" />
@@ -189,8 +143,7 @@ const MyName: React.FC<MyNameProps> = (props) => {
 
             <div className="relative flex items-center justify-between gap-3">
               <motion.div
-                animate={{ y: [0, -3, 0], rotate: [-4, -2, -4] }}
-                transition={{ duration: 3.7, repeat: Infinity, ease: "easeInOut" }}
+                {...createFloatLoop({ distance: 3, duration: 3.7, rotate: [-4, -2, -4] })}
                 className="sticker-chip inline-flex rounded-full px-4 py-2 font-Hand text-lg text-[#fff8e7]"
               >
                 profile crop
@@ -225,9 +178,7 @@ const MyName: React.FC<MyNameProps> = (props) => {
                   </div>
 
                   <div className="absolute bottom-4 left-4 right-4 rounded-[20px] border border-[#fff8ea]/70 bg-[#fff8ea]/[0.92] px-4 py-3 text-[#17223f] comic-shadow-soft">
-                    <div className="font-Hand text-2xl leading-none">
-                      From concept to release
-                    </div>
+                    <div className="font-Hand text-2xl leading-none">From concept to release</div>
                     <div className="mt-2 font-Mono text-[11px] uppercase tracking-[0.2em] text-[#31446f]">
                       calm interfaces for complex work
                     </div>
@@ -235,11 +186,14 @@ const MyName: React.FC<MyNameProps> = (props) => {
                 </div>
 
                 <div className="flex flex-col justify-between gap-4 py-1">
-                  {workNotes.map((note, index) => (
+                  {heroWorkNotes.map((note, index) => (
                     <motion.div
                       key={note.title}
-                      animate={{ y: [0, index % 2 === 0 ? -5 : -3, 0] }}
-                      transition={{ duration: 3.8 + index * 0.35, repeat: Infinity, ease: "easeInOut", delay: index * 0.14 }}
+                      {...createFloatLoop({
+                        distance: index % 2 === 0 ? 5 : 3,
+                        duration: 3.8 + index * 0.35,
+                        delay: index * 0.14,
+                      })}
                       className="w-full"
                     >
                       <div
@@ -255,27 +209,22 @@ const MyName: React.FC<MyNameProps> = (props) => {
             </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              {quickFacts.map((fact, index) => (
+              {heroQuickFacts.map((fact, index) => (
                 <motion.div
                   key={fact.label}
-                  animate={{ y: [0, index === 1 ? -4 : -3, 0] }}
-                  transition={{ duration: 3.4 + index * 0.2, repeat: Infinity, ease: "easeInOut", delay: index * 0.12 }}
+                  {...createFloatLoop({
+                    distance: index === 1 ? 4 : 3,
+                    duration: 3.4 + index * 0.2,
+                    delay: index * 0.12,
+                  })}
                 >
                   <div
                     className={`rounded-[22px] border border-white/[0.12] bg-white/[0.08] px-4 py-4 ${
-                      index === 1
-                        ? "rotate-[-1deg]"
-                        : index === 2
-                          ? "rotate-[1deg]"
-                          : ""
+                      index === 1 ? "rotate-[-1deg]" : index === 2 ? "rotate-[1deg]" : ""
                     }`}
                   >
-                    <div className="font-Mono text-[11px] uppercase tracking-[0.18em] text-[#ffe3a8]">
-                      {fact.label}
-                    </div>
-                    <div className="mt-2 font-Header text-lg text-[#fff8e7]">
-                      {fact.value}
-                    </div>
+                    <div className="font-Mono text-[11px] uppercase tracking-[0.18em] text-[#ffe3a8]">{fact.label}</div>
+                    <div className="mt-2 font-Header text-lg text-[#fff8e7]">{fact.value}</div>
                   </div>
                 </motion.div>
               ))}
@@ -285,6 +234,4 @@ const MyName: React.FC<MyNameProps> = (props) => {
       </div>
     </section>
   );
-};
-
-export default MyName;
+}

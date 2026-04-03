@@ -39,7 +39,6 @@ export default function TimerSpan({
       clearInterval(timerCountingInterval.current); //clear interval when input is lost focus
     } else {
       timerCountingInterval.current = setInterval(() => {
-        console.log("Timer executing...", seconds.current);
         seconds.current--;
         setSecondsState(seconds.current);
 

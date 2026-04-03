@@ -2,120 +2,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
 import DoodleMascot from "../ArtDirection/DoodleMascot";
+import { stickerHover } from "../ArtDirection/motionPresets";
 import ScribbleDivider from "../ArtDirection/ScribbleDivider";
 import SectionHeader from "../ArtDirection/SectionHeader";
-
-type Experience = {
-  buttonLabel: string;
-  company: string;
-  role: string;
-  period: string;
-  location?: string;
-  bullets: string[];
-  stack: string[];
-  note: string;
-  paperClass: string;
-};
-
-const experiences: Experience[] = [
-  {
-    buttonLabel: "SSI",
-    company: "SSI Securities Corporation",
-    role: "Software Engineer",
-    period: "Aug 2024 - Present",
-    location: "Hanoi",
-    bullets: [
-      "Built and maintained real-time trading experiences, including price boards, order flows, and broker management tools.",
-      "Delivered internal CRM tools and an AI chatbot to support investor services and operations.",
-      "Worked as Scrum Master for a 16-person cross-functional team, helping organize sprint planning and delivery cadence.",
-      "Collaborated across business and engineering teams to ship financial technology features quickly and reliably.",
-    ],
-    stack: ["JavaScript", "TypeScript", "React", "Next.js", "Zustand", "React Query", "WebSocket", "SCSS/SASS", "CI/CD"],
-    note: "current chapter",
-    paperClass: "bg-[#fff6df]",
-  },
-  {
-    buttonLabel: "NAL Viet Nam",
-    company: "NAL Viet Nam",
-    role: "Frontend Developer",
-    period: "Dec 2022 - Jul 2024",
-    location: "Hanoi, Vietnam",
-    bullets: [
-      "Built digital products and transformation initiatives for Japanese clients, including Softbank, with a strong focus on quality and security.",
-      "Designed and implemented a Metaverse game for a virtual university in Japan.",
-      "Used testing and delivery workflows to keep frontend code reliable, maintainable, and ready for production.",
-      "Contributed to product teams working across business requirements, technical delivery, and user experience improvements.",
-    ],
-    stack: ["React", "Redux", "TypeScript", "PhaserJS", "React Testing Library", "Jest", "AWS", "Docker", "CI/CD"],
-    note: "transformation work",
-    paperClass: "bg-[#eef7ff]",
-  },
-  {
-    buttonLabel: "Maritime",
-    company: "Maritime Bank Vietnam",
-    role: "Card Tech and Merchandising Consultant",
-    period: "Feb 2020 - Jan 2022",
-    location: "Vietnam",
-    bullets: [
-      "Worked on digital transformation and security-focused banking experiences.",
-      "Designed the frontend for the Merchant Management System and Web Payment Portal.",
-      "Built a chatbot solution for departments including Legal and Human Resources.",
-      "Developed the FCCom card management frontend using Angular, Node.js, and GitLab in an Agile/Scrum environment.",
-    ],
-    stack: ["Angular", "Node.js", "GitLab", "Security Authentication", "Chatbot Workflows", "Agile/Scrum"],
-    note: "payments + merchant tools",
-    paperClass: "bg-[#fff0ec]",
-  },
-  {
-    buttonLabel: "Appota",
-    company: "Appota",
-    role: "Frontend Developer",
-    period: "Jun 2019 - Dec 2019",
-    location: "Hanoi, Vietnam",
-    bullets: [
-      "Built web and mobile product experiences as part of the Appota team.",
-      "Developed a CMS for Appwifi using React, Redux, TypeScript, and React Native.",
-      "Designed and launched the landing page for the Wifi Coffee service.",
-    ],
-    stack: ["React", "Redux", "TypeScript", "React Native", "CMS"],
-    note: "consumer product sprint",
-    paperClass: "bg-[#e6fbf4]",
-  },
-  {
-    buttonLabel: "Viettel",
-    company: "Viettel Network",
-    role: "Software Engineer Contributor",
-    period: "Feb 2018 - May 2019",
-    location: "Hanoi, Vietnam",
-    bullets: [
-      "Contributed to web applications at the Software Development Center.",
-      "Applied Java, Spring, and microservices training while building product features.",
-      "Worked with React, Node.js, HTML, CSS, JavaScript, and Python across internal projects.",
-    ],
-    stack: ["React", "Node.js", "Java", "Spring", "Microservices", "Python"],
-    note: "foundation builder",
-    paperClass: "bg-[#fff6df]",
-  },
-  {
-    buttonLabel: "VCCorp",
-    company: "VCCorp Corporation",
-    role: "Engineer Intern",
-    period: "Jun 2017 - Jan 2018",
-    location: "Hanoi, Vietnam",
-    bullets: [
-      "Supported front-end web projects and source control workflows.",
-      "Converted PSD designs into HTML and CSS layouts while building core web fundamentals.",
-      "Gained early experience with JavaScript, ASP.NET, databases, GitHub, GitLab, and Bitbucket.",
-    ],
-    stack: ["HTML", "CSS", "JavaScript", "ASP.NET", "Databases", "Git"],
-    note: "first web chapter",
-    paperClass: "bg-[#eef7ff]",
-  },
-];
+import { experienceEntries } from "../portfolioContent";
 
 export default function WhereIHaveWorked() {
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const experience = experiences[activeIndex];
+  const experience = experienceEntries[activeIndex];
 
   return (
     <section
@@ -221,11 +115,10 @@ function ExperienceTabs({
       <div className="paper-panel rounded-[30px] p-4">
         <div className="font-Mono text-[10px] uppercase tracking-[0.24em] text-[#ffe3a8]">Select a chapter</div>
         <div className="mt-4 flex gap-3 overflow-x-auto pb-2 xl:flex-col xl:overflow-visible">
-          {experiences.map((experience, index) => (
+          {experienceEntries.map((experience, index) => (
             <motion.button
               key={experience.company}
-              whileHover={{ y: -4, rotate: 0 }}
-              transition={{ duration: 0.18 }}
+              {...stickerHover}
               onClick={() => setActiveIndex(index)}
               className={`min-w-[150px] rounded-[22px] border px-4 py-4 text-left transition duration-300 xl:min-w-0 ${
                 activeIndex === index

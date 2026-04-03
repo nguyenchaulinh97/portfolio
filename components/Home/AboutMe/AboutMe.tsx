@@ -3,50 +3,11 @@ import { motion } from "framer-motion";
 import Img from "../../../components/smallComp/image/Img";
 import DoodleMascot from "../ArtDirection/DoodleMascot";
 import ScribbleDivider from "../ArtDirection/ScribbleDivider";
+import { stickerHover } from "../ArtDirection/motionPresets";
 import SectionHeader from "../ArtDirection/SectionHeader";
+import { aboutPrincipleCards, aboutSkillClusters } from "../portfolioContent";
 
 interface AboutMeProps {}
-
-const principleCards = [
-  {
-    title: "Clarity first",
-    text: "I like interfaces that feel approachable even when the workflow underneath is dense.",
-    className: "rotate-[-2deg] bg-[#fff6df]",
-  },
-  {
-    title: "Built to last",
-    text: "Maintainable structure, testing discipline, and clean state management matter just as much as visual polish.",
-    className: "rotate-[1.5deg] bg-[#c7fbf4]",
-  },
-  {
-    title: "Team rhythm",
-    text: "The best product work happens when engineering, business, and design stay aligned without unnecessary friction.",
-    className: "rotate-[2deg] bg-[#ffd7cf]",
-  },
-];
-
-const skillClusters = [
-  {
-    title: "Frontend Core",
-    items: ["React", "Next.js", "TypeScript", "Zustand"],
-    className: "rotate-[-1.5deg] bg-[#fff6df]",
-  },
-  {
-    title: "Product Delivery",
-    items: ["Redux", "React Query", "Testing", "CI/CD"],
-    className: "rotate-[1.2deg] bg-[#eef7ff]",
-  },
-  {
-    title: "UI Craft",
-    items: ["SCSS/SASS", "Design Systems", "Accessibility", "Responsive UI"],
-    className: "rotate-[-1deg] bg-[#fff0ec]",
-  },
-  {
-    title: "Ops Context",
-    items: ["AWS", "Docker", "Security/Auth", "Cross-team Delivery"],
-    className: "rotate-[1.8deg] bg-[#e6fbf4]",
-  },
-];
 
 const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
   return (
@@ -107,11 +68,10 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
               </div>
 
               <div className="grid gap-4 lg:grid-cols-3">
-                {principleCards.map(card => (
+                {aboutPrincipleCards.map(card => (
                   <motion.div
                     key={card.title}
-                    whileHover={{ y: -6, rotate: 0 }}
-                    transition={{ duration: 0.2 }}
+                    {...stickerHover}
                     className={`rounded-[26px] border-2 border-[#24335b]/10 px-5 py-5 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${card.className}`}
                   >
                     <div className="font-Header text-lg font-bold">{card.title}</div>
@@ -147,11 +107,10 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
               </motion.figure>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                {skillClusters.map(cluster => (
+                {aboutSkillClusters.map(cluster => (
                   <motion.div
                     key={cluster.title}
-                    whileHover={{ y: -5, rotate: 0 }}
-                    transition={{ duration: 0.2 }}
+                    {...stickerHover}
                     className={`rounded-[26px] border-2 border-[#24335b]/10 p-5 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${cluster.className}`}
                   >
                     <div className="font-Header text-lg font-bold">{cluster.title}</div>

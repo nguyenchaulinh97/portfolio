@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, useContext } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import TimerSpan from "../../components/TypingProject/timer/TimerSpan";
 import Footer from "../../components/TypingProject/Footer/Footer";
 import TypingStatistics from "../../components/TypingProject/Statistics/TypingStatistics";
@@ -10,7 +10,7 @@ import {
 } from "../../components/TypingProject/Functions/functions";
 import CursorCarrotComp from "../../components/TypingProject/CursorCarotComp/CursorCarotComp";
 import { ActiveWordWithIndex, Data, Statistics } from "../../components/TypingProject/Types/types";
-import AppContext from "../../components/AppContextFolder/AppContext";
+import { useAppContext } from "../../components/AppContextFolder/AppContext";
 
 // let keyboardEvent; // this variable will hold the keyboard event callback function;
 export default function Home() {
@@ -26,15 +26,16 @@ export default function Home() {
   const [inputLostFocus, setInputLostFocus] = useState(false);
   const timeToType: number = 180; // default time to type
   const seconds = useRef<number>(timeToType); // this useRef will hold the remaining seconds to type
-  const timerCountingInterval = useRef(); // this useRef will hold the interval that is used in TimerSpan Component
+  const timerCountingInterval = useRef<ReturnType<typeof setInterval> | null>(null); // this useRef will hold the interval that is used in TimerSpan Component
   const [statistics, setStatistics] = useState<Statistics>([]); // this state will hold the statistics after user finish typing
   const [isStartedTyping, seIsStartedTyping] = useState<boolean>(false); // this state will hold if user started typing
-  const context = useContext(AppContext);
+  const context = useAppContext();
 
   //  this restart will be assigned again in each render only when roundCounter increase
   const restart = useCallback(() => {
-    document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
-    console.log("event Listener is Removed!!!!!!!!!!");
+    if (context.sharedState.typing.keyboardEvent) {
+      document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
+    }
     seconds.current = timeToType; // update the seconds to default value again
     getData(setMyText, setActiveWordWithIndex, setRoundCounter, roundCounter);
     setActiveWordWithIndex(null);
@@ -43,51 +44,55 @@ export default function Home() {
       inputRef.current.value = "";
     }
   }, [context.sharedState.typing.keyboardEvent, roundCounter]);
-  // print myText
-  console.log("myText : ", myText);
   // update Statistics state
   const updateStatistics = useCallback(() => {
-    statistics.push({
+    setStatistics(current => [
+      ...current,
+      {
       round: roundCounter,
       wpm: calculateWpm(myText[1], timeToType - seconds.current),
       accuracy: calculateAccuracy(myText[1]),
-    });
-    setStatistics([...statistics]);
-  }, [myText, roundCounter, statistics]);
+      },
+    ]);
+  }, [myText, roundCounter]);
 
   // add event listener to track window size to change inputLostFocus Element height
   useEffect(() => {
     if (inputLostFocus) {
       context.sharedState.typing.eventInputLostFocus = () => {
-        console.log("window is resized..Changing inputLostFocus height");
         if (absoluteTextINputRef.current?.style && inputLostFocus) {
-          absoluteTextINputRef.current.style.height = textInputRef.current.clientHeight + "px";
+          absoluteTextINputRef.current.style.height = `${textInputRef.current?.clientHeight ?? 0}px`;
         }
       };
-      window.addEventListener("resize", context.sharedState.typing.eventInputLostFocus);
+      if (context.sharedState.typing.eventInputLostFocus) {
+        window.addEventListener("resize", context.sharedState.typing.eventInputLostFocus);
+      }
     } else {
-      // delete event listener when it's Focused
-      window.removeEventListener("resize", context.sharedState.typing.eventInputLostFocus);
+      if (context.sharedState.typing.eventInputLostFocus) {
+        window.removeEventListener("resize", context.sharedState.typing.eventInputLostFocus);
+      }
     }
+
+    return () => {
+      if (context.sharedState.typing.eventInputLostFocus) {
+        window.removeEventListener("resize", context.sharedState.typing.eventInputLostFocus);
+      }
+    };
   }, [context.sharedState.typing, inputLostFocus]);
 
   // this useEffect will be called when the component is rendered for the first time and will keep focus on input
   useEffect(() => {
     if (myText[0].length == 0) {
-      console.log("#useEffect Getting Data.......");
       getData(setMyText, setActiveWordWithIndex, setRoundCounter, roundCounter); // setMyText is the callback function
     }
     inputRef.current?.focus();
-    console.log("useEffect executed...");
   }, [myText, activeWordWithIndex, isFinished, roundCounter]);
   // this useEffect will be called each time restart is changed, it will initialize the keyboard event
   useEffect(() => {
     inputRef.current?.focus();
     context.sharedState.typing.keyboardEvent = (e: KeyboardEvent) => {
-      console.log("KeyDown Detected : ", e.code);
       if ((e.metaKey || e.ctrlKey) && e.code === "Slash") {
         restart();
-        console.log("Restarted By Shortcut!!!!");
       }
     };
   }, [context.sharedState.typing, restart]);
@@ -95,20 +100,27 @@ export default function Home() {
   // add event listener when the user finished typing
   useEffect(() => {
     if (isFinished) {
-      console.log("event Listener added!!!");
-      document.addEventListener("keydown", context.sharedState.typing.keyboardEvent);
+      if (context.sharedState.typing.keyboardEvent) {
+        document.addEventListener("keydown", context.sharedState.typing.keyboardEvent);
+      }
     }
+
+    return () => {
+      if (context.sharedState.typing.keyboardEvent) {
+        document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
+      }
+    };
   }, [context.sharedState.typing.keyboardEvent, isFinished]);
 
   // this will handle new round conditions.
   useEffect(() => {
-    console.log("event Listener is Removed!!!!!!!!!!");
-    document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
+    if (context.sharedState.typing.keyboardEvent) {
+      document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
+    }
     if (inputRef.current?.value) {
       inputRef.current.value = "";
     }
     setIsFinished(false); // set isFinished to false each time roundCounter changes that means each new round
-    console.log("useEffect RoundCounter executed...");
   }, [context.sharedState.typing.keyboardEvent, roundCounter]);
 
   // this useEffect will handle inputLostFocus state
@@ -122,28 +134,19 @@ export default function Home() {
     }
   }, [inputLostFocus]);
 
-  // useEffect to clear EventListener of others projects
   useEffect(() => {
-    // remove the interval Cookie timer setter when
-    if (typeof window !== "undefined") {
-      // remove the interval cookie timer setter of UserDataPuller
-      clearInterval(context.sharedState.userdata.timerCookieRef.current);
-      // remove UserDataPuller project EventListeners
-      window.removeEventListener("resize", context.sharedState.userdata.windowSizeTracker.current);
-      window.removeEventListener("mousemove", context.sharedState.userdata.mousePositionTracker.current, false);
-      // remove Portfolio project NavBar EventListeners
-      window.removeEventListener("scroll", context.sharedState.portfolio.NavBar.IntervalEvent);
-      context.sharedState.portfolio.NavBar.IntervalEvent = null;
-      context.sharedState.portfolio.NavBar.scrolling = null;
-      context.sharedState.portfolio.NavBar.scrollSizeY = null;
-    }
-  }, [context.sharedState]);
+    return () => {
+      if (context.sharedState.typing.eventInputLostFocus) {
+        window.removeEventListener("resize", context.sharedState.typing.eventInputLostFocus);
+        context.sharedState.typing.eventInputLostFocus = null;
+      }
 
-  // console.log("rounded Count : ", roundCounter);
-  // console.log("page re-rendered...");
-  // console.log("data : ", myText);
-  // console.log("Active Word : ", activeWordWithIndex);
-  // console.log("CursorPosition : ", myText[2].CursorPosition);
+      if (context.sharedState.typing.keyboardEvent) {
+        document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
+        context.sharedState.typing.keyboardEvent = null;
+      }
+    };
+  }, [context.sharedState.typing]);
 
   return (
     <div
@@ -231,7 +234,6 @@ export default function Home() {
               <div className="w-full flex justify-center">
                 <input
                   onBlur={() => {
-                    console.log("input lost focus!!");
                     setInputLostFocus(true);
                   }}
                   ref={inputRef}

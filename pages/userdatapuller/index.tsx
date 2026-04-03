@@ -1,4 +1,4 @@
-import React, { useContext,useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import cookieCutter from "cookie-cutter";
@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import About from "../../components/DataPullerProject/AboutComp/About";
 import Timer from "../../components/DataPullerProject/TimerComp/Timer";
 import BlockElem from "../../components/DataPullerProject/BlockElem/BlockElem";
-import AppContext from "../../components/AppContextFolder/AppContext";
+import { useAppContext } from "../../components/AppContextFolder/AppContext";
 import Loader from "../../components/Icons/Loader";
 import TableRow from "../../components/DataPullerProject/TableRow/TableRow";
 import LatLonTable from "../../components/DataPullerProject/LatLonTable/LatLonTable";
@@ -16,6 +16,8 @@ import {
   MouseWindowEventListners,
   onClickUpdateLocation,
   userInfo,
+  type ExtendedUserInfo,
+  type GpuTierPreview,
 } from "../../components/DataPullerProject/FuncVar/foo";
 
 // values
@@ -31,11 +33,11 @@ export default function Page() {
   const [updatingLocatinResult, setUpdatingLocatinResult] =
     useState<boolean>(false);
   // zip code holder
-  const [zipCode, setZipCode] = useState<string>(undefined);
+  const [zipCode, setZipCode] = useState<string | undefined>(undefined);
   // userData Ref holder
-  const userData = useRef(null);
+  const userData = useRef<ExtendedUserInfo | null>(null);
   // gpu Detector state holder
-  const [gpuTier, setGpuTier] = useState(null);
+  const [gpuTier, setGpuTier] = useState<GpuTierPreview>(null);
   const windowWidth = useRef<HTMLSpanElement>(null);
   const windowHeight = useRef<HTMLSpanElement>(null);
   const mouseX = useRef<HTMLSpanElement>(null);
@@ -49,10 +51,9 @@ export default function Page() {
   let firstVisit_Ref = useRef<HTMLSpanElement>(null);
   let lastVisit_Ref = useRef<HTMLSpanElement>(null);
   // context for Shared State
-  const context = useContext(AppContext);
+  const context = useAppContext();
 
   useEffect(() => {
-    // call CookieTimeCounter function here in useEffect once
     CookieTimeCounter({
       context,
       secUnits,
@@ -61,7 +62,6 @@ export default function Page() {
       minTens,
       cookieCutter,
     });
-    // call MouseWindowEventListners function here in useEffect once
     MouseWindowEventListners({
       context,
       windowWidth,
@@ -70,33 +70,33 @@ export default function Page() {
       mouseY,
     });
 
-    // call the async function "userInfo"  inside the useEffect to get the user Data and set them in the DOM
     userInfo({
       setLocation,
       setZipCode,
       setGpuTier,
       userData,
       cookieCutter,
-      lastVisit_Ref,
-      firstVisit_Ref,
+      lastVisitRef: lastVisit_Ref,
+      firstVisitRef: firstVisit_Ref,
     });
-  }, [context]);
 
-  // useEffect to clear others projects
-  useEffect(() => {
-  // remove the interval Cookie timer setter when
-  if (typeof window !== "undefined") {
-    // remove Typing project EventListeners
-    window.removeEventListener("resize", context.sharedState.typing.eventInputLostFocus);
-    document.removeEventListener("keydown", context.sharedState.typing.keyboardEvent);
-    // remove Portfolio project NavBar EventListeners
-    window.removeEventListener("scroll", context.sharedState.portfolio.NavBar.IntervalEvent);
-    context.sharedState.portfolio.NavBar.IntervalEvent = null;
-    context.sharedState.portfolio.NavBar.scrolling = null;
-    context.sharedState.portfolio.NavBar.scrollSizeY = null;
+    return () => {
+      if (context.sharedState.userdata.timerCookieRef.current) {
+        clearInterval(context.sharedState.userdata.timerCookieRef.current);
+        context.sharedState.userdata.timerCookieRef.current = null;
+      }
 
-  }
-  }, [context.sharedState]);
+      if (context.sharedState.userdata.windowSizeTracker.current) {
+        window.removeEventListener("resize", context.sharedState.userdata.windowSizeTracker.current);
+        context.sharedState.userdata.windowSizeTracker.current = null;
+      }
+
+      if (context.sharedState.userdata.mousePositionTracker.current) {
+        window.removeEventListener("mousemove", context.sharedState.userdata.mousePositionTracker.current, false);
+        context.sharedState.userdata.mousePositionTracker.current = null;
+      }
+    };
+  }, [context, firstVisit_Ref, lastVisit_Ref, minTens, minUnits, mouseX, mouseY, secTens, secUnits, windowHeight, windowWidth]);
 
   // import Dynamically the Map component from the DataPuller package, cus it's using some client side objects
   const Map = dynamic(

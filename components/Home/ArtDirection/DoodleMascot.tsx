@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { createFloatLoop } from "./motionPresets";
 
 type DoodleMascotProps = {
   speech?: string;
@@ -19,8 +20,7 @@ export default function DoodleMascot({
       className={`relative h-56 w-44 ${className ?? ""}`}
     >
       <motion.div
-        animate={{ y: [0, -3, 0], rotate: [5, 3, 5] }}
-        transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+        {...createFloatLoop({ distance: 3, duration: 3.8, rotate: [5, 3, 5] })}
         className="absolute right-0 top-0 max-w-[160px] rounded-[22px] border-2 border-[#24335b]/10 bg-[#fff8ea] px-4 py-3 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.12)]"
       >
         <div className="font-Hand text-xl leading-tight">{speech}</div>

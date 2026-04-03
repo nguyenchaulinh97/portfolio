@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
+import { createFloatLoop } from "./motionPresets";
 
 type SectionHeaderProps = {
   number: string;
@@ -48,8 +49,7 @@ export default function SectionHeader({
         <div className="ml-10 mt-5 space-y-3 sm:ml-12">
           {sticker ? (
             <motion.div
-              animate={{ y: [0, -3, 0], rotate: [-2, 0, -2] }}
-              transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+              {...createFloatLoop({ distance: 3, duration: 3.8, rotate: [-2, 0, -2] })}
               className="inline-flex rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]"
             >
               {sticker}

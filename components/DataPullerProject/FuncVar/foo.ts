@@ -1,4 +1,60 @@
-// ? this will update secUnits each second, secTens, minUnits, minTens cookies then update the span from cookies values
+import type { Dispatch, MutableRefObject, RefObject, SetStateAction } from "react";
+import { detect } from "detect-browser";
+import { getGPUTier } from "detect-gpu";
+import type { AppContextValue } from "../../AppContextFolder/AppContext";
+import type { UserInfoResponse } from "../../../lib/userInfo";
+
+type SpanRef = RefObject<HTMLSpanElement>;
+type CookieApi = {
+  get: (key: string) => string | undefined;
+  set: (key: string, value: string) => void;
+};
+
+export type ExtendedUserInfo = UserInfoResponse & {
+  browser?: string;
+  browserVersion?: string;
+  browserOS?: string;
+  screenWidth?: number;
+  screenHeight?: number;
+  screenOrientationType?: string;
+  screenColorDepth?: string;
+  NavigatorLanguages?: readonly string[];
+  NavigatorLogicalCores?: string;
+  batteryLevel?: string;
+};
+
+export type GpuTierPreview = {
+  gpu?: string;
+  fps?: number;
+} | null;
+
+type CookieTimeCounterProps = {
+  context: AppContextValue;
+  secUnits: SpanRef;
+  secTens: SpanRef;
+  minUnits: SpanRef;
+  minTens: SpanRef;
+  cookieCutter: CookieApi;
+};
+
+type MouseWindowEventListenersProps = {
+  context: AppContextValue;
+  windowWidth: SpanRef;
+  windowHeight: SpanRef;
+  mouseX: SpanRef;
+  mouseY: SpanRef;
+};
+
+type UserInfoProps = {
+  setLocation: Dispatch<SetStateAction<number[]>>;
+  setZipCode: Dispatch<SetStateAction<string | undefined>>;
+  setGpuTier: Dispatch<SetStateAction<GpuTierPreview>>;
+  userData: MutableRefObject<ExtendedUserInfo | null>;
+  cookieCutter: CookieApi;
+  lastVisitRef: SpanRef;
+  firstVisitRef: SpanRef;
+};
+
 export const CookieTimeCounter = ({
   context,
   secUnits,
@@ -6,245 +62,185 @@ export const CookieTimeCounter = ({
   minUnits,
   minTens,
   cookieCutter,
-}) => {
-  if (typeof window != undefined) {
-    // Cookie existence verification
-    if (cookieCutter.get("timer-sec-units")) {
-      console.log(
-        "current cookie timer-sec-units value in useEffect: ",
-        cookieCutter.get("timer-sec-units")
-      );
-    } else {
-      console.log("timer cookie not exist");
-      cookieCutter.set("timer-sec-units", String("0"));
-      cookieCutter.set("timer-sec-tens", String("0"));
-      cookieCutter.set("timer-min-units", String("0"));
-      cookieCutter.set("timer-min-tens", String("0"));
-    }
-    // set setInterval for the context.sharedState.userdata.timerCookieRef
-    context.sharedState.userdata.timerCookieRef.current = setInterval(
-      function () {
-        const countSec = Number(cookieCutter.get("timer-sec-units")) + 1;
-        cookieCutter.set("timer-sec-units", String(countSec));
-
-        if (countSec > 9) {
-          cookieCutter.set("timer-sec-units", String("0"));
-          cookieCutter.set(
-            "timer-sec-tens",
-            String(Number(cookieCutter.get("timer-sec-tens")) + 1)
-          );
-          const countSecTens = Number(cookieCutter.get("timer-sec-tens"));
-          if (countSecTens > 5) {
-            cookieCutter.set("timer-sec-tens", String("0"));
-            cookieCutter.set(
-              "timer-min-units",
-              String(Number(cookieCutter.get("timer-min-units")) + 1)
-            );
-            const countMinUnits = Number(cookieCutter.get("timer-min-units"));
-            if (countMinUnits > 9) {
-              cookieCutter.set("timer-min-units", String("0"));
-              cookieCutter.set(
-                "timer-min-tens",
-                String(Number(cookieCutter.get("timer-min-tens")) + 1)
-              );
-            }
-          }
-        }
-        // this checking is to prevent from type checking,
-        // "secUnits.current" will be undefined if it is not yet rendered on the other pages
-        if (secUnits.current) {
-          secUnits.current.innerText = cookieCutter.get("timer-sec-units");
-          secTens.current.innerText = cookieCutter.get("timer-sec-tens");
-          minUnits.current.innerText = cookieCutter.get("timer-min-units");
-          minTens.current.innerText = cookieCutter.get("timer-min-tens");
-        }
-
-        console.log("Cookie Timer Setter...");
-      },
-      1000
-    );
+}: CookieTimeCounterProps) => {
+  if (typeof window === "undefined") {
+    return;
   }
+
+  if (!cookieCutter.get("timer-sec-units")) {
+    cookieCutter.set("timer-sec-units", "0");
+    cookieCutter.set("timer-sec-tens", "0");
+    cookieCutter.set("timer-min-units", "0");
+    cookieCutter.set("timer-min-tens", "0");
+  }
+
+  context.sharedState.userdata.timerCookieRef.current = setInterval(() => {
+    const countSec = Number(cookieCutter.get("timer-sec-units")) + 1;
+    cookieCutter.set("timer-sec-units", String(countSec));
+
+    if (countSec > 9) {
+      cookieCutter.set("timer-sec-units", "0");
+      cookieCutter.set("timer-sec-tens", String(Number(cookieCutter.get("timer-sec-tens")) + 1));
+      const countSecTens = Number(cookieCutter.get("timer-sec-tens"));
+
+      if (countSecTens > 5) {
+        cookieCutter.set("timer-sec-tens", "0");
+        cookieCutter.set("timer-min-units", String(Number(cookieCutter.get("timer-min-units")) + 1));
+        const countMinUnits = Number(cookieCutter.get("timer-min-units"));
+
+        if (countMinUnits > 9) {
+          cookieCutter.set("timer-min-units", "0");
+          cookieCutter.set("timer-min-tens", String(Number(cookieCutter.get("timer-min-tens")) + 1));
+        }
+      }
+    }
+
+    if (secUnits.current && secTens.current && minUnits.current && minTens.current) {
+      secUnits.current.innerText = cookieCutter.get("timer-sec-units") ?? "0";
+      secTens.current.innerText = cookieCutter.get("timer-sec-tens") ?? "0";
+      minUnits.current.innerText = cookieCutter.get("timer-min-units") ?? "0";
+      minTens.current.innerText = cookieCutter.get("timer-min-tens") ?? "0";
+    }
+  }, 1000);
 };
 
-// ? Declare Mouse Event and Window size tracker event
 export const MouseWindowEventListners = ({
   context,
   windowWidth,
   windowHeight,
   mouseX,
   mouseY,
-}) => {
-  // assign context windowSize Ref here in useEffect once, so to make sure that it only assigned once
+}: MouseWindowEventListenersProps) => {
   context.sharedState.userdata.windowSizeTracker.current = () => {
-    if (windowWidth.current) {
+    if (windowWidth.current && windowHeight.current) {
       windowWidth.current.innerText = String(window.innerWidth);
       windowHeight.current.innerText = String(window.innerHeight);
     }
-    console.log("Window Size Tracker...");
   };
-  // assint mousePositionTracker.current here to use in the as fallback function for the event
-  // and to remove the event in the other pages
+
   context.sharedState.userdata.mousePositionTracker.current = event => {
-    if (mouseX.current) {
+    if (mouseX.current && mouseY.current) {
       mouseX.current.innerText = String(event.pageX);
       mouseY.current.innerText = String(event.pageY);
     }
-    console.log("Mouse Position Tracker...");
   };
-  // Apply this event Listener on Client
+
   if (typeof window !== "undefined") {
-    // window size tracker
-    window.addEventListener(
-      "resize",
-      context.sharedState.userdata.windowSizeTracker.current
-    );
-    // mouse position tracker
-    window.addEventListener(
-      "mousemove",
-      context.sharedState.userdata.mousePositionTracker.current,
-      false
-    );
+    if (context.sharedState.userdata.windowSizeTracker.current) {
+      window.addEventListener("resize", context.sharedState.userdata.windowSizeTracker.current);
+    }
+
+    if (context.sharedState.userdata.mousePositionTracker.current) {
+      window.addEventListener("mousemove", context.sharedState.userdata.mousePositionTracker.current, false);
+    }
   }
 };
 
-import { detect } from "detect-browser";
-import { getGPUTier } from "detect-gpu";
-// ? async function for getting user information. IP, location, zip code, browser, OS, GPU, etc.
 export const userInfo = async ({
   setLocation,
   setZipCode,
   setGpuTier,
   userData,
   cookieCutter,
-  lastVisit_Ref,
-  firstVisit_Ref,
-}) => {
-  // this api will return current ip address of the requester
-  const IP_Address = async () => {
-    return fetch("https://api.ipify.org/?format=json")
-      .then(res => res.json())
-      .then(data => data.ip);
-  };
-  // call api by passing the IP address of the requester & store in api_data
-  const api_data = async () => {
-    return fetch("/api/userInfoByIP/" + (await IP_Address()))
-      .then(res => res.json())
-      .then(data => data);
-  };
-  //to determine the browser info
+  lastVisitRef,
+  firstVisitRef,
+}: UserInfoProps) => {
+  const ipAddress = await fetch("https://api.ipify.org/?format=json")
+    .then(res => res.json())
+    .then(data => data.ip as string);
+
+  const result = (await fetch(`/api/userInfoByIP/${ipAddress}`).then(res => res.json())) as ExtendedUserInfo;
   const browser = detect();
-  // get user Data from the api
-  const result = await api_data();
-  // Client side checks
+
   if (browser) {
-    result["browser"] = browser.name;
-    result["browserVersion"] = browser.version;
-    result["browserOS"] = browser.os;
+    result.browser = browser.name;
+    result.browserVersion = browser.version;
+    result.browserOS = browser.os;
   }
-  if (screen) {
-    result["screenWidth"] = screen.width;
-    result["screenHeight"] = screen.height;
-    result["screenOrientationType"] = screen.orientation.type;
-    result["screenColorDepth"] = screen.colorDepth + " bits";
+
+  if (typeof screen !== "undefined") {
+    result.screenWidth = screen.width;
+    result.screenHeight = screen.height;
+    result.screenOrientationType = screen.orientation?.type ?? "";
+    result.screenColorDepth = `${screen.colorDepth} bits`;
   }
-  if (navigator) {
-    result["NavigatorLanguages"] = navigator.languages;
-    result["NavigatorLogicalCores"] = navigator.hardwareConcurrency + " cores";
-  }
-  // ? this will add battery level if it's supported on the browser
-  if (navigator) {
-    if (navigator.hasOwnProperty("getBattery")) {
-      //@ts-ignore
-      navigator.getBattery().then(battery => {
-        result["batteryLevel"] = battery.level + " %";
-        console.log("battery level : ", battery.level + " %");
-      });
+
+  if (typeof navigator !== "undefined") {
+    result.NavigatorLanguages = navigator.languages;
+    result.NavigatorLogicalCores = `${navigator.hardwareConcurrency} cores`;
+
+    if ("getBattery" in navigator) {
+      const batteryManager = await (navigator as Navigator & {
+        getBattery: () => Promise<{ level: number }>;
+      }).getBattery();
+      result.batteryLevel = `${batteryManager.level} %`;
     } else {
-      result["batteryLevel"] = "Not supported";
+      result.batteryLevel = "Not supported";
     }
   }
-  const temp_array_location = [];
-  temp_array_location.push(result.lat);
-  temp_array_location.push(result.lon);
-  setLocation([...temp_array_location]);
-  console.log("useEffect run, data :", result);
+
+  setLocation([result.lat, result.lon]);
   setZipCode(result.zip);
   userData.current = result;
-  // first & last visit tracker with conditional statement using cookies.
-  //it's inside userInfo function to get the current time by the ip Address
+
   if (cookieCutter.get("first-visit")) {
-    lastVisit_Ref.current.innerText = cookieCutter.get("last-visit");
+    if (lastVisitRef.current) {
+      lastVisitRef.current.innerText = cookieCutter.get("last-visit") ?? "Now";
+    }
     cookieCutter.set("last-visit", result.datetime);
   } else {
-    lastVisit_Ref.current.innerText = "Now";
+    if (lastVisitRef.current) {
+      lastVisitRef.current.innerText = "Now";
+    }
     cookieCutter.set("first-visit", result.datetime);
     cookieCutter.set("last-visit", result.datetime);
   }
-  firstVisit_Ref.current.innerText = cookieCutter.get("first-visit");
-  // set up gpuTier state value
-  const gpuTier_data = await getGPUTier();
-  setGpuTier(Object(gpuTier_data));
+
+  if (firstVisitRef.current) {
+    firstVisitRef.current.innerText = cookieCutter.get("first-visit") ?? "Now";
+  }
+
+  const gpuTierData = await getGPUTier();
+  setGpuTier({
+    gpu: gpuTierData.gpu,
+    fps: gpuTierData.fps,
+  });
 };
 
-// ? update Location on click event callback function
 export const onClickUpdateLocation = async (
-  setUpdatingLocatinResult,
-  setUpdatingLocation,
-  setLocation,
-  setZipCode
+  setUpdatingLocatinResult: Dispatch<SetStateAction<boolean>>,
+  setUpdatingLocation: Dispatch<SetStateAction<boolean>>,
+  setLocation: Dispatch<SetStateAction<number[]>>,
+  setZipCode: Dispatch<SetStateAction<string | undefined>>
 ) => {
   if (!navigator.geolocation) {
     alert("Geolocation is not supported by your browser");
     return;
   }
-  // function will be executed after permission is authorized
-  function success(position) {
+
+  function success(position: GeolocationPosition) {
     setLocation([position.coords.latitude, position.coords.longitude]);
-    const temp_array_location = [];
-    temp_array_location.push(position.coords.latitude);
-    temp_array_location.push(position.coords.longitude);
-    // set new lat and lon
-    setLocation([...temp_array_location]);
-    // Show Map
     setUpdatingLocation(false);
-    // Hide "Unable to retieve location" message
     setUpdatingLocatinResult(false);
 
-    // call the api by passing new lat and lon
-    const api_get_zip = async (lat, lon) => {
-      return fetch("/api/userInfoByLatLon/" + lat + "/" + lon)
+    const apiGetZip = async (lat: number, lon: number) => {
+      return fetch(`/api/userInfoByLatLon/${lat}/${lon}`)
         .then(res => res.json())
-        .then(data => {
-          return data;
-        });
+        .then(data => data.zipcode as string);
     };
-    // change zipcode useState
-    const setNewZip = async () =>
-      setZipCode(
-        await api_get_zip(position.coords.latitude, position.coords.longitude)
-      );
-    setNewZip();
 
-    console.log(
-      "Updated == > Longitude:",
-      position.coords.longitude,
-      "Latitude:",
-      position.coords.latitude
-    );
+    apiGetZip(position.coords.latitude, position.coords.longitude).then(zipCode => setZipCode(zipCode));
   }
-  // function will be executed after permission is denied
+
   function error() {
-    // error Show Unable to retieve location message
     setUpdatingLocatinResult(true);
-    //Show Map after failed to update location
     setUpdatingLocation(false);
   }
-  // ask for permission to access location
+
   navigator.geolocation.getCurrentPosition(success, error);
 };
 
-// data for Additional Information Section 1
-export const Additional_data = (userData, gpuTier) => {
+export const Additional_data = (userData: MutableRefObject<ExtendedUserInfo | null>, gpuTier: GpuTierPreview) => {
   return [
     { title: "Browser :", value: userData.current?.browser || "Checking..." },
     {
@@ -253,9 +249,7 @@ export const Additional_data = (userData, gpuTier) => {
     },
     {
       title: "Languages :",
-      value:
-        userData.current?.NavigatorLanguages.toString().replace(",", ", ") ||
-        "Checking...",
+      value: userData.current?.NavigatorLanguages?.join(", ") || "Checking...",
     },
     { title: "OS :", value: userData.current?.browserOS || "Checking..." },
     {
@@ -269,8 +263,7 @@ export const Additional_data = (userData, gpuTier) => {
   ];
 };
 
-// data for the table
-export const tableData = (userData, zipCode) => {
+export const tableData = (userData: MutableRefObject<ExtendedUserInfo | null>, zipCode: string | undefined) => {
   return [
     {
       title: "IP Address :",

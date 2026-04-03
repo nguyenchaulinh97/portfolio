@@ -1,4 +1,4 @@
-import { wordsStatus,Data,ActiveWordWithIndex } from "../Types/types";
+import { ActiveWordWithIndex, Data, WordsStatus } from "../Types/types";
 
 /**
  * @note use minLength & maxLength to limit the quote length
@@ -15,7 +15,7 @@ export const getData = async (
     .then(data => {
       // ?UNCOMMENT THIS TO MODIFY THE QUOTE FOR TESTING
       // data.quote = "j";
-      const wordsAndStatus: wordsStatus = []; // this aaay will hold the words and their status
+      const wordsAndStatus: WordsStatus = []; // this aaay will hold the words and their status
       data.quote.split(" ").forEach((item: string, index: number) => {
         const word = () => {
           if (data.quote.split(" ").length - 1 == index) {
@@ -70,6 +70,10 @@ export const getData = async (
 type CharAndColor = { char: string; charColor: string };
 // this function will calculate the wpm
 export const calculateWpm = (input: CharAndColor[], time: number) => {
+  if (time <= 0) {
+    return 0;
+  }
+
   let cpm = 0;
   for (let i = 0; i < input.length; i++) {
     if (input[i].charColor == "text-AAsecondary") {
@@ -83,12 +87,16 @@ export const calculateWpm = (input: CharAndColor[], time: number) => {
 
 // this function will calculate the accuracy
 export const calculateAccuracy = (input: CharAndColor[]) => {
+  if (input.length === 0) {
+    return 0;
+  }
+
   let correct = 0;
   let incorrect = 0;
   for (let i = 0; i < input.length; i++) {
     if (input[i].charColor == "text-AAsecondary") {
       correct++;
-    } else if (input[i].charColor == "text-AAerror") {
+    } else if (input[i].charColor == "text-AAError") {
       incorrect++;
     }
   }
@@ -104,7 +112,7 @@ export const handleOnChangeInput = (
   myText:Data,
   setMyText:React.Dispatch<React.SetStateAction<Data>>,
   setIsFinished:React.Dispatch<React.SetStateAction<boolean>>,
-  timerCountingInterval:React.MutableRefObject<undefined>,
+  timerCountingInterval:React.MutableRefObject<ReturnType<typeof setInterval> | null>,
   updateStatistics:() => void,
 ) => {
   /**
@@ -146,7 +154,6 @@ export const handleOnChangeInput = (
   setMyText([...myText]); // update the state
   // Checking if the user finished typing by checking if the last char gray color is changed!
   if (!(myText[1][myText[1].length - 1].charColor === "text-gray-500")) {
-    console.log("Player Finished typing!!");
     updateStatistics(); // update statistics
     /**
      * @note :  next line will prevent from showing the previous text when user restarts

@@ -1,59 +1,23 @@
-export default async function handler(req, res) {
-   const HasZipCode = obj => {
-      for (const x of obj) {
-        const elem = x.address_components;
-        if (!isNaN(elem[elem.length - 1].long_name.replaceAll(' ', ''))) {
-          return elem[elem.length - 1].long_name;
-        }
-      }
-      return "00000";
-    };
-    const getcoding = async (lat: string, lon: string) => {
-      return fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=` +
-          lat +
-          `,` +
-          lon +
-          `&key=` +
-          process.env.NEXT_PUBLIC_KEY_GOOGLE_API
-      )
-        .then(res => res.json())
-        .then(data => {
-          const result = data.results;
-          return HasZipCode(result);
-          // return data;
-        })
-        .catch(err => {
-          console.error("When fetching data from google api : \n", err);
-          return "00000";
-        });
-    };
-    const geolocation = async ip => {
-      return fetch(`http://ip-api.com/json/` + ip)
-        .then(res => res.json())
-        .then(async data => {
-          return  {
-            zip: await getcoding(data.lat, data.lon),
-            country: data.country,
-            countryCode: data.countryCode,
-            region: data.region,
-            regionName: data.regionName,
-            city: data.city,
-            datetime: new Date().toLocaleString("en-US", {
-              timeZone: data.timezone,
-            }),
-            lat: data.lat,
-            lon: data.lon,
-            timezone: data.timezone,
-            isp: data.isp,
-            org: data.org,
-            as: data.as,
-            query: data.query,
-          };
-         
-        })
-        .catch(err => console.log(err));
-    };
-    const result = await geolocation(req.query.userInfo);
-   res.status(200).json(result)
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getUserInfoByIp, UserInfoResponse } from "../../../lib/userInfo";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<UserInfoResponse | { error: string }>) {
+  if (req.method !== "GET") {
+    res.setHeader("Allow", ["GET"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
+
+  const ipAddress = req.query.userInfo;
+
+  if (!ipAddress || Array.isArray(ipAddress)) {
+    return res.status(400).json({ error: "Invalid IP address parameter" });
+  }
+
+  const result = await getUserInfoByIp(ipAddress);
+
+  if (!result) {
+    return res.status(502).json({ error: "Unable to resolve user info" });
+  }
+
+  return res.status(200).json(result);
+}

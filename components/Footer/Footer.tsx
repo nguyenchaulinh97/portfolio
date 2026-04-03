@@ -5,6 +5,7 @@ import GithubIcon from "../Icons/GithubIcon";
 import InstagramIcon from "../Icons/InstagramIcon";
 import LinkedinIcon from "../Icons/LinkedinIcon";
 import ScribbleDivider from "../Home/ArtDirection/ScribbleDivider";
+import { createFloatLoop } from "../Home/ArtDirection/motionPresets";
 
 const iconsData = [
   { href: "https://github.com/nguyenchaulinh97", Icon: GithubIcon, label: "GitHub" },
@@ -13,7 +14,7 @@ const iconsData = [
   { href: "https://fb.com/smthabtcl", Icon: FacebookIcon, label: "Facebook" },
 ];
 
-export default function Footer(props: { githubUrl: string; hideSocialsInDesktop: boolean }) {
+export default function Footer(props: { githubUrl: string; hideSocialsInDesktop: boolean; onOpenStickerHunt?: () => void }) {
   return (
     <footer className="bg-AAprimary px-4 pb-10 pt-2 sm:px-16 lg:px-24 2xl:px-72">
       <div className="mx-auto max-w-[1200px]">
@@ -22,11 +23,7 @@ export default function Footer(props: { githubUrl: string; hideSocialsInDesktop:
         <div className="comic-panel mt-6 overflow-hidden rounded-[32px] p-6 sm:p-8">
           <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
             <div>
-              <motion.div
-                animate={{ y: [0, -3, 0], rotate: [-3, -1, -3] }}
-                transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
-                className="inline-flex rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]"
-              >
+              <motion.div {...createFloatLoop({ distance: 3, duration: 3.6, rotate: [-3, -1, -3] })} className="inline-flex rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]">
                 thanks for visiting
               </motion.div>
 
@@ -38,6 +35,18 @@ export default function Footer(props: { githubUrl: string; hideSocialsInDesktop:
                 This site keeps evolving with my work, products, and visual direction. The current version leans into
                 a more illustrated, sticker-board style while staying useful for recruiters and collaborators.
               </p>
+
+              {props.onOpenStickerHunt ? (
+                <motion.button
+                  type="button"
+                  onClick={props.onOpenStickerHunt}
+                  {...createFloatLoop({ distance: 3, duration: 3.4 })}
+                  whileHover={{ y: -4, rotate: 0 }}
+                  className="mt-6 inline-flex rounded-full border border-white/[0.12] bg-white/[0.08] px-5 py-3 font-Hand text-xl text-[#fff8e7]"
+                >
+                  play sticker hunt
+                </motion.button>
+              ) : null}
             </div>
 
             <motion.div

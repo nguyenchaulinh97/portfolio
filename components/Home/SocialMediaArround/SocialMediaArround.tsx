@@ -4,6 +4,7 @@ import FacebookIcon from "../../Icons/FacebookIcon";
 import GithubIcon from "../../Icons/GithubIcon";
 import InstagramIcon from "../../Icons/InstagramIcon";
 import LinkedinIcon from "../../Icons/LinkedinIcon";
+import { createFloatLoop } from "../ArtDirection/motionPresets";
 
 const socialLinks = [
   { href: "https://github.com/nguyenchaulinh97", Icon: GithubIcon, label: "GitHub", rotate: "rotate-[-4deg]" },
@@ -27,28 +28,18 @@ const socialLinks = [
   },
 ];
 
-export default function SocialMediaEmail(props: { finishedLoading: boolean }) {
+export default function SocialMediaArround() {
   return (
     <>
       <motion.div
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{
-          y: {
-            delay: props.finishedLoading ? 0 : 11,
-            duration: props.finishedLoading ? 0 : 0.4,
-          },
-          opacity: {
-            delay: props.finishedLoading ? 0 : 11,
-            duration: props.finishedLoading ? 0 : 0.3,
-          },
-        }}
+        transition={{ duration: 0.35, delay: 0.18 }}
         className="fixed bottom-8 left-5 z-20 hidden lg:flex xl:left-8"
       >
         <div className="flex flex-col items-center gap-4">
           <motion.div
-            animate={{ y: [0, -3, 0], rotate: [-6, -4, -6] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+            {...createFloatLoop({ distance: 3, duration: 3.5, rotate: [-6, -4, -6] })}
             className="rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]"
           >
             find me
@@ -59,8 +50,7 @@ export default function SocialMediaEmail(props: { finishedLoading: boolean }) {
             {socialLinks.map((link, index) => (
               <motion.div
                 key={link.href}
-                animate={{ y: [0, index % 2 === 0 ? -4 : -6, 0] }}
-                transition={{ duration: 3.1 + index * 0.2, repeat: Infinity, ease: "easeInOut", delay: index * 0.14 }}
+                {...createFloatLoop({ distance: index % 2 === 0 ? 4 : 6, duration: 3.1 + index * 0.2, delay: index * 0.14 })}
               >
                 <motion.a
                   href={link.href}
@@ -84,25 +74,13 @@ export default function SocialMediaEmail(props: { finishedLoading: boolean }) {
       <motion.div
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{
-          y: {
-            delay: props.finishedLoading ? 0 : 11,
-            duration: props.finishedLoading ? 0 : 0.4,
-          },
-          opacity: {
-            delay: props.finishedLoading ? 0 : 11,
-            duration: props.finishedLoading ? 0 : 0.3,
-          },
-        }}
+        transition={{ duration: 0.35, delay: 0.22 }}
         className="fixed bottom-24 right-[-30px] z-20 hidden lg:flex xl:right-[-18px]"
       >
         <div className="flex flex-col items-center gap-4">
           <div className="dotted-connector h-20 w-[4px]" />
 
-          <motion.div
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 3.7, repeat: Infinity, ease: "easeInOut" }}
-          >
+          <motion.div {...createFloatLoop({ distance: 4, duration: 3.7 })}>
             <motion.a
               href="mailto:nguyenchaulinh97@gmail.com"
               target="_blank"

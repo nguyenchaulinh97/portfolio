@@ -1,233 +1,178 @@
-<div align="center">
-  <img alt="Logo" src="https://user-images.githubusercontent.com/62770500/199333052-3cd38b31-7e77-4883-a1ff-a037afcc0492.png" width="100" />
-</div>
-<h1 align="center">
-  nguyenchaulinh.vercel.app - portfolio
-</h1>
-<p align="center">
-  The first iteration of <a href="https://nguyenchaulinh.vercel.app" target="_blank">nguyenchaulinh.vercel.app</a> built with <a href="https://nextjs.org/" target="_blank">Nextjs</a> and hosted with <a href="https://vercel.com/" target="_blank">Vercel</a>
-</p>
+# Nguyen Chau Linh Portfolio
 
-<p align="center">
-  <a href="https://my-website-ten-sage.vercel.app/" target="_blank">
-    <img src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png" width="100" alt="Vercel Status" />
-  </a>
-</p>
+Portfolio-first Next.js application for [nguyenchaulinh.vercel.app](https://nguyenchaulinh.vercel.app), with a recruiter-facing homepage plus a few experimental side experiences that still live inside the same repo.
 
-![demo](https://user-images.githubusercontent.com/62770500/199337431-d632cc3c-12fb-40db-8f96-0d5e55555579.png)
----
-## 🚨 About this repo (please read!)
+## Live Site
 
-### 🚀 Latest Update
-I can’t believe my portfolio now has over 200 visitors each day! It’s incredibly rewarding to see talented people using my work as inspiration for their own projects. I'm thrilled to contribute to the open-source community and am happy to see my portfolio making an impact!
+- Portfolio: [nguyenchaulinh.vercel.app](https://nguyenchaulinh.vercel.app)
 
-You can use this code for your own website, but please with attribution 😊.
+## What Is In This Repo
 
-Please note that the design of the website is inspired from "brittanychiang.com", but didn't copied even a single piece of code from brittanyching repo, However, i built the portfolio from scratch with different technolgoies, like `Tailwind CSS` and `Framer Motion` and i added some other functionalities to it, so it might seems the same, but believe me i did a lot of work the code, website and how it works is entirely different!!!!. If you have questions about implementation, please refer to the [Next.js DOCS](https://nextjs.org/docs) same thing for Tailwind CSS and Framer Motion check out the Documentation, Or you can simply reach to me directly.
+This codebase currently contains three main experience groups:
 
+- `/`  
+  The primary portfolio homepage with art-cartoon direction, live product highlights, case studies, and contact sections.
 
+- `/typing`  
+  A typing practice mini app powered by the quote API route.
 
+- `/userdatapuller`  
+  A browser and location info experiment that combines client-side signals, mapping, and server-side enrichment.
 
+It also includes:
 
----
-### Table of Contents
+- `/privacy-policy`
+- `/squiz-matrix/privacy-policy`
+- `/api/typing/[minLength]`
+- `/api/userInfoByIP/[userInfo]`
+- `/api/userInfoByLatLon/[lat]/[lon]`
 
-- [Description](#description)
-- [How To Use](#how-to-use)
-- [🎨 Color Reference](#references)
-- [License](#license)
-- [Author Info](#author-info)
+## Tech Stack
 
----
-## Description
-
-Without a doubt a portfolio website is a unique way to showcase your work and let others know about yourself. It’s like an evergreen platform for your projects, case studies, and information about you. However, Why why did i choose Next.js? Because it is a React framework with Server-Side Rendering, which is good for SEO (Good for us if we get found on Google, right?).
-
-Also, Next.js helps us build a full back-end & blazing-fast websites along with benefits such as Image optimization.
-
-Why tailwindcss? Because TailwindCSS is a framework which reduces a lot of styling efforts. It has low level CSS classes that you can directly embed into the HTML code.
-
----
-## Technologies & libraries
-
-Since i integrated some of my project into my website i'll i mention most of technologies & libraries that i used.
-
-- Next.js
-- Nodejs
+- Next.js 14
+- React 18
 - TypeScript
 - Tailwind CSS
-- framer-motion
-- Google API
-- cookie-cutter
-- react-leaflet
+- Framer Motion
+- AOS
 - Vercel Analytics
-- Google Analytics
+- Vercel Speed Insights
+- React Leaflet / Leaflet
+- Google Geocoding API
 
-##### Note : 
-##### You can find the rest of packages in the file ```/package.json```
----
+## Project Structure
 
-### How To Use
+```text
+pages/
+  index.tsx                      portfolio homepage
+  typing/                        typing mini app
+  userdatapuller/                browser/location experiment
+  api/                           server routes for quote + user info
 
-Yes, you can fork this repo. Please give me proper credit by linking back to [nguyenchaulinh.vercel.app](https://nguyenchaulinh.vercel.app). Thanks!
+components/
+  Home/                          homepage sections, art direction, loader, mini-game
+  Header/ Footer/                shared portfolio shell
+  TypingProject/                 typing app UI and helpers
+  DataPullerProject/             user data puller UI and helpers
+  Icons/                         shared icons
 
-## 🛠 Installation & Set Up
+lib/
+  userInfo.ts                    shared IP/geocoding helpers for API routes
 
-1. Clone the repo CLI
+public/
+  img/                           portraits and product screenshots
+  resume.pdf                     public resume linked from the site
+```
 
-   ```sh
-   git clone https://github.com/nguyenchaulinh97/portfolio.git
-   ```
+## Environment Variables
 
-2. Install and use the correct version of Node using [NVM](https://github.com/nvm-sh/nvm)
+Create a `.env.local` file in the project root when needed.
 
-   ```sh
-   nvm install
-   ```
-
-3. Install dependencies
-
-   ```sh
-   yarn
-   ```
-   
-4. (OPTIONAL) : Add .env file to the root project 
- 
 ```bash
-    touch .env
+NEXT_PUBLIC_GA_TRACKING_ID=
+NEXT_PUBLIC_BLACKLIST_COUNTRIES=
+GOOGLE_GEOCODING_API_KEY=
 ```
 
-5.  (OPTIONAL) : Add your Google API key inside .env file.
+Notes:
 
-###### ***Note :***
-###### not Adding Google API to the project will cause not returning the correct zip code, it might be always "00000"
-###### make sure you enabled Geolocation to this API
+- `NEXT_PUBLIC_GA_TRACKING_ID` is optional and enables Google Analytics script loading.
+- `NEXT_PUBLIC_BLACKLIST_COUNTRIES` is optional and controls the maintenance fallback for blacklisted countries on the homepage.
+- `GOOGLE_GEOCODING_API_KEY` is the preferred server-side key for the geocoding routes.
+- There is a temporary fallback to `NEXT_PUBLIC_KEY_GOOGLE_API` for backward compatibility with older local setups.
 
-```Javascript
-    NEXT_PUBLIC_KEY_GOOGLE_API="your API key"
+## Local Development
+
+### Requirements
+
+- Node.js `>=22.x`
+- npm
+
+### Install
+
+```bash
+npm install
 ```
 
-6. Start the development server
+### Start the dev server
 
-   ```sh
-   yarn dev
-   ```
-
-## 🚀 Building and Running for Production
-
-1. Generate a full static production build
-
-   ```sh
-   yarn build
-   ```
-
-1. Preview the site as it will appear once deployed
-
-   ```sh
-   yarn run serve
-   ```
----
-## API Description :
-##### Endpoint 1 :
-the following endpoint will return a json object contains a bunch of information about the ip address  
-
-```api
-    /api/userInfoByIP/[IP-Address]
-```
-example :
-
-```api
-    /api/userInfoByIP/159.89.173.104
-```
-###### ***Get Request to above endpoint will return the following json data :***
-```JavaScript
-    {"zip":"560002","country":"India","countryCode":"IN","region":"KA","regionName":"Karnataka","city":"Bengaluru","datetime":"9/6/2022, 1:24:30 AM","lat":12.9634,"lon":77.5855,"timezone":"Asia/Kolkata","isp":"DigitalOcean, LLC","org":"Digital Ocean","as":"AS14061 DigitalOcean, LLC","query":"159.89.173.104"}
+```bash
+npm run dev
 ```
 
-##### Endpoint 2 :
-the following endpoint will return a json object contains the zip code for the latitude and logitude
+Open [http://localhost:3000](http://localhost:3000).
 
-```api
-    "/api/userInfoByLatLon/" + lat + "/" + lon
-```
-example :
+## Build and Production Commands
 
-```api
-    /api/userInfoByIP/159.89.173.104
-```
-###### ***Get Request to above endpoint will return the zipcode of the lat and long provided :***
-```JavaScript
-    {"zipcode" : "56998"}
-```
-###### ***the Response below is returned if the lat and long provided has no zip code in Google maps, like lat & long in positioned in the ocean :***
-```JavaScript
-    {"zipcode" : "00000"}
+Build the project:
+
+```bash
+npm run build
 ```
 
-##### Endpoint 3 :
-the following endpoint will return a json object contains "quote" and "author", for SpeedTyping project i displayed only the quote, **minLength** is considered as the minimum of characters.  
+Run the production server locally:
 
-```api
-    /api/typing/[minLength]
+```bash
+npm run start
 ```
-##### notes : 
-- ***minLength*** should be between 10 - 300.
-- the returned quote is a chain of 
-- i costumized the original Endpoint using The API Route of Nextjs, here is the Original Endpoint.
 
-##### Original Endpiont :
-###### URL : 
-```api
-    https://api.quotable.io/random?minLength=[minLength]
+Run linting:
+
+```bash
+npm run lint
 ```
----
 
-## References
+## External Services and APIs
 
-| Color          | Hex                                                                |
-| -------------- | ------------------------------------------------------------------ |
-| Navy           | ![#0a192f](https://via.placeholder.com/10/0a192f?text=+) `#0a192f` |
-| Light Navy     | ![#112240](https://via.placeholder.com/10/0a192f?text=+) `#112240` |
-| Lightest Navy  | ![#233554](https://via.placeholder.com/10/303C55?text=+) `#233554` |
-| Slate          | ![#8892b0](https://via.placeholder.com/10/8892b0?text=+) `#8892b0` |
-| Light Slate    | ![#a8b2d1](https://via.placeholder.com/10/a8b2d1?text=+) `#a8b2d1` |
-| Lightest Slate | ![#ccd6f6](https://via.placeholder.com/10/ccd6f6?text=+) `#ccd6f6` |
-| White          | ![#e6f1ff](https://via.placeholder.com/10/e6f1ff?text=+) `#e6f1ff` |
-| Green          | ![#64ffda](https://via.placeholder.com/10/64ffda?text=+) `#64ffda` |
+- `https://api.ipify.org`  
+  Used client-side to resolve the current IP address before hitting internal user info routes.
 
----
+- `http://ip-api.com/json/:ip`  
+  Used on the server to enrich IP data with region/city/timezone details.
 
-## License
+- Google Geocoding API  
+  Used on the server to derive ZIP or postal code from latitude and longitude.
 
-MIT License
+- `https://api.quotable.io/random`  
+  Used by the typing API route to fetch quote content, then sanitized before returning to the client.
 
-Copyright (c) [2022] [Nguyen Chau Linh]
+## API Routes
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+### `GET /api/typing/[minLength]`
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Returns a sanitized quote payload for the typing mini app.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Example response:
 
+```json
+{
+  "quote": "Sample quote text",
+  "author": "author-slug"
+}
+```
 
+### `GET /api/userInfoByIP/[userInfo]`
 
----
+Returns IP-based location and timezone details plus ZIP code enrichment from Google Geocoding.
 
-## Author Info
+### `GET /api/userInfoByLatLon/[lat]/[lon]`
 
-- Linkedin - [@nguyenchaulinh](https://www.linkedin.com/in/nguyenchaulinh/)
-- Website - [Nguyen Chau Linh](https://nguyenchaulinh.vercel.app)
+Returns only the resolved ZIP code.
 
-[Back To The Top](#description) :
+Example response:
+
+```json
+{
+  "zipcode": "100000"
+}
+```
+
+## Notes About Experimental Subpages
+
+- `/typing` and `/userdatapuller` are intentionally kept in the repo as side experiences and technical experiments.
+- The homepage at `/` is still the main recruiter-facing journey.
+- Shared cleanup work in this repo tries to preserve these experiments without letting them dictate the architecture of the homepage.
+
+## Deployment
+
+The production site is deployed on Vercel. A standard Vercel setup works as long as the required environment variables are available.

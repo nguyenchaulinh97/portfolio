@@ -3,27 +3,23 @@ import { motion } from "framer-motion";
 import { Link as ReactScrollLink } from "react-scroll";
 
 const navItems = [
-  { id: "aboutSection", label: "About", number: "01", offset: -100, delay: 9.4 },
-  { id: "WhereIhaveWorkedSection", label: "Experience", number: "02", offset: -260, delay: 9.6 },
-  { id: "ProductsSection", label: "Products", number: "03", offset: -90, delay: 9.75 },
-  { id: "SomethingIveBuiltSection", label: "Case Studies", number: "04", offset: -90, delay: 9.9 },
-  { id: "GetInTouchSection", label: "Contact", number: "05", offset: -90, delay: 10.05 },
+  { id: "aboutSection", label: "About", number: "01", offset: -100 },
+  { id: "WhereIhaveWorkedSection", label: "Experience", number: "02", offset: -260 },
+  { id: "ProductsSection", label: "Products", number: "03", offset: -90 },
+  { id: "SomethingIveBuiltSection", label: "Case Studies", number: "04", offset: -90 },
+  { id: "GetInTouchSection", label: "Contact", number: "05", offset: -90 },
 ];
 
-export default function DesktopMenu(props: { finishedLoading: boolean }) {
+export default function DesktopMenu() {
   return (
     <div className="hidden items-center gap-3 lg:flex">
       <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] p-1">
-        {navItems.map(item => (
+        {navItems.map((item, index) => (
           <motion.div
             key={item.id}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{
-              type: "spring",
-              duration: props.finishedLoading ? 0 : 0.5,
-              delay: props.finishedLoading ? 0 : item.delay,
-            }}
+            transition={{ type: "spring", duration: 0.4, delay: index * 0.05 }}
           >
             <ReactScrollLink
               to={item.id}
@@ -48,11 +44,7 @@ export default function DesktopMenu(props: { finishedLoading: boolean }) {
         <motion.button
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{
-            type: "spring",
-            duration: props.finishedLoading ? 0 : 0.5,
-            delay: props.finishedLoading ? 0 : 10.2,
-          }}
+          transition={{ type: "spring", duration: 0.4, delay: 0.24 }}
           className="resume-button-hover rounded-full border border-AAsecondary/60 bg-AAsecondary px-5 py-3 font-Header text-sm font-bold uppercase tracking-[0.14em] text-[#17223f] transition duration-300"
         >
           Resume

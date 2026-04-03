@@ -1,71 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
+import { stickerHover } from "../ArtDirection/motionPresets";
 import ScribbleDivider from "../ArtDirection/ScribbleDivider";
 import SectionHeader from "../ArtDirection/SectionHeader";
-
-const caseStudies = [
-  {
-    eyebrow: "SSI Securities Corporation",
-    title: "Real-Time Trading Platform",
-    summary:
-      "Built and maintained interfaces for price boards, order flows, and broker management tools used in financial trading operations.",
-    highlights: [
-      "Focused on real-time updates, state-heavy UI, and reliable delivery for production fintech workflows.",
-      "Worked across engineering and business teams to keep release cycles fast without losing product quality.",
-    ],
-    stack: ["React", "Next.js", "TypeScript", "Zustand", "React Query", "WebSocket"],
-    note: "market flow",
-    paperClass: "bg-[#fff6df]",
-    tapeClass: "bg-[#ffd58f]",
-    rotationClass: "rotate-[-1.5deg]",
-  },
-  {
-    eyebrow: "SSI Securities Corporation",
-    title: "Investor Operations CRM & AI Assistant",
-    summary:
-      "Delivered internal CRM tooling and an AI chatbot to support investor services and day-to-day operational teams.",
-    highlights: [
-      "Designed for internal users who needed speed, clarity, and dependable workflows.",
-      "Supported cross-functional delivery as both an engineer and Scrum Master within a 16-person team.",
-    ],
-    stack: ["React", "Next.js", "TypeScript", "Internal Tools", "AI Workflows", "CI/CD"],
-    note: "internal system",
-    paperClass: "bg-[#eef7ff]",
-    tapeClass: "bg-[#cce5ff]",
-    rotationClass: "rotate-[1.2deg]",
-  },
-  {
-    eyebrow: "NAL Viet Nam",
-    title: "Digital Transformation for Japanese Clients",
-    summary:
-      "Built frontend products for enterprise clients, including Softbank-related work, with an emphasis on secure delivery, maintainability, and product quality.",
-    highlights: [
-      "Combined React, Redux, testing, and cloud delivery workflows to keep projects reliable at scale.",
-      "Contributed to both business-facing tools and a Metaverse experience for a virtual university in Japan.",
-    ],
-    stack: ["React", "Redux", "TypeScript", "PhaserJS", "Jest", "AWS", "Docker"],
-    note: "client delivery",
-    paperClass: "bg-[#fff0ec]",
-    tapeClass: "bg-[#ffd1c7]",
-    rotationClass: "rotate-[-1deg]",
-  },
-  {
-    eyebrow: "Maritime Bank Vietnam",
-    title: "Payments & Merchant Management",
-    summary:
-      "Designed banking and payments-facing experiences, including merchant management, web payment flows, and chatbot support tools.",
-    highlights: [
-      "Worked in security-sensitive environments where frontend decisions directly supported business operations.",
-      "Built interfaces that balanced internal complexity with straightforward user journeys.",
-    ],
-    stack: ["Angular", "Node.js", "GitLab", "Security Authentication", "Agile/Scrum"],
-    note: "payments ops",
-    paperClass: "bg-[#e6fbf4]",
-    tapeClass: "bg-[#b7efe4]",
-    rotationClass: "rotate-[1.6deg]",
-  },
-];
+import { caseStudies } from "../portfolioContent";
 
 export default function SomethingIveBuilt() {
   return (
@@ -92,8 +31,7 @@ export default function SomethingIveBuilt() {
             <motion.article
               key={study.title}
               data-aos="fade-up"
-              whileHover={{ y: -8, rotate: 0 }}
-              transition={{ duration: 0.22 }}
+              {...stickerHover}
               className={`comic-panel relative overflow-hidden rounded-[34px] p-4 ${study.rotationClass}`}
             >
               <div className={`absolute left-10 top-0 h-7 w-20 -translate-y-1/2 rotate-[-5deg] rounded-[10px] ${study.tapeClass}`} />
