@@ -11,7 +11,7 @@ type MyNameProps = {
 
 export default function MyName({ onOpenStickerHunt }: MyNameProps) {
   return (
-    <section className="relative overflow-hidden px-5 pb-20 pt-32 sm:px-8 sm:pb-24 sm:pt-44 md:px-16 lg:px-20 2xl:px-72">
+    <section className="relative overflow-hidden px-4 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-44 md:px-16 lg:px-20 2xl:px-72">
       <div className="hero-grid absolute inset-0 opacity-[0.15]" />
       <div className="absolute -left-20 top-20 h-44 w-44 rounded-full bg-[#ffcf6e]/20 blur-3xl" />
       <div className="absolute right-0 top-28 h-56 w-56 rounded-full bg-[#85e7dc]/[0.15] blur-3xl" />
@@ -35,7 +35,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.35, delay: 0.05 }}
-            className="mt-7 max-w-4xl font-Header text-5xl leading-[0.96] text-[#fff8e7] sm:text-6xl lg:text-7xl xl:text-[5.2rem]"
+            className="mt-7 max-w-4xl font-Header text-3xl leading-[0.96] text-[#fff8e7] sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[5.2rem]"
           >
             Building playful clarity for serious digital products.
           </motion.h1>
@@ -44,7 +44,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.35, delay: 0.08 }}
-            className="mt-4 max-w-2xl font-Hand text-2xl leading-tight text-[#ffe3a8] sm:text-[2rem]"
+            className="mt-4 max-w-2xl font-Hand text-xl leading-tight text-[#ffe3a8] sm:text-2xl lg:text-[2rem]"
           >
             Nguyen Chau Linh, turning dense workflows into interfaces that feel friendly, fast, and trustworthy.
           </motion.p>
@@ -99,7 +99,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
             className="mt-10 flex flex-wrap items-center gap-4"
           >
             <a href={"/resume.pdf"} target={"_blank"} rel="noreferrer">
-              <button className="resume-button-hover comic-shadow rounded-full border border-AAsecondary/60 bg-AAsecondary px-6 py-3 font-Header text-sm font-bold uppercase tracking-[0.16em] text-[#17223f] transition duration-300 sm:px-8 sm:py-4">
+              <button className="resume-button-hover comic-shadow rounded-full border border-AAsecondary/60 bg-AAsecondary px-5 py-3 font-Header text-xs font-bold uppercase tracking-[0.16em] text-[#17223f] transition duration-300 sm:px-8 sm:py-4 sm:text-sm">
                 View Resume
               </button>
             </a>
@@ -110,7 +110,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
               smooth={true}
               offset={-90}
               duration={250}
-              className="comic-shadow-soft inline-flex cursor-pointer items-center rounded-full border border-white/[0.15] bg-white/[0.06] px-6 py-3 font-Mono text-sm uppercase tracking-[0.16em] text-[#fff8e7] transition duration-300 hover:-translate-y-1 hover:border-[#85e7dc] hover:bg-white/10 sm:px-8 sm:py-4"
+              className="comic-shadow-soft inline-flex cursor-pointer items-center rounded-full border border-white/[0.15] bg-white/[0.06] px-5 py-3 font-Mono text-xs uppercase tracking-[0.16em] text-[#fff8e7] transition duration-300 hover:-translate-y-1 hover:border-[#85e7dc] hover:bg-white/10 sm:px-8 sm:py-4 sm:text-sm"
             >
               See Live Products
             </ReactScrollLink>
@@ -120,10 +120,27 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
               onClick={onOpenStickerHunt}
               {...createFloatLoop({ distance: 3, duration: 3.4 })}
               whileHover={{ y: -4, rotate: 0 }}
-              className="sticker-chip inline-flex rotate-[-2deg] items-center rounded-full border border-white/[0.14] px-5 py-3 font-Hand text-xl text-[#fff8e7]"
+              className="sticker-chip hidden rotate-[-2deg] items-center rounded-full border border-white/[0.14] px-5 py-3 font-Hand text-xl text-[#fff8e7] sm:inline-flex"
             >
               play sticker hunt
             </motion.button>
+
+            <ReactScrollLink
+              to="ArcadeSection"
+              spy={true}
+              smooth={true}
+              offset={-90}
+              duration={250}
+            >
+              <motion.div
+                {...createFloatLoop({ distance: 4, duration: 3.0, rotate: [-3, 0, -3] })}
+                whileHover={{ y: -4, scale: 1.05, rotate: 0 }}
+                className="inline-flex cursor-pointer rotate-[2deg] items-center gap-2 rounded-full border border-[#ff8b92]/40 bg-[#ff8b92]/[0.12] px-5 py-3 font-Hand text-xl text-[#fff8e7] transition duration-300 hover:border-[#ff8b92]/60 hover:bg-[#ff8b92]/20"
+              >
+                <span className="text-2xl">🕹️</span>
+                Play Arcade Games
+              </motion.div>
+            </ReactScrollLink>
           </motion.div>
         </div>
 
@@ -138,7 +155,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
           <div className="absolute -right-2 top-8 h-24 w-24 rounded-full border border-white/20 bg-[#ffcf6e]/25 blur-2xl" />
           <div className="absolute -left-8 bottom-10 h-28 w-28 rounded-full border border-white/20 bg-[#85e7dc]/20 blur-2xl" />
 
-          <div className="comic-panel relative rotate-[-1.5deg] overflow-hidden rounded-[34px] p-4 sm:p-6">
+          <div className="comic-panel relative rotate-[-1.5deg] overflow-hidden rounded-[20px] p-3 sm:rounded-[34px] sm:p-6">
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]" />
 
             <div className="relative flex items-center justify-between gap-3">
@@ -153,7 +170,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
               </div>
             </div>
 
-            <div className="relative mt-5 overflow-hidden rounded-[28px] border border-white/10 bg-[#f4deb7] p-4 sm:p-5">
+            <div className="relative mt-4 overflow-hidden rounded-[18px] border border-white/10 bg-[#f4deb7] p-3 sm:mt-5 sm:rounded-[28px] sm:p-5">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.45),transparent_30%),linear-gradient(180deg,#f9e8bf_0%,#f4d8a8_100%)]" />
               <div className="absolute -left-8 top-6 h-20 w-20 rounded-full bg-[#ff8b92]/40 blur-2xl" />
               <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-[#85e7dc]/[0.35] blur-2xl" />
@@ -208,7 +225,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
               </div>
             </div>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <div className="mt-3 grid gap-2 sm:mt-5 sm:grid-cols-3 sm:gap-3">
               {heroQuickFacts.map((fact, index) => (
                 <motion.div
                   key={fact.label}
@@ -219,7 +236,7 @@ export default function MyName({ onOpenStickerHunt }: MyNameProps) {
                   })}
                 >
                   <div
-                    className={`rounded-[22px] border border-white/[0.12] bg-white/[0.08] px-4 py-4 ${
+                    className={`rounded-[16px] border border-white/[0.12] bg-white/[0.08] px-3 py-3 sm:rounded-[22px] sm:px-4 sm:py-4 ${
                       index === 1 ? "rotate-[-1deg]" : index === 2 ? "rotate-[1deg]" : ""
                     }`}
                   >

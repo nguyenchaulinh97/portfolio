@@ -75,26 +75,34 @@ export default function SocialMediaArround() {
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.35, delay: 0.22 }}
-        className="fixed bottom-24 right-[-30px] z-20 hidden lg:flex xl:right-[-18px]"
+        className="fixed bottom-8 right-5 z-20 hidden lg:flex xl:right-8"
       >
         <div className="flex flex-col items-center gap-4">
-          <div className="dotted-connector h-20 w-[4px]" />
-
-          <motion.div {...createFloatLoop({ distance: 4, duration: 3.7 })}>
-            <motion.a
-              href="mailto:nguyenchaulinh97@gmail.com"
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ y: -4, rotate: 88 }}
-              transition={{ duration: 0.15 }}
-              className="origin-bottom-right rotate-90 rounded-[20px] border-2 border-[#24335b]/10 bg-[#fff8ea] px-5 py-4 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.12)]"
-            >
-              <div className="font-Hand text-xl leading-none">say hi</div>
-              <div className="mt-2 font-Mono text-[10px] uppercase tracking-[0.22em] text-[#5a6f99]">
-                nguyenchaulinh97@gmail.com
-              </div>
-            </motion.a>
+          <motion.div
+            {...createFloatLoop({ distance: 3, duration: 3.7, rotate: [4, 2, 4] })}
+            className="rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]"
+          >
+            say hi
           </motion.div>
+
+          <motion.a
+            href="mailto:nguyenchaulinh97@gmail.com"
+            target="_blank"
+            rel="noreferrer"
+            whileHover={{ y: -4, rotate: 0 }}
+            transition={{ duration: 0.15 }}
+            className="group relative flex flex-col items-center rounded-[24px] border border-white/[0.12] bg-white/[0.06] px-3 py-5 shadow-[0_12px_24px_rgba(11,18,40,0.18)]"
+          >
+            <span className="sparkle-twinkle absolute -left-2 top-4 h-3 w-3 rounded-full border border-white/30 bg-[#85e7dc]" />
+            <div
+              className="font-Mono text-[11px] uppercase tracking-[0.22em] text-[#ffe3a8]"
+              style={{ writingMode: "vertical-rl" }}
+            >
+              nguyenchaulinh97@gmail.com
+            </div>
+          </motion.a>
+
+          <div className="dotted-connector h-24 w-[4px]" />
         </div>
       </motion.div>
     </>

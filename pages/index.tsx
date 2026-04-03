@@ -16,6 +16,7 @@ import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetecto
 import Maintenance from "../components/Home/Maintenance/Maintenance";
 import PlayfulLoader from "../components/Home/PlayfulLoader/PlayfulLoader";
 import PortfolioStickerHunt from "../components/Home/PortfolioStickerHunt/PortfolioStickerHunt";
+import ArcadeSection from "../components/Home/ArcadeSection/ArcadeSection";
 
 type UserInfoPreview = {
   country?: string;
@@ -137,6 +138,7 @@ export default function Home() {
                 <AboutMe />
                 <WhereIHaveWorked />
                 <FeaturedProducts />
+                <ArcadeSection />
                 <SomethingIveBuilt />
                 <GetInTouch />
                 <Footer

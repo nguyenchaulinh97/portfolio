@@ -6,6 +6,7 @@ const navItems = [
   { id: "aboutSection", label: "About", number: "01", offset: -100 },
   { id: "WhereIhaveWorkedSection", label: "Experience", number: "02", offset: -260 },
   { id: "ProductsSection", label: "Products", number: "03", offset: -90 },
+  { id: "ArcadeSection", label: "Arcade", number: "🕹️", offset: -90 },
   { id: "SomethingIveBuiltSection", label: "Case Studies", number: "04", offset: -90 },
   { id: "GetInTouchSection", label: "Contact", number: "05", offset: -90 },
 ];

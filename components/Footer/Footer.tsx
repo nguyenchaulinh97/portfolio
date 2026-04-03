@@ -20,14 +20,14 @@ export default function Footer(props: { githubUrl: string; hideSocialsInDesktop:
       <div className="mx-auto max-w-[1200px]">
         <ScribbleDivider label="end credits" className="mx-auto max-w-4xl" />
 
-        <div className="comic-panel mt-6 overflow-hidden rounded-[32px] p-6 sm:p-8">
+        <div className="comic-panel mt-6 overflow-hidden rounded-[20px] p-4 sm:rounded-[32px] sm:p-6 xl:p-8">
           <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
             <div>
               <motion.div {...createFloatLoop({ distance: 3, duration: 3.6, rotate: [-3, -1, -3] })} className="inline-flex rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 font-Hand text-xl text-[#fff8e7]">
                 thanks for visiting
               </motion.div>
 
-              <h3 className="mt-5 max-w-xl font-Header text-3xl leading-tight text-[#fff8e7] sm:text-4xl">
+              <h3 className="mt-5 max-w-xl font-Header text-2xl leading-tight text-[#fff8e7] sm:text-3xl lg:text-4xl">
                 Designed as a living portfolio, not a frozen template.
               </h3>
 
@@ -52,7 +52,7 @@ export default function Footer(props: { githubUrl: string; hideSocialsInDesktop:
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.22 }}
-              className="rounded-[28px] border-2 border-[#24335b]/10 bg-[#fff6df] p-6 text-[#17223f] shadow-[12px_12px_0_rgba(23,34,63,0.14)]"
+              className="rounded-[18px] border-2 border-[#24335b]/10 bg-[#fff6df] p-4 text-[#17223f] shadow-[8px_8px_0_rgba(23,34,63,0.12)] sm:rounded-[28px] sm:p-6 sm:shadow-[12px_12px_0_rgba(23,34,63,0.14)]"
             >
               <div className="font-Mono text-[11px] uppercase tracking-[0.22em] text-[#5a6f99]">Built by Nguyen Chau Linh</div>
               <p className="mt-4 text-base leading-8 text-[#31446f]">

@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/arcade.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { AppProps } from "next/app";

@@ -34,7 +34,7 @@ export default function SectionHeader({
         </div>
 
         <div className="flex min-w-0 flex-1 items-center gap-4">
-          <span className="section-doodle whitespace-nowrap font-Header text-2xl font-bold text-[#fff8e7] sm:text-3xl">
+          <span className="section-doodle whitespace-nowrap font-Header text-xl font-bold text-[#fff8e7] sm:text-2xl lg:text-3xl">
             {title}
           </span>
           <div

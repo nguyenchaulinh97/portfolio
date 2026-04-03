@@ -15,7 +15,7 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
       ref={ref}
       id="aboutSection"
       data-aos="fade-up"
-      className="relative overflow-hidden bg-AAprimary px-4 py-28 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
+      className="relative overflow-hidden bg-AAprimary px-4 py-16 sm:px-16 sm:py-20 md:px-16 lg:px-24 2xl:px-72"
     >
       <div className="absolute -left-10 top-24 h-40 w-40 rounded-full bg-[#ffcf6e]/[0.12] blur-3xl" />
       <div className="absolute right-0 top-16 h-56 w-56 rounded-full bg-[#85e7dc]/[0.12] blur-3xl" />
@@ -32,18 +32,18 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
 
         <ScribbleDivider label="mindset + toolbox" className="mt-8 max-w-3xl" />
 
-        <div className="comic-panel relative mt-10 overflow-hidden rounded-[38px] p-6 sm:p-8 xl:p-10">
+        <div className="comic-panel relative mt-10 overflow-hidden rounded-[20px] p-3 sm:rounded-[34px] sm:p-6 xl:p-10">
           <div className="absolute left-10 top-0 h-7 w-24 -translate-y-1/2 rotate-[-4deg] rounded-[10px] bg-[#ffd58f]" />
           <div className="absolute right-10 top-6 h-32 w-32 rounded-full bg-white/[0.05] blur-3xl" />
 
-          <div className="relative grid gap-10 xl:grid-cols-[1.05fr_0.95fr]">
-            <div className="space-y-6">
-              <div className="paper-grid rounded-[30px] border-2 border-[#24335b]/10 bg-[#fff6df] p-6 text-[#17223f] shadow-[14px_14px_0_rgba(23,34,63,0.14)] sm:p-8">
+          <div className="relative grid gap-6 sm:gap-10 xl:grid-cols-[1.05fr_0.95fr]">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="paper-grid rounded-[18px] border-2 border-[#24335b]/10 bg-[#fff6df] p-4 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.12)] sm:rounded-[30px] sm:p-8 sm:shadow-[14px_14px_0_rgba(23,34,63,0.14)]">
                 <div className="inline-flex rotate-[-3deg] rounded-full border border-[#24335b]/10 bg-[#fff8ea] px-4 py-2 font-Hand text-xl shadow-[8px_8px_0_rgba(23,34,63,0.08)]">
                   how I work
                 </div>
 
-                <h3 className="mt-6 max-w-xl font-Header text-3xl leading-tight text-[#17223f] sm:text-4xl">
+                <h3 className="mt-4 max-w-xl font-Header text-2xl leading-tight text-[#17223f] sm:mt-6 sm:text-3xl lg:text-4xl">
                   I like making complicated systems feel calm and understandable.
                 </h3>
 
@@ -67,12 +67,12 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
                 </div>
               </div>
 
-              <div className="grid gap-4 lg:grid-cols-3">
+              <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
                 {aboutPrincipleCards.map(card => (
                   <motion.div
                     key={card.title}
                     {...stickerHover}
-                    className={`rounded-[26px] border-2 border-[#24335b]/10 px-5 py-5 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${card.className}`}
+                    className={`rounded-[18px] border-2 border-[#24335b]/10 px-4 py-4 text-[#17223f] shadow-[8px_8px_0_rgba(23,34,63,0.1)] sm:rounded-[26px] sm:px-5 sm:py-5 sm:shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${card.className}`}
                   >
                     <div className="font-Header text-lg font-bold">{card.title}</div>
                     <p className="mt-3 text-sm leading-7 text-[#31446f]">{card.text}</p>
@@ -81,11 +81,11 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
               </div>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <motion.figure
                 whileHover={{ y: -6, rotate: -1 }}
                 transition={{ duration: 0.25 }}
-                className="relative mx-auto max-w-[420px] rounded-[34px] bg-[#fff6df] p-4 text-[#17223f] shadow-[14px_14px_0_rgba(23,34,63,0.14)]"
+                className="relative mx-auto max-w-[420px] rounded-[22px] bg-[#fff6df] p-3 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.12)] sm:rounded-[34px] sm:p-4 sm:shadow-[14px_14px_0_rgba(23,34,63,0.14)]"
               >
                 <div className="absolute left-7 top-0 h-7 w-24 -translate-y-1/2 rotate-[-5deg] rounded-[10px] bg-[#ffd58f]" />
                 <div className="overflow-hidden rounded-[26px] border border-[#24335b]/10 bg-[#203058]">
@@ -106,12 +106,12 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
                 </figcaption>
               </motion.figure>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
                 {aboutSkillClusters.map(cluster => (
                   <motion.div
                     key={cluster.title}
                     {...stickerHover}
-                    className={`rounded-[26px] border-2 border-[#24335b]/10 p-5 text-[#17223f] shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${cluster.className}`}
+                    className={`rounded-[18px] border-2 border-[#24335b]/10 p-4 text-[#17223f] shadow-[8px_8px_0_rgba(23,34,63,0.08)] sm:rounded-[26px] sm:p-5 sm:shadow-[10px_10px_0_rgba(23,34,63,0.1)] ${cluster.className}`}
                   >
                     <div className="font-Header text-lg font-bold">{cluster.title}</div>
                     <div className="mt-4 flex flex-wrap gap-2">
@@ -129,7 +129,7 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
               </div>
 
               <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-end sm:justify-between">
-                <div className="rounded-[26px] border border-white/[0.12] bg-white/[0.08] px-5 py-5 text-sm leading-7 text-[#d5ddf2]">
+                <div className="rounded-[18px] border border-white/[0.12] bg-white/[0.08] px-4 py-4 text-sm leading-7 text-[#d5ddf2] sm:rounded-[26px] sm:px-5 sm:py-5">
                   <div className="font-Mono text-[10px] uppercase tracking-[0.22em] text-[#ffe3a8]">Good fit</div>
                   <p className="mt-3 max-w-sm">
                     Teams building thoughtful digital products, especially when UI clarity, delivery quality, and
@@ -137,7 +137,7 @@ const AboutMe = forwardRef<HTMLDivElement, AboutMeProps>((_props, ref) => {
                   </p>
                 </div>
 
-                <DoodleMascot speech="let's build calm UI" label="tiny teammate" className="shrink-0" />
+                <DoodleMascot speech="let's build calm UI" label="tiny teammate" className="hidden shrink-0 sm:block" />
               </div>
             </div>
           </div>

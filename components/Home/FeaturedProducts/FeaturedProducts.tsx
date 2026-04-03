@@ -10,7 +10,7 @@ export default function FeaturedProducts() {
     <section
       id="ProductsSection"
       data-aos="fade-up"
-      className="relative overflow-hidden bg-AAprimary px-4 py-28 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
+      className="relative overflow-hidden bg-AAprimary px-4 py-16 sm:px-16 sm:py-20 md:px-16 lg:px-24 2xl:px-72"
     >
       <div className="hero-grid absolute inset-0 opacity-10" />
       <div className="absolute -left-16 top-28 h-52 w-52 rounded-full bg-[#ffcf6e]/[0.14] blur-3xl" />
@@ -37,7 +37,7 @@ export default function FeaturedProducts() {
           >
             sticker board
           </motion.div>
-          <h3 className="mt-6 max-w-2xl font-Header text-4xl leading-tight text-[#fff8e7] sm:text-5xl">
+          <h3 className="mt-6 max-w-2xl font-Header text-2xl leading-tight text-[#fff8e7] sm:text-4xl lg:text-5xl">
             Real products on the internet, presented like a product scrapbook.
           </h3>
           <p className="mt-5 max-w-2xl text-base leading-8 text-[#d0d8ee] sm:text-lg">
@@ -61,7 +61,7 @@ export default function FeaturedProducts() {
 
 function FeaturedBoard({ product }: { product: LiveProductCard }) {
   return (
-    <motion.article {...stickerHover} className="comic-panel relative mt-14 overflow-hidden rounded-[36px] p-6 sm:p-8 xl:p-10">
+    <motion.article {...stickerHover} className="comic-panel relative mt-14 overflow-hidden rounded-[20px] p-3 sm:rounded-[34px] sm:p-6 xl:p-10">
       <div
         className={`absolute left-10 top-0 h-7 w-24 -translate-y-1/2 rotate-[-3deg] rounded-[10px] opacity-[0.85] ${product.tapeClass}`}
       />
@@ -79,7 +79,7 @@ function FeaturedBoard({ product }: { product: LiveProductCard }) {
             </motion.span>
           </div>
 
-          <h4 className="mt-6 font-Header text-4xl leading-tight text-[#fff8e7] sm:text-[2.8rem]">{product.name}</h4>
+          <h4 className="mt-6 font-Header text-2xl leading-tight text-[#fff8e7] sm:text-3xl lg:text-[2.8rem]">{product.name}</h4>
           <p className={`mt-3 font-Mono text-[12px] uppercase tracking-[0.24em] ${product.accentClass}`}>
             {product.company}
           </p>
@@ -126,7 +126,7 @@ function FeaturedBoard({ product }: { product: LiveProductCard }) {
             {product.images.map((image, index) => (
               <figure
                 key={image.src}
-                className={`relative rounded-[30px] border-2 border-[#24335b]/[0.12] ${product.paperClass} p-3 shadow-[12px_12px_0_rgba(16,25,47,0.16)] ${
+                className={`relative rounded-[18px] border-2 border-[#24335b]/[0.12] sm:rounded-[30px] ${product.paperClass} p-2 shadow-[8px_8px_0_rgba(16,25,47,0.12)] sm:p-3 sm:shadow-[12px_12px_0_rgba(16,25,47,0.16)] ${
                   index === 0 ? "rotate-[-2deg]" : "sm:translate-x-8 sm:rotate-[2deg] xl:translate-x-10"
                 }`}
               >
@@ -162,7 +162,7 @@ function StickerCard({ product }: { product: LiveProductCard }) {
   const preview = product.images[0];
 
   return (
-    <article className={`comic-panel relative overflow-hidden rounded-[34px] p-6 sm:p-7 ${product.rotationClass ?? ""}`}>
+    <article className={`comic-panel relative overflow-hidden rounded-[20px] p-3 sm:rounded-[34px] sm:p-7 ${product.rotationClass ?? ""}`}>
       <div className={`absolute right-6 top-6 h-32 w-32 rounded-full blur-3xl ${product.auraClass}`} />
       <div className={`absolute left-10 top-0 h-7 w-20 -translate-y-1/2 rotate-[4deg] rounded-[10px] ${product.tapeClass}`} />
 
@@ -176,7 +176,7 @@ function StickerCard({ product }: { product: LiveProductCard }) {
           </motion.span>
         </div>
 
-        <div className={`mt-6 rounded-[28px] border-2 border-[#24335b]/[0.12] p-3 shadow-[10px_10px_0_rgba(16,25,47,0.14)] ${product.paperClass}`}>
+        <div className={`mt-6 rounded-[18px] border-2 border-[#24335b]/[0.12] p-2 shadow-[8px_8px_0_rgba(16,25,47,0.12)] sm:rounded-[28px] sm:p-3 sm:shadow-[10px_10px_0_rgba(16,25,47,0.14)] ${product.paperClass}`}>
           <span className="sparkle-twinkle-delayed absolute right-5 top-[88px] h-3 w-3 rounded-full border border-[#24335b]/20 bg-white/70" />
           <div className="overflow-hidden rounded-[22px] border border-[#24335b]/[0.12]">
             <Img src={preview.src} alt={preview.alt} className="h-64 w-full object-cover object-top" />
@@ -189,7 +189,7 @@ function StickerCard({ product }: { product: LiveProductCard }) {
 
         <div className="mt-7">
           <p className={`font-Mono text-[12px] uppercase tracking-[0.24em] ${product.accentClass}`}>{product.company}</p>
-          <h4 className="mt-3 font-Header text-3xl leading-tight text-[#fff8e7]">{product.name}</h4>
+          <h4 className="mt-3 font-Header text-2xl leading-tight text-[#fff8e7] sm:text-3xl">{product.name}</h4>
           <p className="mt-5 text-base leading-8 text-[#d0d8ee]">{product.summary}</p>
         </div>
 

@@ -16,6 +16,12 @@ This codebase currently contains three main experience groups:
 - `/typing`  
   A typing practice mini app powered by the quote API route.
 
+- `/arcade`  
+  An arcade corner with three cartoon-style mini games:
+  - `/arcade/memory` — Memory Flip (emoji card matching)
+  - `/arcade/whack` — Whack-a-Mole (tap critters, dodge bombs)
+  - `/arcade/catcher` — Emoji Catcher (catch falling emojis with a basket)
+
 - `/userdatapuller`  
   A browser and location info experiment that combines client-side signals, mapping, and server-side enrichment.
 
